@@ -4,16 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="af1aa53d-64b3-4472-b70e-f58230fe072d" name="Changes" comment="first framework">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/artifacts/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/artifacts/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/assets/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/configs/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/configs/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/configs/training/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/configs/training/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/alphasho/ai/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/src/alphasho/ai/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/alphasho/training/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/src/alphasho/training/README.md" afterDir="false" />
-    </list>
+    <list default="true" id="af1aa53d-64b3-4472-b70e-f58230fe072d" name="Changes" comment="日本語対応" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -94,7 +85,23 @@
       <option name="project" value="LOCAL" />
       <updated>1784523378493</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="日本語対応">
+      <option name="closed" value="true" />
+      <created>1784525304302</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1784525304302</updated>
+    </task>
+    <task id="LOCAL-00003" summary="日本語対応">
+      <option name="closed" value="true" />
+      <created>1784526030851</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1784526030851</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -102,7 +109,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="first framework" />
-    <option name="LAST_COMMIT_MESSAGE" value="first framework" />
+    <MESSAGE value="日本語対応" />
+    <option name="LAST_COMMIT_MESSAGE" value="日本語対応" />
   </component>
   <component name="github-copilot-workspace">
     <instructionFileLocations>
