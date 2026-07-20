@@ -21,6 +21,17 @@ from alphasho.training.messages import (
     render_training_message,
 )
 
+REPORTER_MESSAGE_FIELDS = frozenset(
+    {
+        "iteration",
+        "stage",
+        "event",
+        "level",
+        "message_key",
+        "language",
+    }
+)
+
 
 class TrainingStage(StrEnum):
     STARTUP = "startup"
@@ -108,15 +119,27 @@ class TrainingReporter:
     ) -> TrainingEvent:
         now = time.time()
         normalized = _json_safe(fields)
+        normalized_level = level.upper()
         resolved_key = message_key or default_message_key(stage.value, event)
+        reporter_fields = {
+            "iteration": iteration,
+            "stage": stage.value,
+            "event": event,
+            "level": normalized_level,
+            "message_key": resolved_key,
+            "language": self.language.value,
+        }
+        if frozenset(reporter_fields) != REPORTER_MESSAGE_FIELDS:
+            raise RuntimeError("Training Reporter message field contract changed")
+        render_context = {**normalized, **reporter_fields}
         message = render_training_message(
             resolved_key,
             self.language,
-            normalized,
+            render_context,
         )
         training_event = TrainingEvent(
             now,
-            level.upper(),
+            normalized_level,
             stage,
             event,
             resolved_key,

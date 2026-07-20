@@ -274,6 +274,50 @@ def test_training_message_catalog_renders_three_languages() -> None:
     assert "実行中" in rendered[TrainingLanguage.JAPANESE]
 
 
+@pytest.mark.parametrize("language", list(TrainingLanguage))
+def test_reporter_supplies_iteration_to_message_templates(
+    tmp_path,
+    language: TrainingLanguage,
+) -> None:
+    reporter = TrainingReporter(
+        tmp_path / language.value,
+        "cpu_debug",
+        MonitoringConfig(
+            console_level="ERROR",
+            output_language=language,
+        ),
+    )
+    started = reporter.emit(
+        TrainingStage.SELFPLAY,
+        "iteration-start",
+        iteration=35,
+        iterations=2000,
+    )
+    completed = reporter.emit(
+        TrainingStage.COMPLETED,
+        "iteration-complete",
+        iteration=35,
+        iterations=2000,
+        seconds=5.0,
+        loss=1.25,
+        promoted=False,
+        evaluated=True,
+    )
+    reporter.close()
+
+    assert "35/2000" in started.message
+    assert "35/2000" in completed.message
+    events = [
+        json.loads(line)
+        for line in (
+            tmp_path / language.value / "cpu_debug.jsonl"
+        ).read_text("utf-8").splitlines()
+    ]
+    assert [event["iteration"] for event in events] == [35, 35]
+    assert events[0]["fields"] == {"iterations": 2000}
+    assert "iteration" not in events[1]["fields"]
+
+
 def test_csa_supervised_ingestion(tmp_path) -> None:
     game = ShogiGame()
     game.play("7g7f")

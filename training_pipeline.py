@@ -5,7 +5,7 @@ from alphasho.training import run_training_entry
 # Run
 PROFILE = "cpu_debug"
 DEVICE = "cpu"
-OUTPUT_LANGUAGE = "en"  # en / zh / ja
+OUTPUT_LANGUAGE = "zh"  # en / zh / ja
 ITERATIONS = 2000
 MODEL_PRESET = "smoke"  # smoke / baseline / large
 
