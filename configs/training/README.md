@@ -1,22 +1,33 @@
-# Training profiles
+# 学習 profile
 
-Open the root `training_pipeline.py` for normal training. Its one-screen quick
-settings override the profile defaults here. TOML keeps advanced settings such
-as virtual loss, shard size, weight decay, supervised records, logging, and
-checkpoint intervals.
+通常の学習では、ルートの `training_pipeline.py` を開いてください。先頭の一画面に
+まとめた quick settings が、このディレクトリの profile 既定値を上書きします。
+TOML には virtual loss、shard size、weight decay、教師棋譜、ログ周期、
+checkpoint 周期など、変更頻度の低い設定を置きます。
 
-Precedence is profile TOML, then quick pipeline settings, then the resulting
-`effective_config.json` snapshot. Fixed Smoke, Tactical Overfit, and Baseline
-PyCharm configurations use the same entry point but load their TOML directly.
-The desktop UI does not import this directory.
+設定の優先順位は次のとおりです。
 
-Available profiles:
+1. profile TOML
+2. `training_pipeline.py` の quick settings
+3. 実際の適用結果を保存した `effective_config.json`
 
-- `smoke.toml`: a 20-second tactical, non-zero-value pipeline check;
-- `cpu_debug.toml`: a standard-position CPU convergence experiment;
-- `tactical_overfit.toml`: one-capture learning on fixed tactical positions;
-- `baseline.toml`: production training with real shogi rules.
+Smoke、Tactical Overfit、Baseline の PyCharm 実行構成も同じ Python entry point を
+使用しますが、対応する TOML を直接読み込み、quick settings は適用しません。
+デスクトップ UI はこの設定ディレクトリを import しません。
 
-`output_language` in `[monitoring]` accepts `en`, `zh`, or `ja`. The quick
-pipeline's `OUTPUT_LANGUAGE` overrides it. `tactical_positions.jsonl` stores
-paired positions and verified legal capture moves.
+## Profile 一覧
+
+- `smoke.toml`
+  - 非ゼロ value を含む20秒以内の tactical pipeline check
+- `cpu_debug.toml`
+  - 標準局面を使う CPU convergence experiment
+- `tactical_overfit.toml`
+  - 固定局面で1枚の駒取りを学ぶ overfit experiment
+- `baseline.toml`
+  - 実ルールによる production training
+
+`[monitoring]` の `output_language` は `en / zh / ja` を受け付けます。
+通常の学習では `training_pipeline.py` の `OUTPUT_LANGUAGE` がこれを上書きします。
+
+`tactical_positions.jsonl` には、先後を入れ替えた戦術局面と、検証済みの合法な駒取り
+手を保存しています。

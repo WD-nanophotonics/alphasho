@@ -1,107 +1,170 @@
 # AlphaSho
 
-AlphaSho 目前是一个可玩的将棋桌面程序，也是后续 AlphaZero 风格自我对弈训练项目的基础。
-规则、合法手和终局判定由
-[cshogi](https://github.com/TadaoYamaoka/cshogi) 提供；应用层负责安全适配、对局流程和 UI。
+AlphaSho は、将棋の対局用デスクトップアプリケーションと、AlphaZero 方式の
+自己対局学習基盤を統合したプロジェクトです。
 
-## 在 PyCharm 中运行
+盤面、合法手、成り、持ち駒、王手、終局判定、SFEN/USI などの将棋ルールは
+[cshogi](https://github.com/TadaoYamaoka/cshogi) を唯一の正として扱います。
+AlphaSho 側は、安全なルールアダプター、対局制御、UI、MCTS、方策価値ネットワーク、
+自己対局および学習パイプラインを担当します。
 
-1. 打开项目后确认解释器为 `.venv\Scripts\python.exe`（Python 3.13）。
-2. 在右上角选择共享配置 **AlphaSho UI**。
-3. 点击 Run。
+## 動作環境とセットアップ
 
-也可以直接右键根目录的 `main.py` 并选择 Run。程序不需要命令行参数。
+- Python 3.13
+- Windows 11
+- PySide6
+- cshogi 1.0.4
+- NumPy / PyTorch（学習時のみ）
 
-## 当前功能
-
-- 本地双人和人类对随机合法手 AI；
-- 普通移动、吃子、持驹打入、可选/强制升变；
-- 棋盘旁贴图式升变选择器，不需要来回操作确认窗口；
-- 对角双驹台、手动棋盘翻转，以及日本語/中文/English 三语；
-- 合法位置、上一手、选中棋子和王手高亮；
-- 悔棋、重开、认输、入玉宣胜；
-- SFEN 复制与载入；
-- 将死、四次同局面的千日手和连续王手千日手判定。
-
-首次启动使用日本語。语言与棋盘视角会自动记住；可以随时在顶部工具栏切换。
-
-随机 AI 仅用于验证 Player 接口，不代表棋力。项目现在也包含：
-
-- cshogi/dlshogi 兼容的119平面输入与2187动作标签；
-- 双输入残差策略价值网络、批量 PUCT MCTS 和 AlphaZero 玩家；
-- 可选 KIF/CSA 监督预热、自我对弈、磁盘回放池、训练、评估和最佳模型晋级。
-
-对局设置中的双方都可以选择 **AlphaZero（学習済みモデル）**，模型来源可选正式
-`best.pt`、CPU Debug最佳、当前候选或任意 `.pt` 文件。缺失模型会在开始前拦截；
-AlphaZero思考在后台线程运行，不会阻塞窗口。实验模型只用于接口和收敛验证，不代表棋力。
-
-## 在 PyCharm 中训练
-
-- **AlphaSho Training**：当前CPU环境的短局收敛实验，直接运行根目录
-  [`training_pipeline.py`](training_pipeline.py)；
-- **AlphaSho Training Tactical Overfit**：从18个对称战术局面检验能否学会吃子；
-- **AlphaSho Training Smoke**：数秒级、20秒硬超时的非零value流程检查；
-- **AlphaSho Training Baseline**：真实规则的正式云端训练入口。
-
-`training_pipeline.py` 的第一屏就是用户常调参数，分为 Run、Short-game rules、
-MCTS / self-play、Network training、Evaluation / promotion 五组。训练 batch 和推理
-batch 使用不同名称；`OUTPUT_LANGUAGE = "en"` 可切换为 `zh` 或 `ja`，
-且不影响训练状态或数据兼容性；
-模型规模只需选择 `smoke / baseline / large`。自动保存和恢复不占用这个参数区。
-
-第一次请先运行 Smoke。它会完成自我对弈、一次网络更新、候选评估和 checkpoint 保存；
-该共享运行配置内置 20 秒 watchdog，异常变慢时会安全停止并报错。
-CPU Debug 默认从标准局面运行64手，某方累计先吃3枚棋子即胜；若走满则使用
-`tanh(材料差 / 12)` 作为连续value。这个规则只用于验证闭环能否收敛，不代表正式棋力。
-
-正式训练前应为当前 Python 3.13 环境安装匹配的 CUDA Torch，并在
-`configs/training/baseline.toml` 中填写可选的 KIF/CSA 棋谱目录。
-
-每个配置使用独立的 `artifacts/<profile>/` 目录。CPU、战术和Smoke模型发布为
-`artifacts/checkpoints/debug-best.pt`；只有Baseline会更新正式的
-`artifacts/checkpoints/best.pt`。训练被中断后，再次点击同一运行配置会从
-`training_state.pt` 和 `pipeline_state.json` 继续。修改 playout、两种 batch、
-buffer、每轮局数或学习率后可以继续恢复；若修改模型结构，Trainer 会明确拒绝
-不兼容的 checkpoint。
-
-训练进度会持续显示在 PyCharm Terminal，同时写入：
-
-- `artifacts/<profile>/logs/training.en.log`：英文可读日志；选择中文或日语时分别写入
-  `training.zh.log` 或 `training.ja.log`，三者独立轮转；
-- `artifacts/<profile>/logs/<profile>.jsonl`：连续、语言无关的结构化事件与指标，
-  同时保留当次渲染文本；
-- `artifacts/<profile>/logs/status.json`：当前事件键、语言、阶段与最近进度；
-- `artifacts/<profile>/effective_config.json`：本次真正生效的最终配置。
-
-自我对弈、网络训练和候选评估都会输出进度、速度和 ETA；长步骤默认每 10 秒输出
-heartbeat。PyCharm Stop 或 `Ctrl+C` 会保存最近完成的局、训练 step 和评估比分，
-未完成的单局会被丢弃并在恢复后重做。
-
-日志句子由 `src/alphasho/training/messages.py` 集中维护。Trainer 只写英文
-`stage`、`event`、`message_key` 和结构化 fields；因此修改中日英模板不会改动训练
-流程，也可以根据 JSONL 数据重新渲染展示。
-
-同一profile同时只能运行一个Trainer。模型和状态先写入完整临时文件，再使用有界重试
-提交；Windows短暂占用文件不会立即终止训练。若进程在提交期间退出，下次启动会恢复
-revision更新的合法临时状态。修改检查频率也不会跳过已经开始的候选评估。
-
-实验日志还会记录真实终局、吃子阈值、材料截断、平均吃子数、材料差、非零value比例，
-以及固定战术局面的吃子top-1准确率和策略概率。不同短局规则具有独立 `ruleset_id`，
-修改阈值或局面池后不会混入旧的自我对弈分片。
-
-## 开发命令
-
-以下命令都明确使用项目虚拟环境：
+PyCharm でプロジェクトを開き、インタープリターとして
+`.venv\Scripts\python.exe` を選択してください。新しい環境を作る場合は、プロジェクト
+ルートで次を実行します。
 
 ```powershell
-.\.venv\Scripts\python.exe -m pip install -e ".[dev]"
+py -3.13 -m venv .venv
+.\.venv\Scripts\python.exe -m pip install --upgrade pip
+.\.venv\Scripts\python.exe -m pip install -e ".[dev,training]"
+```
+
+現在のローカル環境では CPU 版 PyTorch を使用しています。本格的な学習を行う場合は、
+利用する GPU に対応した CUDA 版 PyTorch を別途導入してください。
+
+## デスクトップ UI の起動
+
+PyCharm の共有実行構成から **AlphaSho UI** を選び、Run をクリックします。
+ルートの `main.py` を直接実行しても起動できます。コマンドライン引数は不要です。
+
+現在の主な機能は次のとおりです。
+
+- 人間同士、人間対ランダム AI、ランダム AI 同士の対局
+- 学習済み AlphaZero モデルを先手または後手に指定した対局
+- 通常の移動、駒取り、持ち駒の打ち、任意成りおよび強制成り
+- 盤上の駒画像を使った非モーダルな成り選択
+- 先手・後手の対角配置の駒台と盤面反転
+- 日本語・中国語・英語の UI（初回起動時は日本語）
+- 合法手、直前の指し手、選択中の駒、王手のハイライト
+- 待った、投了、入玉宣言、対局のやり直し
+- 主時間＋秒読み、Fischer 加算、時間無制限
+- SFEN のコピー・読込、KIF/KIFU・CSA 棋譜の読込と保存
+- 詰み、千日手、連続王手の千日手、時間切れ、手数上限の処理
+
+言語と盤面の向きは `QSettings` に保存され、次回起動時に復元されます。
+ランダム AI は Player インターフェースの動作確認用であり、棋力を目的としたものでは
+ありません。
+
+## AlphaZero 実装
+
+将棋向け AI は cshogi/dlshogi と互換性のある形式を使用します。
+
+- 入力：`62 × 9 × 9` と `57 × 9 × 9`、合計119特徴平面
+- 方策出力：`27 × 81 = 2187` の固定行動空間
+- モデル：二入力の Residual Policy-Value Network
+- 探索：合法手マスク付き PUCT MCTS、root Dirichlet noise、batch inference
+- データ：圧縮された自己対局 shard と `ruleset_id` で分離された replay buffer
+- 学習：任意の KIF/CSA 教師あり warm-up、自己対局、候補モデル学習、評価、昇格
+
+対局設定では、正式モデル `artifacts/checkpoints/best.pt`、CPU Debug の
+`debug-best.pt`、現在の候補モデル、または任意の `.pt` ファイルを選択できます。
+AI の探索は Qt worker thread で実行されるため、UI をブロックしません。
+局面変更後に返ってきた古い探索結果は適用されません。
+
+## PyCharm からの学習
+
+共有実行構成はすべてルートの
+[`training_pipeline.py`](training_pipeline.py) を使用します。
+
+- **AlphaSho Training**：CPU 上で行う短局の収束確認
+- **AlphaSho Training Tactical Overfit**：対称な戦術局面で駒取りを学習できるか確認
+- **AlphaSho Training Smoke**：20秒の hard timeout を持つ最小パイプライン確認
+- **AlphaSho Training Baseline**：実ルールによる本格学習用の入口
+
+`training_pipeline.py` の先頭には、頻繁に変更する設定だけを一画面にまとめています。
+
+- Run
+- Short-game rules
+- MCTS / self-play
+- Network training
+- Evaluation / promotion
+
+`TRAINING_BATCH_SIZE` と `INFERENCE_BATCH_SIZE` は別の設定です。
+モデル規模は `smoke / baseline / large` から選択します。
+`OUTPUT_LANGUAGE` は `en / zh / ja` に変更でき、チェックポイントや学習データとの
+互換性には影響しません。
+
+初回は **AlphaSho Training Smoke** を実行してください。自己対局、ネットワーク更新、
+候補評価、チェックポイント保存までの最小経路を確認できます。
+
+CPU Debug では学習ループの収束を短時間で診断するため、実際の将棋とは異なる短局裁定を
+使用できます。標準設定では、一方が先に一定枚数を取ると勝ちとなり、最大手数に達した
+場合は次の連続 value を使用します。
+
+```text
+tanh(先手の駒得差 / 12)
+```
+
+この短局モデルは学習基盤の検証専用で、実戦棋力を表すものではありません。
+`baseline.toml` は実ルールのみを使用し、正式モデルだけが
+`artifacts/checkpoints/best.pt` を更新できます。
+
+## ログ、再開、チェックポイント
+
+各 profile は独立した `artifacts/<profile>/` を使用します。
+
+- `logs/training.en.log`：英語の可読ログ
+- `logs/training.zh.log`：中国語の可読ログ
+- `logs/training.ja.log`：日本語の可読ログ
+- `logs/<profile>.jsonl`：言語非依存の構造化イベント
+- `logs/status.json`：現在の stage、event、message key、進捗
+- `effective_config.json`：実際に適用された最終設定
+- `checkpoints/training_state.pt`：モデル、optimizer、乱数状態
+- `checkpoints/pipeline_state.json`：commit 済みの pipeline stage と進捗
+
+可読メッセージは `src/alphasho/training/messages.py` で一元管理されています。
+Trainer は英語の `stage`、`event`、`message_key` と構造化 fields を記録します。
+
+PyCharm Stop または `Ctrl+C` を受けると、完了済みの対局、training step、評価結果を
+保存します。未完了の1局だけを破棄し、次回は保存済み stage から再開します。
+同一 profile は process lock により同時起動できません。Windows の一時的なファイル
+占有に対しては、上限付き retry と revision ベースの temporary-state recovery を
+行います。
+
+## プロジェクト構成
+
+詳細な設計と運用については、次の文書も参照してください。
+
+- [アーキテクチャ](docs/ARCHITECTURE.md)
+- [学習運用ガイド](docs/TRAINING.md)
+
+```text
+alphasho/
+├── main.py                    # デスクトップ UI の入口
+├── training_pipeline.py       # 一画面の学習設定
+├── configs/training/          # profile と高度な学習設定
+├── assets/pieces/hitomoji/    # 駒画像
+├── src/alphasho/
+│   ├── domain/                # UI・cshogi 非依存の型
+│   ├── engine/                # cshogi adapter と対局状態
+│   ├── players/               # Human / Random Player
+│   ├── ui/                    # PySide6 UI
+│   ├── ai/                    # encoding、network、MCTS、AI Player
+│   └── training/              # self-play、replay、Trainer、evaluation
+├── tests/                     # ルール、AI、学習、UI の回帰テスト
+└── artifacts/                 # Git 管理外のモデル、データ、ログ
+```
+
+## 開発用コマンド
+
+```powershell
+.\.venv\Scripts\python.exe -m pip install -e ".[dev,training]"
 .\.venv\Scripts\python.exe -m pytest
 .\.venv\Scripts\python.exe -m ruff check .
 ```
 
-当前安装的 Torch 是 CPU 版本。GPU/CUDA 环境应在进入正式训练阶段后再单独配置。
+## ライセンスと素材
 
-## 第三方许可
+`cshogi` は GPL-3.0 で公開されています。本プロジェクトを公開または再配布する前に、
+cshogi と組み合わせた成果物のライセンス条件を確認してください。
 
-`cshogi` 以 GPL-3.0 发布。棋子图片来自用户提供的 `hitomoji.zip`，压缩包内没有发现明确的
-授权文件。公开发布或再分发本项目之前，需要分别确认代码组合方式和图片再发布权限。
+駒画像はユーザー提供の `hitomoji.zip` から取り込まれましたが、元アーカイブには
+明確なライセンスファイルがありません。画像の出典と再配布許可を確認するまでは、
+第三者への公開を避けてください。

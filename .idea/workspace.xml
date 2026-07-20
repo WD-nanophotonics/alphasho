@@ -4,14 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="af1aa53d-64b3-4472-b70e-f58230fe072d" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/alphasho.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="af1aa53d-64b3-4472-b70e-f58230fe072d" name="Changes" comment="first framework">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/artifacts/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/artifacts/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/assets/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/configs/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/configs/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/configs/training/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/configs/training/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/alphasho/ai/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/src/alphasho/ai/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/alphasho/training/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/src/alphasho/training/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,6 +27,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "WD-nanophotonics"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/WD-nanophotonics/alphasho.git",
+    "accountId": "e17a69a6-4fbd-4236-8eab-21a47da2a9a3"
+  }
+}]]></component>
   <component name="ProjectColorInfo"><![CDATA[{
   "associatedIndex": 4,
   "fromUser": false
@@ -73,10 +86,23 @@
       <option name="presentableId" value="Default" />
       <updated>1784464013546</updated>
     </task>
+    <task id="LOCAL-00001" summary="first framework">
+      <option name="closed" value="true" />
+      <created>1784523378493</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1784523378493</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="first framework" />
+    <option name="LAST_COMMIT_MESSAGE" value="first framework" />
   </component>
   <component name="github-copilot-workspace">
     <instructionFileLocations>

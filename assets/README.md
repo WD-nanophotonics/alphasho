@@ -1,12 +1,12 @@
-# Piece assets
+# 駒画像
 
-`pieces/hitomoji/` 中的 PNG 来自用户提供的：
+`pieces/hitomoji/` の PNG は、ユーザー提供の `hitomoji.zip` から取り込んだ素材です。
 
-`C:\Users\icywo\Downloads\hitomoji.zip`
+インポート時は、アーカイブ直下で
+`hitomoji/(black|white)_*.png` に厳密に一致する個別の駒画像だけを採用しました。
+path traversal を含む `../docs/...`、合成画像の `piece.png` と
+`piece_small.png` は取り込んでいません。
 
-导入时只接受压缩包根下严格匹配 `hitomoji/(black|white)_*.png` 的独立棋子文件。压缩包中的
-`../docs/...` 条目、合成图 `piece.png` 和 `piece_small.png` 均未导入。
-
-压缩包没有包含可识别的许可证文件，因此这些图片目前只按用户提供素材用于本地项目。公开发布前
-必须确认其来源与再分发许可。
-
+元アーカイブには確認可能なライセンスファイルが含まれていません。このため、現時点では
+ローカルプロジェクト用のユーザー提供素材としてのみ扱います。プロジェクトや画像を公開・
+再配布する前に、画像の出典、著作者、利用条件を必ず確認してください。
