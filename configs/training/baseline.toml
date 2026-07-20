@@ -1,0 +1,72 @@
+[run]
+name = "baseline"
+seed = 20260720
+device = "auto"
+iterations = 500
+artifact_root = "artifacts/baseline"
+
+[model]
+channels = 128
+residual_blocks = 10
+value_hidden = 256
+
+[search]
+n_playouts = 400
+c_puct = 1.5
+batch_size = 16
+virtual_loss = 1.0
+dirichlet_alpha = 0.15
+dirichlet_epsilon = 0.25
+
+[data]
+# Add directories or individual .kif/.kifu/.csa paths here for supervised warm-up.
+supervised_paths = []
+supervised_epochs = 5
+validation_fraction = 0.1
+selfplay_games = 32
+temperature_moves = 30
+replay_capacity = 500000
+shard_size = 512
+
+[training]
+batch_size = 256
+train_steps = 256
+learning_rate = 0.001
+weight_decay = 0.0001
+
+[evaluation]
+games = 100
+promotion_score = 0.55
+check_frequency = 5
+
+[monitoring]
+console_level = "INFO"
+output_language = "en"
+heartbeat_seconds = 10.0
+train_log_every_steps = 10
+log_file_max_mb = 20
+log_backups = 5
+entropy_warning_low = 0.25
+entropy_warning_high = 7.6
+
+[checkpoint]
+interval_seconds = 120.0
+selfplay_games = 1
+train_steps = 25
+evaluation_games = 2
+
+[adjudication]
+mode = "real_rules"
+max_moves = 512
+capture_threshold = 0
+material_scale = 12.0
+
+[start_positions]
+mode = "standard"
+
+[publication]
+model_name = "best.pt"
+
+[diagnostics]
+benchmark_path = "configs/training/tactical_positions.jsonl"
+reference_games = 20

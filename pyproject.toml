@@ -1,0 +1,43 @@
+[build-system]
+requires = ["setuptools>=75"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "alphasho"
+version = "0.1.0"
+description = "A shogi desktop application and AlphaZero training system"
+readme = "README.md"
+requires-python = ">=3.13,<3.14"
+dependencies = [
+    "cshogi==1.0.4",
+    "PySide6>=6.8,<7",
+]
+
+[project.optional-dependencies]
+training = [
+    "numpy>=2.2,<3",
+    "torch>=2.7,<3",
+]
+dev = [
+    "pytest>=8.3,<10",
+    "pytest-qt>=4.4,<5",
+    "ruff>=0.11,<1",
+]
+
+[project.scripts]
+alphasho = "alphasho.ui.app:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+addopts = "-q -p no:cacheprovider"
+pythonpath = ["src"]
+testpaths = ["tests"]
+
+[tool.ruff]
+target-version = "py313"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]

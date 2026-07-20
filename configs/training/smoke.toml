@@ -1,0 +1,72 @@
+[run]
+name = "smoke"
+seed = 20260720
+device = "cpu"
+iterations = 1
+artifact_root = "artifacts/smoke-short"
+
+[model]
+channels = 32
+residual_blocks = 2
+value_hidden = 64
+
+[search]
+n_playouts = 8
+c_puct = 1.5
+batch_size = 4
+virtual_loss = 1.0
+dirichlet_alpha = 0.15
+dirichlet_epsilon = 0.25
+
+[data]
+supervised_paths = []
+supervised_epochs = 0
+validation_fraction = 0.1
+selfplay_games = 2
+temperature_moves = 4
+replay_capacity = 2048
+shard_size = 256
+
+[training]
+batch_size = 8
+train_steps = 1
+learning_rate = 0.001
+weight_decay = 0.0001
+
+[evaluation]
+games = 2
+promotion_score = 0.5
+check_frequency = 1
+
+[monitoring]
+console_level = "INFO"
+output_language = "en"
+heartbeat_seconds = 1.0
+train_log_every_steps = 1
+log_file_max_mb = 5
+log_backups = 2
+entropy_warning_low = 0.1
+entropy_warning_high = 7.65
+
+[checkpoint]
+interval_seconds = 5.0
+selfplay_games = 1
+train_steps = 1
+evaluation_games = 1
+
+[adjudication]
+mode = "capture_material"
+max_moves = 8
+capture_threshold = 1
+material_scale = 12.0
+
+[start_positions]
+mode = "tactical"
+path = "configs/training/tactical_positions.jsonl"
+
+[publication]
+model_name = "debug-best.pt"
+
+[diagnostics]
+benchmark_path = "configs/training/tactical_positions.jsonl"
+reference_games = 0

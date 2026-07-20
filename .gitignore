@@ -1,0 +1,18 @@
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+build/
+dist/
+*.egg-info/
+
+# PyCharm keeps personal state here. Shared run configurations live in .run/.
+.idea/workspace.xml
+.idea/shelf/
+
+# Generated game and training output.
+artifacts/*
+!artifacts/README.md
