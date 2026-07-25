@@ -275,8 +275,10 @@ class PolicyValueTrainer:
                 group["weight_decay"] = weight_decay
         random.setstate(checkpoint["python_random_state"])
         np.random.set_state(checkpoint["numpy_random_state"])
-        torch.random.set_rng_state(checkpoint["torch_random_state"])
+        torch.random.set_rng_state(checkpoint["torch_random_state"].cpu())
         cuda_states = checkpoint.get("torch_cuda_random_state_all")
         if cuda_states is not None and torch.cuda.is_available():
-            torch.cuda.set_rng_state_all(cuda_states)
+            torch.cuda.set_rng_state_all(
+                [state.cpu() for state in cuda_states]
+            )
         return int(checkpoint.get("iteration", 0)), dict(checkpoint.get("metadata", {}))
