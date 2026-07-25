@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import io
 import json
+import subprocess
 import tarfile
 from pathlib import Path
 
@@ -12,6 +13,7 @@ from alphasho.runpod_sync import (
     SyncConfig,
     SyncError,
     _safe_extract,
+    _wait_for_connection_code,
     build_remote_command,
     create_remote_snapshot,
     install_snapshot,
@@ -237,6 +239,21 @@ def test_remote_command_uses_custom_code_and_hashes(tmp_path: Path) -> None:
     assert "--known-candidate-sha candidate-sha" in command
     assert command.endswith("\nexit\n")
     assert archive_name == "alphasho-sync.tar.gz"
+
+
+def test_runpodctl_checksum_suffix_is_read_from_sender_log(tmp_path: Path) -> None:
+    log = tmp_path / "ssh.log"
+    log.write_text(
+        "requested-code-47\nsending 1 files\ncode is: requested-code-47\n",
+        encoding="utf-8",
+    )
+    process = subprocess.Popen.__new__(subprocess.Popen)
+    process.returncode = None
+
+    assert (
+        _wait_for_connection_code(log, "requested-code", process, timeout=0.1)
+        == "requested-code-47"
+    )
 
 
 def test_verify_snapshot_rejects_unsupported_schema(tmp_path: Path) -> None:

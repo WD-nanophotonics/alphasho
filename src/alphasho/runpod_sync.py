@@ -6,6 +6,7 @@ import argparse
 import hashlib
 import json
 import os
+import re
 import secrets
 import shlex
 import shutil
@@ -473,6 +474,38 @@ def _ssh_arguments(config: SyncConfig) -> list[str]:
     ]
 
 
+def _wait_for_connection_code(
+    ssh_log: Path,
+    requested_code: str,
+    ssh: subprocess.Popen[str],
+    *,
+    timeout: float = 30.0,
+) -> str:
+    """Read the checksum suffix that runpodctl appends to a custom code."""
+
+    deadline = time.monotonic() + timeout
+    pattern = re.compile(r"code is:\s*([A-Za-z0-9_-]+)")
+    fallback = re.compile(
+        rf"(?m)^\s*({re.escape(requested_code)}-[A-Za-z0-9]+)\s*$"
+    )
+    while time.monotonic() < deadline:
+        content = ""
+        try:
+            content = ssh_log.read_text(encoding="utf-8", errors="replace")
+        except OSError:
+            pass
+        match = pattern.search(content) or fallback.search(content)
+        if match:
+            return match.group(1)
+        if ssh.poll() is not None:
+            detail = content[-2000:]
+            raise SyncError(
+                f"Remote sender exited before publishing a transfer code: {detail}"
+            )
+        time.sleep(0.2)
+    raise SyncError("Timed out waiting for the remote runpodctl transfer code")
+
+
 def _transfer_once(config: SyncConfig, *, full_backup: bool) -> Path:
     if not config.ssh_executable.is_file():
         raise SyncError(f"SSH executable not found: {config.ssh_executable}")
@@ -514,10 +547,14 @@ def _transfer_once(config: SyncConfig, *, full_backup: bool) -> Path:
             ssh.stdin.write(remote_command)
             ssh.stdin.flush()
             ssh.stdin.close()
-            time.sleep(2)
+            receive_code = _wait_for_connection_code(
+                ssh_log,
+                code,
+                ssh,
+            )
             try:
                 receive = subprocess.run(
-                    [str(config.runpodctl), "receive", code],
+                    [str(config.runpodctl), "receive", receive_code],
                     cwd=receive_dir,
                     capture_output=True,
                     text=True,
