@@ -27,6 +27,7 @@ dev = [
 [project.scripts]
 alphasho = "alphasho.ui.app:main"
 alphasho-runpod-sync = "alphasho.runpod_sync:main"
+alphasho-throughput-benchmark = "alphasho.training.throughput_benchmark:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]

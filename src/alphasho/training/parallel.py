@@ -431,6 +431,15 @@ def run_parallel_evaluation(
             candidate_color = (
                 Color.BLACK if game_index % 2 == 0 else Color.WHITE
             )
+            moves = 0
+            playouts = 0
+
+            def collect_metrics(event: str, fields: dict[str, object]) -> None:
+                nonlocal moves, playouts
+                if event == "move":
+                    moves += 1
+                    playouts += int(fields["playouts"])
+
             result = play_evaluation_game(
                 candidate,
                 best,
@@ -439,13 +448,19 @@ def run_parallel_evaluation(
                 rules=rules,
                 initial_sfen=initial_sfen_for_game(game_index),
                 seed=seed_for_game(game_index),
-                progress_callback=None,
+                progress_callback=collect_metrics,
                 stop_event=stop_event,
                 heartbeat_seconds=10.0,
             )
             on_complete(
                 CompletedEvaluation(
-                    EvaluationGameResult(game_index, candidate_color, result),
+                    EvaluationGameResult(
+                        game_index,
+                        candidate_color,
+                        result,
+                        moves,
+                        playouts,
+                    ),
                     time.monotonic() - started,
                 ),
                 InferenceMetrics(),
@@ -646,6 +661,15 @@ def _evaluation_worker(
             Color.BLACK if task.game_index % 2 == 0 else Color.WHITE
         )
         try:
+            moves = 0
+            playouts = 0
+
+            def collect_metrics(event: str, fields: dict[str, object]) -> None:
+                nonlocal moves, playouts
+                if event == "move":
+                    moves += 1
+                    playouts += int(fields["playouts"])
+
             adjudication = play_evaluation_game(
                 candidate,
                 best,
@@ -654,7 +678,7 @@ def _evaluation_worker(
                 rules=rules,
                 initial_sfen=task.initial_sfen,
                 seed=task.seed,
-                progress_callback=None,
+                progress_callback=collect_metrics,
                 stop_event=cancel_event,
                 heartbeat_seconds=10.0,
             )
@@ -666,6 +690,8 @@ def _evaluation_worker(
                         task.game_index,
                         candidate_color,
                         adjudication,
+                        moves,
+                        playouts,
                     ),
                     time.monotonic() - started,
                 )

@@ -37,6 +37,8 @@ class EvaluationGameResult:
     game_index: int
     candidate_color: Color
     adjudication: AdjudicationResult
+    moves: int = 0
+    playouts: int = 0
 
 
 def evaluate_candidate(

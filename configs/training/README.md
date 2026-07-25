@@ -42,3 +42,26 @@ CPUを2論理コア残します。`gpu_batch_size` は集約後の上限、`batc
 
 Baseline は自動並列、最大 GPU batch 128 を使用します。Smoke は問題の切り分けと
 20秒制限を安定させるため、1 worker のままです。
+
+## Throughput benchmark
+
+Production の replay、pipeline state、公開モデルを変更せず、同じ検索実装の
+throughput を測定する場合は、独立した benchmark entry point を使用します。
+
+```bash
+python -m alphasho.training.throughput_benchmark \
+  --config configs/training/baseline.toml \
+  --checkpoint artifacts/checkpoints/best.pt \
+  --mode selfplay \
+  --games 32 \
+  --workers 12 \
+  --gpu-batch-size 128 \
+  --batch-wait-ms 2 \
+  --output artifacts/benchmarks/rtx3090/run-001/workers-12
+```
+
+出力先が profile の正式 `artifact_root` 内にある場合、実行は拒否されます。
+各 output directory は新規でなければならず、`report.json` と `events.jsonl` に
+playouts/s、GPU batch、CPU/GPU sampling、checkpoint hash、Git commit を保存します。
+`--mode evaluation` は同じ checkpoint を candidate と best の両方に読み込み、
+正式評価と同じ先後ペアと二モデル routing を測定します。
