@@ -35,7 +35,7 @@ learning_rate = 0.001
 weight_decay = 0.0001
 
 [evaluation]
-games = 100
+games = 20
 promotion_score = 0.55
 check_frequency = 5
 

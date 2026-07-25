@@ -232,6 +232,62 @@ def test_resumed_evaluation_is_not_skipped_after_frequency_change() -> None:
     assert calls == ["benchmark", "evaluation", "complete"]
 
 
+def test_resumed_evaluation_trims_results_after_game_count_reduction() -> None:
+    trainer = AlphaZeroTrainer.__new__(AlphaZeroTrainer)
+    trainer.config = SimpleNamespace(evaluation_games=20)
+    trainer._state = PipelineState(
+        active_iteration=5,
+        stage=TrainingStage.EVALUATION,
+        evaluation_results=[
+            {
+                "game_index": index,
+                "outcome": (
+                    "candidate"
+                    if index < 5
+                    else "best"
+                    if index < 12
+                    else "draw"
+                ),
+            }
+            for index in range(91)
+        ],
+    )
+    persisted: list[int] = []
+    events: list[tuple[str, dict[str, object]]] = []
+    trainer._persist_state = lambda: persisted.append(
+        trainer._state.evaluation_completed
+    )
+    trainer._emit = lambda _stage, event, **fields: events.append(
+        (event, fields)
+    )
+
+    trainer._reconcile_evaluation_progress()
+
+    assert [item["game_index"] for item in trainer._state.evaluation_results] == list(
+        range(20)
+    )
+    assert trainer._state.evaluation_completed == 20
+    assert trainer._state.candidate_wins == 5
+    assert trainer._state.best_wins == 7
+    assert trainer._state.draws == 8
+    assert persisted == [20]
+    assert events == [
+        (
+            "evaluation-progress-trimmed",
+            {
+                "level": "WARNING",
+                "iteration": 5,
+                "previous_games": 91,
+                "retained_games": 20,
+                "evaluation_games": 20,
+            },
+        )
+    ]
+
+    trainer._reconcile_evaluation_progress()
+    assert persisted == [20]
+
+
 def test_off_cycle_iteration_skips_evaluation() -> None:
     trainer = AlphaZeroTrainer.__new__(AlphaZeroTrainer)
     trainer.config = SimpleNamespace(iterations=200, check_frequency=5)

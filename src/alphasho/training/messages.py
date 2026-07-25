@@ -214,6 +214,14 @@ MESSAGE_CATALOG: dict[str, dict[TrainingLanguage, str]] = {
         "候補評価を開始：{completed_games}/{evaluation_games}、"
         "昇格しきい値 {promotion_score:.1%}",
     ),
+    "evaluation.evaluation-progress-trimmed": _translations(
+        "Evaluation target changed to {evaluation_games} games; retained "
+        "{retained_games} of {previous_games} completed results.",
+        "评估目标已改为 {evaluation_games} 局；已完成的 {previous_games} "
+        "局中保留了 {retained_games} 局结果。",
+        "評価数を {evaluation_games} 局に変更しました。完了済み "
+        "{previous_games} 局のうち {retained_games} 局を保持しました。",
+    ),
     "evaluation.parallel-start": _translations(
         "Evaluation scheduler started: {workers} workers, "
         "{pending_games} pending games, GPU batch up to {gpu_batch_size}",

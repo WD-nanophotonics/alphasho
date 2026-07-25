@@ -314,7 +314,7 @@ def load_training_config(path: str | Path) -> TrainingConfig:
         train_steps=int(training.get("train_steps", 32)),
         learning_rate=float(training.get("learning_rate", 1e-3)),
         weight_decay=float(training.get("weight_decay", 1e-4)),
-        evaluation_games=int(evaluation.get("games", 100)),
+        evaluation_games=int(evaluation.get("games", 20)),
         promotion_score=float(evaluation.get("promotion_score", 0.55)),
         check_frequency=int(evaluation.get("check_frequency", 1)),
         monitoring=MonitoringConfig(

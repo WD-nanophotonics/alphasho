@@ -717,6 +717,7 @@ class AlphaZeroTrainer:
         self,
         iteration: int,
     ) -> tuple[EvaluationResult, bool]:
+        self._reconcile_evaluation_progress()
         self._emit(
             TrainingStage.EVALUATION,
             "evaluation-start",
@@ -878,6 +879,34 @@ class AlphaZeroTrainer:
                 ),
             )
         return result, promoted
+
+    def _reconcile_evaluation_progress(self) -> None:
+        """Keep resumable results inside the currently configured game range."""
+
+        records = self._state.evaluation_results
+        retained = [
+            item
+            for item in records
+            if 0 <= int(item["game_index"]) < self.config.evaluation_games
+        ]
+        if len(retained) == len(records):
+            return
+        previous_games = len(records)
+        self._state.evaluation_results = sorted(
+            retained,
+            key=lambda item: int(item["game_index"]),
+        )
+        self._refresh_evaluation_totals()
+        self._persist_state()
+        self._emit(
+            TrainingStage.EVALUATION,
+            "evaluation-progress-trimmed",
+            level="WARNING",
+            iteration=self._state.active_iteration,
+            previous_games=previous_games,
+            retained_games=self._state.evaluation_completed,
+            evaluation_games=self.config.evaluation_games,
+        )
 
     def _refresh_evaluation_totals(self) -> None:
         records = self._state.evaluation_results
