@@ -1,6 +1,7 @@
 import threading
 
 import numpy as np
+import torch
 
 from alphasho.ai import SearchConfig
 from alphasho.training import load_training_config
@@ -42,7 +43,9 @@ def test_inference_server_combines_requests_and_routes_models() -> None:
         worker_count=2,
         config=config,
     )
+    previous_threads = torch.get_num_threads()
     server.start()
+    assert torch.get_num_threads() == 1
     outputs: dict[int, tuple[np.ndarray, np.ndarray]] = {}
 
     def evaluate(worker_id: int, model_id: str, size: int) -> None:
@@ -67,6 +70,7 @@ def test_inference_server_combines_requests_and_routes_models() -> None:
     for thread in threads:
         thread.join()
     server.stop()
+    assert torch.get_num_threads() == previous_threads
 
     assert np.all(outputs[0][1] == 1.0)
     assert np.all(outputs[1][1] == -1.0)

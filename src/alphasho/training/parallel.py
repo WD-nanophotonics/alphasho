@@ -13,6 +13,7 @@ from dataclasses import dataclass
 from typing import Any
 
 import numpy as np
+import torch
 from numpy.typing import NDArray
 
 from alphasho.ai import SearchCancelled, SearchConfig
@@ -184,6 +185,7 @@ class BatchedInferenceServer:
         self._metrics = InferenceMetrics()
         self._metrics_lock = threading.Lock()
         self._closing = False
+        self._previous_torch_threads: int | None = None
         self._thread = threading.Thread(
             target=self._run,
             name="alphasho-inference-server",
@@ -191,18 +193,26 @@ class BatchedInferenceServer:
         )
 
     def start(self) -> None:
+        self._previous_torch_threads = torch.get_num_threads()
+        if self._previous_torch_threads != 1:
+            torch.set_num_threads(1)
         self._thread.start()
 
     def stop(self) -> None:
-        self._closing = True
         try:
-            self.request_queue.put(None, timeout=0.2)
-        except queue.Full:
-            pass
-        self._thread.join(timeout=10.0)
-        if self._thread.is_alive():
-            self.cancel_event.set()
-            raise RuntimeError("Inference server did not stop")
+            self._closing = True
+            try:
+                self.request_queue.put(None, timeout=0.2)
+            except queue.Full:
+                pass
+            self._thread.join(timeout=10.0)
+            if self._thread.is_alive():
+                self.cancel_event.set()
+                raise RuntimeError("Inference server did not stop")
+        finally:
+            if self._previous_torch_threads is not None:
+                torch.set_num_threads(self._previous_torch_threads)
+                self._previous_torch_threads = None
 
     def metrics(self) -> InferenceMetrics:
         with self._metrics_lock:
