@@ -66,7 +66,7 @@ from alphasho.training.trainer import (
 
 @dataclass(slots=True)
 class PipelineState:
-    schema_version: int = 3
+    schema_version: int = 4
     revision: int = 0
     completed_iterations: int = 0
     active_iteration: int = 0
@@ -79,6 +79,7 @@ class PipelineState:
     best_wins: int = 0
     draws: int = 0
     evaluation_results: list[dict[str, Any]] = field(default_factory=list)
+    evaluation_required: bool | None = None
     best_iteration: int = 0
     consecutive_no_promotion: int = 0
 
@@ -145,7 +146,13 @@ class PipelineState:
                 }
                 for index in range(evaluation_completed)
             ]
-        fields["schema_version"] = 3
+        if "evaluation_required" not in values:
+            fields["evaluation_required"] = (
+                fields["stage"] is TrainingStage.EVALUATION
+                if source_schema < 3
+                else None
+            )
+        fields["schema_version"] = 4
         fields["selfplay_completed_games"] = sorted(
             {int(item) for item in fields.get("selfplay_completed_games", [])}
         )
@@ -288,6 +295,13 @@ class AlphaZeroTrainer:
         loaded_state, recovered, attempts = recover_pipeline_state(state_path)
         if loaded_state is not None:
             self._state = loaded_state
+            if self._state.evaluation_required is None:
+                self._state.evaluation_required = (
+                    self._state.active_iteration > 0
+                    and self._state.active_iteration
+                    % self.config.check_frequency
+                    == 0
+                )
         if recovered:
             self._emit(
                 TrainingStage.CHECKPOINT,
@@ -352,6 +366,9 @@ class AlphaZeroTrainer:
                 completed_iterations=self._state.completed_iterations,
                 active_iteration=iteration,
                 stage=TrainingStage.SELFPLAY,
+                evaluation_required=(
+                    iteration % self.config.check_frequency == 0
+                ),
                 best_iteration=self._state.best_iteration,
                 consecutive_no_promotion=self._state.consecutive_no_promotion,
             )
@@ -371,21 +388,17 @@ class AlphaZeroTrainer:
             train_metrics = None
         evaluation: EvaluationResult | None = None
         promoted = False
-        evaluation_due = (
-            self._state.stage is TrainingStage.EVALUATION
-            or iteration % self.config.check_frequency == 0
-        )
-        if evaluation_due:
-            if self._state.stage is TrainingStage.EVALUATION:
-                self._run_tactical_benchmark(
-                    self._require_current_model(),
-                    iteration=iteration,
-                    label="candidate",
-                )
-                evaluation, promoted = self._run_evaluation(iteration)
-                if iteration == self.config.iterations:
-                    self._run_reference_evaluation(iteration)
-        else:
+        evaluation_due = bool(self._state.evaluation_required)
+        if self._state.stage is TrainingStage.EVALUATION and evaluation_due:
+            self._run_tactical_benchmark(
+                self._require_current_model(),
+                iteration=iteration,
+                label="candidate",
+            )
+            evaluation, promoted = self._run_evaluation(iteration)
+            if iteration == self.config.iterations:
+                self._run_reference_evaluation(iteration)
+        elif self._state.stage is TrainingStage.EVALUATION:
             self._emit(
                 TrainingStage.EVALUATION,
                 "evaluation-skipped",
@@ -921,6 +934,7 @@ class AlphaZeroTrainer:
         self._state.best_wins = 0
         self._state.draws = 0
         self._state.evaluation_results = []
+        self._state.evaluation_required = None
         self._persist_state()
         self._safe_checkpoint("iteration-complete")
         self._emit(
@@ -1410,7 +1424,7 @@ class AlphaZeroTrainer:
 
     def _persist_state(self) -> None:
         path = self.paths["checkpoints"] / "pipeline_state.json"
-        self._state.schema_version = 3
+        self._state.schema_version = 4
         self._state.selfplay_completed = len(
             self._state.selfplay_completed_games
         )

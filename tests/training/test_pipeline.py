@@ -212,6 +212,7 @@ def test_resumed_evaluation_is_not_skipped_after_frequency_change() -> None:
         completed_iterations=5,
         active_iteration=6,
         stage=TrainingStage.EVALUATION,
+        evaluation_required=True,
     )
     calls: list[str] = []
     trainer._emit = lambda *_args, **_kwargs: None
@@ -229,6 +230,31 @@ def test_resumed_evaluation_is_not_skipped_after_frequency_change() -> None:
     trainer._run_iteration(6)
 
     assert calls == ["benchmark", "evaluation", "complete"]
+
+
+def test_off_cycle_iteration_skips_evaluation() -> None:
+    trainer = AlphaZeroTrainer.__new__(AlphaZeroTrainer)
+    trainer.config = SimpleNamespace(iterations=200, check_frequency=5)
+    trainer._state = PipelineState(
+        completed_iterations=0,
+        active_iteration=1,
+        stage=TrainingStage.EVALUATION,
+        evaluation_required=False,
+    )
+    calls: list[str] = []
+    trainer._emit = (
+        lambda _stage, event, **_kwargs: calls.append(event)
+    )
+    trainer._run_evaluation = lambda _iteration: (
+        calls.append("evaluation") or (None, False)
+    )
+    trainer._complete_iteration = lambda *_args, **_kwargs: calls.append(
+        "complete"
+    )
+
+    trainer._run_iteration(1)
+
+    assert calls == ["iteration-start", "evaluation-skipped", "complete"]
 
 
 def test_quick_settings_reporter_resume_and_idempotent_shard(tmp_path) -> None:
