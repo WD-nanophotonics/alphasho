@@ -257,6 +257,30 @@ def test_off_cycle_iteration_skips_evaluation() -> None:
     assert calls == ["iteration-start", "evaluation-skipped", "complete"]
 
 
+def test_new_iteration_preserves_checkpoint_revision() -> None:
+    trainer = AlphaZeroTrainer.__new__(AlphaZeroTrainer)
+    trainer.config = SimpleNamespace(iterations=10, check_frequency=5)
+    trainer._state = PipelineState(
+        revision=99,
+        completed_iterations=1,
+    )
+    trainer._emit = lambda *_args, **_kwargs: None
+    revisions: list[int] = []
+    trainer._persist_state = lambda: revisions.append(
+        trainer._state.revision
+    )
+
+    def stop_after_initialization(_iteration: int) -> None:
+        raise RuntimeError("stop")
+
+    trainer._run_selfplay = stop_after_initialization
+
+    with pytest.raises(RuntimeError, match="stop"):
+        trainer._run_iteration(2)
+
+    assert revisions == [99]
+
+
 def test_quick_settings_reporter_resume_and_idempotent_shard(tmp_path) -> None:
     settings = QuickTrainingSettings(
         profile="smoke",

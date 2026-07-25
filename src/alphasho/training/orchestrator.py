@@ -363,6 +363,7 @@ class AlphaZeroTrainer:
             )
         if self._state.active_iteration == 0:
             self._state = PipelineState(
+                revision=self._state.revision,
                 completed_iterations=self._state.completed_iterations,
                 active_iteration=iteration,
                 stage=TrainingStage.SELFPLAY,
