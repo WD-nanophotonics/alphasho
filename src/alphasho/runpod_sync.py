@@ -727,6 +727,28 @@ def install_task(config: SyncConfig) -> None:
         ],
         check=True,
     )
+    powershell = _expand_path(
+        "%WINDIR%/System32/WindowsPowerShell/v1.0/powershell.exe"
+    )
+    task_name = config.task_name.replace("'", "''")
+    settings_script = (
+        "$settings = New-ScheduledTaskSettingsSet "
+        "-AllowStartIfOnBatteries -DontStopIfGoingOnBatteries "
+        "-StartWhenAvailable -MultipleInstances IgnoreNew "
+        "-ExecutionTimeLimit (New-TimeSpan -Minutes 12); "
+        f"Set-ScheduledTask -TaskName '{task_name}' "
+        "-Settings $settings | Out-Null"
+    )
+    subprocess.run(
+        [
+            str(powershell),
+            "-NoProfile",
+            "-NonInteractive",
+            "-Command",
+            settings_script,
+        ],
+        check=True,
+    )
 
 
 def uninstall_task(config: SyncConfig) -> None:

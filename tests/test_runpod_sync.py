@@ -8,6 +8,7 @@ from pathlib import Path
 
 import pytest
 
+import alphasho.runpod_sync as runpod_sync
 from alphasho.runpod_sync import (
     MODEL_ARCHIVE_PATHS,
     SyncConfig,
@@ -17,6 +18,7 @@ from alphasho.runpod_sync import (
     build_remote_command,
     create_remote_snapshot,
     install_snapshot,
+    install_task,
     load_sync_config,
     verify_snapshot,
 )
@@ -254,6 +256,32 @@ def test_runpodctl_checksum_suffix_is_read_from_sender_log(tmp_path: Path) -> No
         _wait_for_connection_code(log, "requested-code", process, timeout=0.1)
         == "requested-code-47"
     )
+
+
+def test_task_install_uses_fifteen_minutes_and_battery_safe_settings(
+    monkeypatch,
+    tmp_path: Path,
+) -> None:
+    config = _config(tmp_path)
+    launcher = tmp_path / "runpod-sync.cmd"
+    calls: list[list[str]] = []
+    monkeypatch.setattr(runpod_sync.os, "name", "nt")
+    monkeypatch.setattr(runpod_sync, "_task_launcher_path", lambda: launcher)
+    monkeypatch.setattr(
+        runpod_sync.subprocess,
+        "run",
+        lambda arguments, **_kwargs: calls.append([str(item) for item in arguments]),
+    )
+
+    install_task(config)
+
+    assert launcher.is_file()
+    assert "--once" in launcher.read_text(encoding="utf-8")
+    assert calls[0][:3] == ["schtasks.exe", "/Create", "/TN"]
+    assert "/MO" in calls[0]
+    assert calls[0][calls[0].index("/MO") + 1] == "15"
+    assert "-AllowStartIfOnBatteries" in calls[1][-1]
+    assert "-MultipleInstances IgnoreNew" in calls[1][-1]
 
 
 def test_verify_snapshot_rejects_unsupported_schema(tmp_path: Path) -> None:
