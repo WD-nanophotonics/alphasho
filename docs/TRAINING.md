@@ -121,6 +121,10 @@ Terminal と言語別 text log には、次の情報が継続的に出力され�
 `artifacts/` は Git 管理外です。GitHub へ push しただけでは、モデル、optimizer、
 replay shard、学習進捗は保存されません。
 
+Runpod から Windows へ正式モデル、candidate、状態、ログを定期取得する場合は
+[`RUNPOD_SYNC.md`](RUNPOD_SYNC.md) のローカル pull 方式を使用します。候補モデルは
+正式 `artifacts/checkpoints/best.pt` を上書きしません。
+
 ## よくある問題
 
 ### 長時間ログが出ない

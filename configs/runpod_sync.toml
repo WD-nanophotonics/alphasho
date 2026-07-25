@@ -1,0 +1,18 @@
+[connection]
+ssh_target = "10ynz77neznvj4-64410bf0@ssh.runpod.io"
+identity_file = "%USERPROFILE%/.ssh/id_ed25519_runpod"
+ssh_executable = "%WINDIR%/System32/OpenSSH/ssh.exe"
+remote_project_root = "/workspace/alphasho-v3"
+
+[local]
+sync_root = "artifacts/cloud-sync"
+published_model = "artifacts/checkpoints/best.pt"
+runpodctl = "%LOCALAPPDATA%/AlphaSho/tools/runpodctl.exe"
+
+[sync]
+interval_minutes = 15
+log_tail_bytes = 8388608
+timeout_seconds = 600
+full_backup_timeout_seconds = 7200
+retry_attempts = 3
+task_name = "AlphaSho Runpod Sync"

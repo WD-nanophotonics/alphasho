@@ -26,6 +26,7 @@ dev = [
 
 [project.scripts]
 alphasho = "alphasho.ui.app:main"
+alphasho-runpod-sync = "alphasho.runpod_sync:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]

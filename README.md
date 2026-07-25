@@ -134,6 +134,7 @@ PyCharm Stop または `Ctrl+C` を受けると、完了済みの対局、traini
 
 - [アーキテクチャ](docs/ARCHITECTURE.md)
 - [学習運用ガイド](docs/TRAINING.md)
+- [Runpod 学習成果の自動同期](docs/RUNPOD_SYNC.md)
 
 ```text
 alphasho/
