@@ -55,6 +55,13 @@ selfplay_games = 1
 train_steps = 25
 evaluation_games = 2
 
+[parallel]
+selfplay_workers = 0
+evaluation_workers = 0
+gpu_batch_size = 128
+batch_wait_ms = 2.0
+request_queue_size = 64
+
 [adjudication]
 mode = "real_rules"
 max_moves = 512

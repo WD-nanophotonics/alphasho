@@ -31,3 +31,14 @@ Smoke、Tactical Overfit、Baseline の PyCharm 実行構成も同じ Python ent
 
 `tactical_positions.jsonl` には、先後を入れ替えた戦術局面と、検証済みの合法な駒取り
 手を保存しています。
+
+## 並列探索
+
+`[parallel]` は複数の対局プロセスから一つの GPU 推論サーバーへ局面を集約します。
+`selfplay_workers` と `evaluation_workers` の `0` は自動選択で、最大8プロセスを使い、
+CPUを2論理コア残します。`gpu_batch_size` は集約後の上限、`batch_wait_ms` は追加要求を
+待つ短い時間です。単一の木に複数スレッドから触れることはなく、モデルも worker
+プロセスにはコピーされません。
+
+Baseline は自動並列、最大 GPU batch 128 を使用します。Smoke は問題の切り分けと
+20秒制限を安定させるため、1 worker のままです。

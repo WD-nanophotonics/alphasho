@@ -7,7 +7,7 @@ import json
 import signal
 import threading
 import time
-from dataclasses import asdict, dataclass
+from dataclasses import asdict, dataclass, field
 from pathlib import Path
 from typing import Any
 
@@ -42,13 +42,20 @@ from alphasho.training.config import (
 from alphasho.training.data import ShardStore, load_recent_samples
 from alphasho.training.evaluation import EvaluationResult, evaluate_candidate
 from alphasho.training.messages import render_training_message
+from alphasho.training.parallel import (
+    CompletedEvaluation,
+    CompletedSelfPlay,
+    InferenceMetrics,
+    resolve_worker_count,
+    run_parallel_evaluation,
+    run_parallel_selfplay,
+)
 from alphasho.training.reporting import (
     TrainerStatus,
     TrainingReporter,
     TrainingStage,
     write_effective_config,
 )
-from alphasho.training.selfplay import play_self_game
 from alphasho.training.supervised import ingest_supervised_corpus
 from alphasho.training.trainer import (
     PolicyValueTrainer,
@@ -59,19 +66,44 @@ from alphasho.training.trainer import (
 
 @dataclass(slots=True)
 class PipelineState:
-    schema_version: int = 2
+    schema_version: int = 3
     revision: int = 0
     completed_iterations: int = 0
     active_iteration: int = 0
     stage: TrainingStage = TrainingStage.STARTUP
     selfplay_completed: int = 0
+    selfplay_completed_games: list[int] = field(default_factory=list)
     train_steps_completed: int = 0
     evaluation_completed: int = 0
     candidate_wins: int = 0
     best_wins: int = 0
     draws: int = 0
+    evaluation_results: list[dict[str, Any]] = field(default_factory=list)
     best_iteration: int = 0
     consecutive_no_promotion: int = 0
+
+    def __post_init__(self) -> None:
+        if self.selfplay_completed and not self.selfplay_completed_games:
+            self.selfplay_completed_games = list(range(self.selfplay_completed))
+        if self.evaluation_completed and not self.evaluation_results:
+            outcomes = (
+                ["candidate"] * self.candidate_wins
+                + ["best"] * self.best_wins
+                + ["draw"] * self.draws
+            )
+            outcomes.extend(
+                ["draw"] * max(0, self.evaluation_completed - len(outcomes))
+            )
+            self.evaluation_results = [
+                {
+                    "game_index": index,
+                    "outcome": outcomes[index],
+                    "terminal": "legacy",
+                    "captures": 0,
+                    "absolute_material_diff": 0,
+                }
+                for index in range(self.evaluation_completed)
+            ]
 
     def to_dict(self) -> dict[str, Any]:
         values = asdict(self)
@@ -88,7 +120,53 @@ class PipelineState:
         fields["stage"] = TrainingStage(
             fields.get("stage", TrainingStage.STARTUP)
         )
-        fields["schema_version"] = max(2, int(fields.get("schema_version", 1)))
+        source_schema = int(fields.get("schema_version", 1))
+        if source_schema < 3:
+            selfplay_completed = int(fields.get("selfplay_completed", 0))
+            fields["selfplay_completed_games"] = list(
+                range(selfplay_completed)
+            )
+            evaluation_completed = int(fields.get("evaluation_completed", 0))
+            outcomes = (
+                ["candidate"] * int(fields.get("candidate_wins", 0))
+                + ["best"] * int(fields.get("best_wins", 0))
+                + ["draw"] * int(fields.get("draws", 0))
+            )
+            outcomes.extend(
+                ["draw"] * max(0, evaluation_completed - len(outcomes))
+            )
+            fields["evaluation_results"] = [
+                {
+                    "game_index": index,
+                    "outcome": outcomes[index],
+                    "terminal": "legacy",
+                    "captures": 0,
+                    "absolute_material_diff": 0,
+                }
+                for index in range(evaluation_completed)
+            ]
+        fields["schema_version"] = 3
+        fields["selfplay_completed_games"] = sorted(
+            {int(item) for item in fields.get("selfplay_completed_games", [])}
+        )
+        fields["evaluation_results"] = sorted(
+            list(fields.get("evaluation_results", [])),
+            key=lambda item: int(item["game_index"]),
+        )
+        fields["selfplay_completed"] = len(fields["selfplay_completed_games"])
+        fields["evaluation_completed"] = len(fields["evaluation_results"])
+        fields["candidate_wins"] = sum(
+            item.get("outcome") == "candidate"
+            for item in fields["evaluation_results"]
+        )
+        fields["best_wins"] = sum(
+            item.get("outcome") == "best"
+            for item in fields["evaluation_results"]
+        )
+        fields["draws"] = sum(
+            item.get("outcome") == "draw"
+            for item in fields["evaluation_results"]
+        )
         return cls(**fields)
 
 
@@ -335,64 +413,35 @@ class AlphaZeroTrainer:
         nonzero_samples = 0
         generated_samples = 0
         stage_started = time.monotonic()
-        for game_index in range(
-            self._state.selfplay_completed,
-            self.config.selfplay_games,
-        ):
-            self._check_stop()
-            game_started = time.monotonic()
-            self._emit(
-                TrainingStage.SELFPLAY,
-                "game-start",
-                iteration=iteration,
-                game=game_index + 1,
-                games=self.config.selfplay_games,
-            )
+        completed_before = set(self._state.selfplay_completed_games)
+        pending_games = [
+            index
+            for index in range(self.config.selfplay_games)
+            if index not in completed_before
+        ]
+        worker_count = resolve_worker_count(
+            self.config.parallel.selfplay_workers,
+            len(pending_games),
+        )
+        self._emit(
+            TrainingStage.SELFPLAY,
+            "parallel-start",
+            iteration=iteration,
+            workers=worker_count,
+            pending_games=len(pending_games),
+            gpu_batch_size=self.config.parallel.gpu_batch_size,
+            batch_wait_ms=self.config.parallel.batch_wait_ms,
+        )
 
-            def progress(
-                event: str,
-                fields: dict[str, object],
-                game_number: int = game_index + 1,
-            ) -> None:
-                if event == "search-heartbeat":
-                    self._emit(
-                        TrainingStage.SELFPLAY,
-                        "search-heartbeat",
-                        iteration=iteration,
-                        game=game_number,
-                        games=self.config.selfplay_games,
-                        **fields,
-                    )
-                elif event == "move":
-                    should_report = self.config.name == "smoke" or (
-                        self._reporter is not None
-                        and self._reporter.should_heartbeat(
-                            f"selfplay-move-{iteration}-{game_number}"
-                        )
-                    )
-                    if not should_report:
-                        return
-                    self._emit(
-                        TrainingStage.SELFPLAY,
-                        "move-complete",
-                        iteration=iteration,
-                        game=game_number,
-                        **fields,
-                    )
-
-            result = play_self_game(
-                evaluator,
-                self.config.search,
-                seed=self.config.seed + iteration * 10_000 + game_index,
-                model_version=f"best-{self._state.best_iteration}",
-                rules=self.config.adjudication,
-                initial_sfen=self.config.start_positions.choose(game_index),
-                ruleset_id=self.config.ruleset_id,
-                temperature_moves=self.config.temperature_moves,
-                progress_callback=progress,
-                stop_event=self._stop_event,
-                heartbeat_seconds=self.config.monitoring.heartbeat_seconds,
-            )
+        def complete_game(
+            completed_game: CompletedSelfPlay,
+            inference: InferenceMetrics,
+        ) -> None:
+            nonlocal draws
+            nonlocal total_captures, total_abs_material, total_abs_value
+            nonlocal generated_samples, nonzero_samples
+            game_index = completed_game.game_index
+            result = completed_game.result
             entry = None
             if result.samples:
                 entry = store.write(
@@ -419,11 +468,17 @@ class AlphaZeroTrainer:
                 draws += 1
             else:
                 wins[int(result.winner)] += 1
-            self._state.selfplay_completed = game_index + 1
+            self._state.selfplay_completed_games = sorted(
+                {*self._state.selfplay_completed_games, game_index}
+            )
+            self._state.selfplay_completed = len(
+                self._state.selfplay_completed_games
+            )
             self._persist_state()
             elapsed = time.monotonic() - stage_started
-            completed = game_index + 1
-            eta = elapsed / max(completed, 1) * (
+            completed = self._state.selfplay_completed
+            completed_here = completed - len(completed_before)
+            eta = elapsed / max(completed_here, 1) * (
                 self.config.selfplay_games - completed
             )
             replay_samples = sum(
@@ -436,6 +491,7 @@ class AlphaZeroTrainer:
                 "game-complete",
                 iteration=iteration,
                 game=completed,
+                source_game=game_index + 1,
                 games=self.config.selfplay_games,
                 moves=len(result.moves),
                 winner=None if result.winner is None else int(result.winner),
@@ -443,8 +499,24 @@ class AlphaZeroTrainer:
                 black_value=result.adjudication.black_value,
                 capture_counts=result.adjudication.capture_counts,
                 material_diff=result.adjudication.material_diff,
-                seconds=time.monotonic() - game_started,
+                seconds=completed_game.elapsed_seconds,
                 eta_seconds=eta,
+                games_per_hour=completed_here / max(elapsed, 1e-9) * 3600,
+                inference_requests=inference.requests,
+                inference_batches=inference.batches,
+                inference_leaves=inference.leaves,
+                gpu_average_batch_size=inference.average_batch_size,
+                gpu_inference_seconds=inference.inference_seconds,
+                inference_queue_seconds=inference.queue_seconds,
+                playouts=result.playouts,
+                aggregate_playouts_per_second=(
+                    result.playouts
+                    / max(completed_game.elapsed_seconds, 1e-9)
+                ),
+                tree_selection_seconds=result.selection_seconds,
+                feature_encoding_seconds=result.encoding_seconds,
+                evaluator_wait_seconds=result.evaluator_seconds,
+                tree_expansion_seconds=result.expansion_seconds,
                 replay_samples=replay_samples,
                 shard=None if entry is None else str(entry.path),
             )
@@ -453,6 +525,24 @@ class AlphaZeroTrainer:
                 self.config.checkpoint.selfplay_games,
             ):
                 self._safe_checkpoint("selfplay-progress")
+
+        run_parallel_selfplay(
+            evaluator,
+            self.config.search,
+            game_indices=pending_games,
+            configured_workers=self.config.parallel.selfplay_workers,
+            parallel_config=self.config.parallel,
+            seed_for_game=lambda game_index: (
+                self.config.seed + iteration * 10_000 + game_index
+            ),
+            initial_sfen_for_game=self.config.start_positions.choose,
+            model_version=f"best-{self._state.best_iteration}",
+            rules=self.config.adjudication,
+            ruleset_id=self.config.ruleset_id,
+            temperature_moves=self.config.temperature_moves,
+            stop_event=self._stop_event,
+            on_complete=complete_game,
+        )
         if draws == self.config.selfplay_games:
             self._emit(
                 TrainingStage.SELFPLAY,
@@ -621,41 +711,94 @@ class AlphaZeroTrainer:
             evaluation_games=self.config.evaluation_games,
             promotion_score=self.config.promotion_score,
         )
+        existing = {
+            int(item["game_index"])
+            for item in self._state.evaluation_results
+        }
+        pending_games = [
+            index
+            for index in range(self.config.evaluation_games)
+            if index not in existing
+        ]
+        worker_count = resolve_worker_count(
+            self.config.parallel.evaluation_workers,
+            len(pending_games),
+        )
+        self._emit(
+            TrainingStage.EVALUATION,
+            "parallel-start",
+            iteration=iteration,
+            workers=worker_count,
+            pending_games=len(pending_games),
+            gpu_batch_size=self.config.parallel.gpu_batch_size,
+            batch_wait_ms=self.config.parallel.batch_wait_ms,
+        )
+        started = time.monotonic()
 
-        def progress(event: str, fields: dict[str, object]) -> None:
-            if event == "search-heartbeat":
-                self._emit(
-                    TrainingStage.EVALUATION,
-                    "search-heartbeat",
-                    iteration=iteration,
-                    **fields,
-                )
-                return
-            if event == "move":
-                if (
-                    self._reporter is None
-                    or not self._reporter.should_heartbeat(
-                        f"evaluation-move-{iteration}-{fields['game']}"
-                    )
-                ):
-                    return
-                self._emit(
-                    TrainingStage.EVALUATION,
-                    "move-heartbeat",
-                    iteration=iteration,
-                    **fields,
-                )
-                return
-            self._state.evaluation_completed = int(fields["game"])
-            self._state.candidate_wins = int(fields["candidate_wins"])
-            self._state.best_wins = int(fields["best_wins"])
-            self._state.draws = int(fields["draws"])
+        def complete_game(
+            completed_game: CompletedEvaluation,
+            inference: InferenceMetrics,
+        ) -> None:
+            game = completed_game.result
+            adjudication = game.adjudication
+            if adjudication.winner is None:
+                outcome = "draw"
+            elif adjudication.winner is game.candidate_color:
+                outcome = "candidate"
+            else:
+                outcome = "best"
+            record = {
+                "game_index": game.game_index,
+                "outcome": outcome,
+                "candidate_color": int(game.candidate_color),
+                "winner": (
+                    None
+                    if adjudication.winner is None
+                    else int(adjudication.winner)
+                ),
+                "terminal": adjudication.reason.value,
+                "captures": sum(adjudication.capture_counts),
+                "absolute_material_diff": abs(adjudication.material_diff),
+            }
+            records = {
+                int(item["game_index"]): item
+                for item in self._state.evaluation_results
+            }
+            records[game.game_index] = record
+            self._state.evaluation_results = [
+                records[index] for index in sorted(records)
+            ]
+            self._refresh_evaluation_totals()
             self._persist_state()
+            elapsed = time.monotonic() - started
             self._emit(
                 TrainingStage.EVALUATION,
                 "evaluation-game",
                 iteration=iteration,
-                **fields,
+                game=self._state.evaluation_completed,
+                source_game=game.game_index + 1,
+                games=self.config.evaluation_games,
+                candidate_color=int(game.candidate_color),
+                winner=record["winner"],
+                terminal=record["terminal"],
+                candidate_wins=self._state.candidate_wins,
+                best_wins=self._state.best_wins,
+                draws=self._state.draws,
+                score=(
+                    self._state.candidate_wins + 0.5 * self._state.draws
+                )
+                / self._state.evaluation_completed,
+                elapsed_seconds=elapsed,
+                eta_seconds=elapsed
+                / max(self._state.evaluation_completed - len(existing), 1)
+                * (
+                    self.config.evaluation_games
+                    - self._state.evaluation_completed
+                ),
+                seconds=completed_game.elapsed_seconds,
+                gpu_average_batch_size=inference.average_batch_size,
+                inference_batches=inference.batches,
+                inference_leaves=inference.leaves,
             )
             if self._checkpoint_due(
                 self._state.evaluation_completed,
@@ -663,22 +806,27 @@ class AlphaZeroTrainer:
             ):
                 self._safe_checkpoint("evaluation-progress")
 
-        result = evaluate_candidate(
+        run_parallel_evaluation(
             TorchEvaluator(self._require_current_model(), self.config.device),
             TorchEvaluator(self._require_best_model(), self.config.device),
             self.config.search,
-            games=self.config.evaluation_games,
+            game_indices=pending_games,
+            configured_workers=self.config.parallel.evaluation_workers,
+            parallel_config=self.config.parallel,
             rules=self.config.adjudication,
-            initial_sfens=self.config.start_positions.initial_sfens(),
-            seed=self.config.seed + iteration * 1_000_000,
-            start_game=self._state.evaluation_completed,
-            candidate_wins=self._state.candidate_wins,
-            best_wins=self._state.best_wins,
-            draws=self._state.draws,
-            progress_callback=progress,
+            initial_sfen_for_game=lambda game_index: (
+                self.config.start_positions.initial_sfens()[
+                    (game_index // 2)
+                    % len(self.config.start_positions.initial_sfens())
+                ]
+            ),
+            seed_for_game=lambda game_index: (
+                self.config.seed + iteration * 1_000_000 + game_index
+            ),
             stop_event=self._stop_event,
-            heartbeat_seconds=self.config.monitoring.heartbeat_seconds,
+            on_complete=complete_game,
         )
+        result = self._aggregate_evaluation_result()
         promoted = result.score >= self.config.promotion_score
         if promoted:
             self._require_best_model().load_state_dict(
@@ -717,6 +865,43 @@ class AlphaZeroTrainer:
             )
         return result, promoted
 
+    def _refresh_evaluation_totals(self) -> None:
+        records = self._state.evaluation_results
+        self._state.evaluation_completed = len(records)
+        self._state.candidate_wins = sum(
+            item.get("outcome") == "candidate" for item in records
+        )
+        self._state.best_wins = sum(
+            item.get("outcome") == "best" for item in records
+        )
+        self._state.draws = sum(
+            item.get("outcome") == "draw" for item in records
+        )
+
+    def _aggregate_evaluation_result(self) -> EvaluationResult:
+        self._refresh_evaluation_totals()
+        records = self._state.evaluation_results
+        termination_counts: dict[str, int] = {}
+        for item in records:
+            terminal = str(item.get("terminal", "unknown"))
+            termination_counts[terminal] = termination_counts.get(terminal, 0) + 1
+        games = len(records)
+        if games <= 0:
+            raise RuntimeError("Evaluation completed without any game result")
+        return EvaluationResult(
+            self._state.candidate_wins,
+            self._state.best_wins,
+            self._state.draws,
+            games,
+            tuple(sorted(termination_counts.items())),
+            sum(float(item.get("captures", 0)) for item in records) / games,
+            sum(
+                float(item.get("absolute_material_diff", 0))
+                for item in records
+            )
+            / games,
+        )
+
     def _complete_iteration(
         self,
         iteration: int,
@@ -729,11 +914,13 @@ class AlphaZeroTrainer:
         self._state.active_iteration = 0
         self._state.stage = TrainingStage.STARTUP
         self._state.selfplay_completed = 0
+        self._state.selfplay_completed_games = []
         self._state.train_steps_completed = 0
         self._state.evaluation_completed = 0
         self._state.candidate_wins = 0
         self._state.best_wins = 0
         self._state.draws = 0
+        self._state.evaluation_results = []
         self._persist_state()
         self._safe_checkpoint("iteration-complete")
         self._emit(
@@ -917,7 +1104,10 @@ class AlphaZeroTrainer:
                     active_numbers.add(int(entry.shard_id.removeprefix(prefix)))
                 except ValueError:
                     self._incompatible(f"invalid replay shard id {entry.shard_id!r}")
-        expected = set(range(1, self._state.selfplay_completed + 1))
+        expected = {
+            game_index + 1
+            for game_index in self._state.selfplay_completed_games
+        }
         if active_numbers != expected:
             self._incompatible(
                 "pipeline state and replay progress disagree for active iteration "
@@ -1220,7 +1410,11 @@ class AlphaZeroTrainer:
 
     def _persist_state(self) -> None:
         path = self.paths["checkpoints"] / "pipeline_state.json"
-        self._state.schema_version = 2
+        self._state.schema_version = 3
+        self._state.selfplay_completed = len(
+            self._state.selfplay_completed_games
+        )
+        self._refresh_evaluation_totals()
         self._state.revision += 1
         attempts = atomic_write_json(
             path,

@@ -128,6 +128,10 @@ class SearchStats:
     evaluation_batches: int
     evaluated_leaves: int
     max_depth: int = 0
+    selection_seconds: float = 0.0
+    encoding_seconds: float = 0.0
+    evaluator_seconds: float = 0.0
+    expansion_seconds: float = 0.0
 
     @property
     def playouts_per_second(self) -> float:
@@ -214,6 +218,8 @@ class MCTS:
         started = time.monotonic()
         last_progress = started
         new_nodes = evaluation_batches = evaluated_leaves = 0
+        selection_seconds = 0.0
+        encoding_seconds = evaluator_seconds = expansion_seconds = 0.0
         deepest = 0
         playout_limit = max(
             1,
@@ -229,7 +235,11 @@ class MCTS:
         if not self.root.children:
             initial_leaf = _PendingLeaf(self.root, [self.root], position.clone())
             self._reserve(initial_leaf.path)
-            new_nodes += self._evaluate_and_expand([initial_leaf])
+            created, timings = self._evaluate_and_expand([initial_leaf])
+            new_nodes += created
+            encoding_seconds += timings[0]
+            evaluator_seconds += timings[1]
+            expansion_seconds += timings[2]
             evaluation_batches += 1
             evaluated_leaves += 1
         if add_root_noise:
@@ -248,7 +258,9 @@ class MCTS:
             while len(pending) < target and completed < playout_limit:
                 if self._deadline_reached(deadline):
                     break
+                selection_started = time.monotonic()
                 leaf = self._select_leaf(position, max_depth=max_depth)
+                selection_seconds += time.monotonic() - selection_started
                 deepest = max(deepest, len(leaf.path) - 1)
                 value = leaf.position.terminal_value()
                 if value is None:
@@ -259,7 +271,11 @@ class MCTS:
                     completed += 1
             if pending:
                 self._check_cancelled(cancel_event)
-                new_nodes += self._evaluate_and_expand(pending)
+                created, timings = self._evaluate_and_expand(pending)
+                new_nodes += created
+                encoding_seconds += timings[0]
+                evaluator_seconds += timings[1]
+                expansion_seconds += timings[2]
                 evaluation_batches += 1
                 evaluated_leaves += len(pending)
                 completed += len(pending)
@@ -317,6 +333,10 @@ class MCTS:
                 evaluation_batches,
                 evaluated_leaves,
                 deepest,
+                selection_seconds,
+                encoding_seconds,
+                evaluator_seconds,
+                expansion_seconds,
             ),
         )
 
@@ -351,16 +371,23 @@ class MCTS:
                 break
         return _PendingLeaf(node, path, position)
 
-    def _evaluate_and_expand(self, leaves: list[_PendingLeaf]) -> int:
+    def _evaluate_and_expand(
+        self,
+        leaves: list[_PendingLeaf],
+    ) -> tuple[int, tuple[float, float, float]]:
+        encoding_started = time.monotonic()
         encoded = [encode_position(leaf.position) for leaf in leaves]
         features1 = np.stack([item.features1 for item in encoded])
         features2 = np.stack([item.features2 for item in encoded])
+        encoding_seconds = time.monotonic() - encoding_started
+        evaluator_started = time.monotonic()
         try:
             logits, values = self.evaluator.evaluate_batch(features1, features2)
         except BaseException:
             for leaf in leaves:
                 self._release(leaf.path)
             raise
+        evaluator_seconds = time.monotonic() - evaluator_started
         if logits.shape != (len(leaves), 2187) or values.shape != (len(leaves),):
             for leaf in leaves:
                 self._release(leaf.path)
@@ -369,6 +396,7 @@ class MCTS:
                 f"{logits.shape} and {values.shape}"
             )
         created = 0
+        expansion_started = time.monotonic()
         for index, leaf in enumerate(leaves):
             self._release(leaf.path)
             actions = leaf.position.legal_actions()
@@ -376,7 +404,11 @@ class MCTS:
             probabilities = normalize_legal_logits(logits[index], labels)
             created += leaf.node.expand(actions, probabilities)
             self._backup(leaf.path, float(values[index]))
-        return created
+        return created, (
+            encoding_seconds,
+            evaluator_seconds,
+            time.monotonic() - expansion_started,
+        )
 
     @staticmethod
     def _reserve(path: list[TreeNode]) -> None:

@@ -7,7 +7,8 @@ import time
 from collections.abc import Callable
 from dataclasses import dataclass
 
-from alphasho.ai import MCTS, SearchCancelled, SearchConfig, TorchEvaluator
+from alphasho.ai import MCTS, SearchCancelled, SearchConfig
+from alphasho.ai.mcts import BatchEvaluator
 from alphasho.domain import Color
 from alphasho.training.adjudication import (
     AdjudicationResult,
@@ -31,9 +32,16 @@ class EvaluationResult:
         return (self.candidate_wins + 0.5 * self.draws) / self.games
 
 
+@dataclass(frozen=True, slots=True)
+class EvaluationGameResult:
+    game_index: int
+    candidate_color: Color
+    adjudication: AdjudicationResult
+
+
 def evaluate_candidate(
-    candidate: TorchEvaluator,
-    best: TorchEvaluator,
+    candidate: BatchEvaluator,
+    best: BatchEvaluator,
     search_config: SearchConfig,
     *,
     games: int,
@@ -57,7 +65,7 @@ def evaluate_candidate(
             raise SearchCancelled("Evaluation was stopped")
         candidate_color = Color.BLACK if game_index % 2 == 0 else Color.WHITE
         initial_sfen = initial_sfens[(game_index // 2) % len(initial_sfens)]
-        adjudication = _play_game(
+        adjudication = play_evaluation_game(
             candidate,
             best,
             candidate_color,
@@ -126,9 +134,9 @@ def evaluate_candidate(
     )
 
 
-def _play_game(
-    candidate: TorchEvaluator,
-    best: TorchEvaluator,
+def play_evaluation_game(
+    candidate: BatchEvaluator,
+    best: BatchEvaluator,
     candidate_color: Color,
     search_config: SearchConfig,
     *,

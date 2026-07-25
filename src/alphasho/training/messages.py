@@ -115,6 +115,14 @@ MESSAGE_CATALOG: dict[str, dict[TrainingLanguage, str]] = {
         "自我对弈 {game}/{games} 开始",
         "自己対局 {game}/{games} を開始",
     ),
+    "selfplay.parallel-start": _translations(
+        "Self-play scheduler started: {workers} workers, "
+        "{pending_games} pending games, GPU batch up to {gpu_batch_size}",
+        "自我对弈并行调度已启动：{workers} 个 worker，"
+        "待完成 {pending_games} 局，GPU batch 上限 {gpu_batch_size}",
+        "自己対局の並列実行を開始：{workers} workers、"
+        "残り {pending_games} games、GPU batch 上限 {gpu_batch_size}",
+    ),
     "selfplay.search-heartbeat": _translations(
         "Self-play {game}/{games}, ply {ply}: searching "
         "{completed_playouts}/{total_playouts} playouts",
@@ -205,6 +213,14 @@ MESSAGE_CATALOG: dict[str, dict[TrainingLanguage, str]] = {
         "晋级阈值 {promotion_score:.1%}",
         "候補評価を開始：{completed_games}/{evaluation_games}、"
         "昇格しきい値 {promotion_score:.1%}",
+    ),
+    "evaluation.parallel-start": _translations(
+        "Evaluation scheduler started: {workers} workers, "
+        "{pending_games} pending games, GPU batch up to {gpu_batch_size}",
+        "评估并行调度已启动：{workers} 个 worker，"
+        "待完成 {pending_games} 局，GPU batch 上限 {gpu_batch_size}",
+        "評価の並列実行を開始：{workers} workers、"
+        "残り {pending_games} games、GPU batch 上限 {gpu_batch_size}",
     ),
     "evaluation.search-heartbeat": _translations(
         "Evaluation game {game}, ply {ply}: "

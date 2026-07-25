@@ -54,6 +54,13 @@ selfplay_games = 1
 train_steps = 1
 evaluation_games = 1
 
+[parallel]
+selfplay_workers = 1
+evaluation_workers = 1
+gpu_batch_size = 4
+batch_wait_ms = 0.0
+request_queue_size = 8
+
 [adjudication]
 mode = "capture_material"
 max_moves = 8

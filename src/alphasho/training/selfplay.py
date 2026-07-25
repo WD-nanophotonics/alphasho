@@ -13,9 +13,9 @@ from alphasho.ai import (
     SearchCancelled,
     SearchConfig,
     SearchProgress,
-    TorchEvaluator,
     encode_position,
 )
+from alphasho.ai.mcts import BatchEvaluator
 from alphasho.domain import Color
 from alphasho.training.adjudication import (
     AdjudicationResult,
@@ -32,10 +32,15 @@ class SelfPlayResult:
     moves: tuple[str, ...]
     terminal: str
     adjudication: AdjudicationResult
+    playouts: int = 0
+    selection_seconds: float = 0.0
+    encoding_seconds: float = 0.0
+    evaluator_seconds: float = 0.0
+    expansion_seconds: float = 0.0
 
 
 def play_self_game(
-    evaluator: TorchEvaluator,
+    evaluator: BatchEvaluator,
     search_config: SearchConfig,
     *,
     seed: int,
@@ -53,6 +58,11 @@ def play_self_game(
     rng = np.random.default_rng(seed)
     pending: list[tuple[TrainingSample, Color]] = []
     moves: list[str] = []
+    playouts = 0
+    selection_seconds = 0.0
+    encoding_seconds = 0.0
+    evaluator_seconds = 0.0
+    expansion_seconds = 0.0
     ply = 0
     while position.result() is None:
         if stop_event is not None and stop_event.is_set():
@@ -77,6 +87,11 @@ def play_self_game(
             heartbeat_seconds=heartbeat_seconds,
         )
         usi = result.choose(rng)
+        playouts += result.stats.playouts
+        selection_seconds += result.stats.selection_seconds
+        encoding_seconds += result.stats.encoding_seconds
+        evaluator_seconds += result.stats.evaluator_seconds
+        expansion_seconds += result.stats.expansion_seconds
         pending.append(
             (
                 TrainingSample(
@@ -140,6 +155,11 @@ def play_self_game(
         tuple(moves),
         adjudication.reason.value,
         adjudication,
+        playouts,
+        selection_seconds,
+        encoding_seconds,
+        evaluator_seconds,
+        expansion_seconds,
     )
 
 

@@ -41,6 +41,15 @@ class CheckpointConfig:
 
 
 @dataclass(frozen=True, slots=True)
+class ParallelConfig:
+    selfplay_workers: int = 0
+    evaluation_workers: int = 0
+    gpu_batch_size: int = 128
+    batch_wait_ms: float = 2.0
+    request_queue_size: int = 64
+
+
+@dataclass(frozen=True, slots=True)
 class TrainingConfig:
     name: str
     seed: int
@@ -67,6 +76,7 @@ class TrainingConfig:
     check_frequency: int
     monitoring: MonitoringConfig
     checkpoint: CheckpointConfig
+    parallel: ParallelConfig
     published_model_name: str
     benchmark_path: Path | None
     reference_games: int
@@ -103,6 +113,10 @@ class QuickTrainingSettings:
     c_puct: float = 1.5
     inference_batch_size: int = 8
     games_per_iteration: int = 8
+    selfplay_workers: int = 0
+    evaluation_workers: int = 0
+    gpu_batch_size: int = 128
+    gpu_batch_wait_ms: float = 2.0
     dirichlet_alpha: float = 0.15
     dirichlet_weight: float = 0.25
     training_batch_size: int = 64
@@ -129,6 +143,10 @@ class QuickTrainingSettings:
             "c_puct": "C_PUCT",
             "inference_batch_size": "INFERENCE_BATCH_SIZE",
             "games_per_iteration": "GAMES_PER_ITERATION",
+            "selfplay_workers": "SELFPLAY_WORKERS",
+            "evaluation_workers": "EVALUATION_WORKERS",
+            "gpu_batch_size": "GPU_BATCH_SIZE",
+            "gpu_batch_wait_ms": "GPU_BATCH_WAIT_MS",
             "dirichlet_alpha": "DIRICHLET_ALPHA",
             "dirichlet_weight": "DIRICHLET_WEIGHT",
             "training_batch_size": "TRAINING_BATCH_SIZE",
@@ -202,6 +220,13 @@ class QuickTrainingSettings:
                 dirichlet_alpha=self.dirichlet_alpha,
                 dirichlet_epsilon=self.dirichlet_weight,
             ),
+            parallel=replace(
+                base.parallel,
+                selfplay_workers=self.selfplay_workers,
+                evaluation_workers=self.evaluation_workers,
+                gpu_batch_size=self.gpu_batch_size,
+                batch_wait_ms=self.gpu_batch_wait_ms,
+            ),
             selfplay_games=self.games_per_iteration,
             replay_capacity=self.replay_buffer_size,
             batch_size=self.training_batch_size,
@@ -232,6 +257,7 @@ def load_training_config(path: str | Path) -> TrainingConfig:
     evaluation = _section(values, "evaluation")
     monitoring = _section(values, "monitoring")
     checkpoint = _section(values, "checkpoint")
+    parallel = _section(values, "parallel")
     adjudication = _section(values, "adjudication")
     starts = _section(values, "start_positions")
     publication = _section(values, "publication")
@@ -315,6 +341,13 @@ def load_training_config(path: str | Path) -> TrainingConfig:
             train_steps=int(checkpoint.get("train_steps", 25)),
             evaluation_games=int(checkpoint.get("evaluation_games", 2)),
         ),
+        parallel=ParallelConfig(
+            selfplay_workers=int(parallel.get("selfplay_workers", 0)),
+            evaluation_workers=int(parallel.get("evaluation_workers", 0)),
+            gpu_batch_size=int(parallel.get("gpu_batch_size", 128)),
+            batch_wait_ms=float(parallel.get("batch_wait_ms", 2.0)),
+            request_queue_size=int(parallel.get("request_queue_size", 64)),
+        ),
         published_model_name=str(
             publication.get("model_name", "best.pt")
         ),
@@ -352,12 +385,25 @@ def validate_training_config(config: TrainingConfig) -> None:
         "checkpoint.selfplay_games": config.checkpoint.selfplay_games,
         "checkpoint.train_steps": config.checkpoint.train_steps,
         "checkpoint.evaluation_games": config.checkpoint.evaluation_games,
+        "parallel.gpu_batch_size": config.parallel.gpu_batch_size,
+        "parallel.request_queue_size": config.parallel.request_queue_size,
     }
     errors.extend(
         f"{name}: expected a positive integer, got {value}"
         for name, value in positive_integers.items()
         if value <= 0
     )
+    if config.parallel.selfplay_workers < 0:
+        errors.append("parallel.selfplay_workers: expected 0 or a positive integer")
+    if config.parallel.evaluation_workers < 0:
+        errors.append("parallel.evaluation_workers: expected 0 or a positive integer")
+    if config.parallel.gpu_batch_size < config.search.batch_size:
+        errors.append(
+            "parallel.gpu_batch_size: must be at least search.batch_size "
+            f"({config.search.batch_size})"
+        )
+    if config.parallel.batch_wait_ms < 0:
+        errors.append("parallel.batch_wait_ms: expected a non-negative value")
     if config.replay_capacity < config.batch_size:
         errors.append(
             "replay_buffer_size: must be at least training_batch_size "
