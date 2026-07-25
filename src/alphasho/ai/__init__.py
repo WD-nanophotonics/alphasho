@@ -21,9 +21,19 @@ from .model import (
     save_inference_checkpoint,
 )
 from .player import AlphaZeroPlayer
+from .time_manager import (
+    MoveSearchInfo,
+    PlayerSearchProgress,
+    ThinkingBudget,
+    allocate_thinking_budget,
+)
 
 __all__ = [
     "AlphaZeroPlayer",
+    "MoveSearchInfo",
+    "PlayerSearchProgress",
+    "ThinkingBudget",
+    "allocate_thinking_budget",
     "EncodedPosition",
     "FEATURES1_NUM",
     "FEATURES2_NUM",

@@ -1,3 +1,4 @@
+import hashlib
 import math
 
 import numpy as np
@@ -6,10 +7,13 @@ from alphasho.ai import MCTS, SearchConfig
 from alphasho.domain import Color, PieceType
 from alphasho.engine import POLICY_SIZE
 from alphasho.training import (
+    SEARCH_RULES_VERSION,
     AdjudicationMode,
     AdjudicationReason,
     AdjudicationRules,
+    StartPositionConfig,
     TrainingPosition,
+    ruleset_id,
 )
 from alphasho.training.adjudication import MATERIAL_WEIGHTS
 from alphasho.training.positions import load_tactical_positions
@@ -149,6 +153,33 @@ def test_mcts_sees_capture_threshold_terminal() -> None:
 def test_rules_fingerprint_changes_with_training_semantics() -> None:
     assert _rules(threshold=1).fingerprint != _rules(threshold=2).fingerprint
     assert _rules(max_moves=8).fingerprint != _rules(max_moves=9).fingerprint
+    rules = _rules()
+    starts = StartPositionConfig()
+    legacy = hashlib.sha256(
+        f"{rules.fingerprint}:{starts.fingerprint()}".encode()
+    ).hexdigest()[:20]
+    assert SEARCH_RULES_VERSION == 2
+    assert ruleset_id(rules, starts) != legacy
+
+
+def test_training_position_does_not_end_on_twofold_repetition() -> None:
+    position = TrainingPosition(
+        _rules(max_moves=64, threshold=9),
+        "8k/9/9/9/9/9/9/9/K8 b - 1",
+    )
+    cycle = ("9i9h", "1a1b", "9h9i", "1b1a")
+
+    for usi in cycle:
+        position.push_usi(usi)
+    assert position.result() is None
+
+    for _ in range(2):
+        for usi in cycle:
+            position.push_usi(usi)
+    result = position.result()
+    assert result is not None
+    assert result.reason is AdjudicationReason.REAL_RULE
+    assert result.winner is None
 
 
 def test_tactical_pool_has_color_pairs_and_legal_captures() -> None:

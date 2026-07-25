@@ -241,6 +241,9 @@ class PolicyValueTrainer:
             "python_random_state": random.getstate(),
             "numpy_random_state": np.random.get_state(),
             "torch_random_state": torch.random.get_rng_state(),
+            "torch_cuda_random_state_all": (
+                torch.cuda.get_rng_state_all() if torch.cuda.is_available() else None
+            ),
             "metadata": metadata,
         }
         atomic_write(
@@ -273,4 +276,7 @@ class PolicyValueTrainer:
         random.setstate(checkpoint["python_random_state"])
         np.random.set_state(checkpoint["numpy_random_state"])
         torch.random.set_rng_state(checkpoint["torch_random_state"])
+        cuda_states = checkpoint.get("torch_cuda_random_state_all")
+        if cuda_states is not None and torch.cuda.is_available():
+            torch.cuda.set_rng_state_all(cuda_states)
         return int(checkpoint.get("iteration", 0)), dict(checkpoint.get("metadata", {}))

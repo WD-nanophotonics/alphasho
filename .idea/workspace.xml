@@ -4,7 +4,31 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="af1aa53d-64b3-4472-b70e-f58230fe072d" name="Changes" comment="日本語対応" />
+    <list default="true" id="af1aa53d-64b3-4472-b70e-f58230fe072d" name="Changes" comment="trivial">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/artifacts/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/artifacts/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/alphasho/ai/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/alphasho/ai/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/alphasho/ai/mcts.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/alphasho/ai/mcts.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/alphasho/ai/player.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/alphasho/ai/player.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/alphasho/domain/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/alphasho/domain/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/alphasho/domain/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/alphasho/domain/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/alphasho/engine/search_position.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/alphasho/engine/search_position.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/alphasho/training/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/src/alphasho/training/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/alphasho/training/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/alphasho/training/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/alphasho/training/messages.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/alphasho/training/messages.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/alphasho/training/orchestrator.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/alphasho/training/orchestrator.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/alphasho/training/positions.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/alphasho/training/positions.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/alphasho/training/trainer.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/alphasho/training/trainer.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/alphasho/ui/controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/alphasho/ui/controller.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/alphasho/ui/i18n.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/alphasho/ui/i18n.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/alphasho/ui/main_window.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/alphasho/ui/main_window.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/alphasho/ui/match_dialog.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/alphasho/ui/match_dialog.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/ai/test_encoding_mcts.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/ai/test_encoding_mcts.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/ai/test_model_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/ai/test_model_data.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/integration/test_app.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/integration/test_app.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/training/test_adjudication.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/training/test_adjudication.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/training/test_pipeline.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/training/test_pipeline.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -18,50 +42,50 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "WD-nanophotonics"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;WD-nanophotonics&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/WD-nanophotonics/alphasho.git",
-    "accountId": "e17a69a6-4fbd-4236-8eab-21a47da2a9a3"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/WD-nanophotonics/alphasho.git&quot;,
+    &quot;accountId&quot;: &quot;e17a69a6-4fbd-4236-8eab-21a47da2a9a3&quot;
   }
-}]]></component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 4,
-  "fromUser": false
-}]]></component>
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 4,
+  &quot;fromUser&quot;: false
+}</component>
   <component name="ProjectId" id="3Giozay505cn9erunoSuDGQ6U8B" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "Python.AlphaSho Training.executor": "Run",
-    "Python.AlphaSho UI.executor": "Run",
-    "Python.main.executor": "Run",
-    "Python.training_pipeline.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
-    "codeWithMe.voiceChat.enabledByDefault": "false",
-    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
-    "git-widget-placeholder": "master",
-    "junie.onboarding.icon.badge.shown": "true",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "to.speed.mode.migration.done": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;Python.AlphaSho Training.executor&quot;: &quot;Run&quot;,
+    &quot;Python.AlphaSho UI.executor&quot;: &quot;Run&quot;,
+    &quot;Python.main.executor&quot;: &quot;Run&quot;,
+    &quot;Python.training_pipeline.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
+    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
+    &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;
   }
-}]]></component>
-  <component name="RunManager" selected="Python.AlphaSho Training" />
+}</component>
+  <component name="RunManager" selected="Python.AlphaSho UI" />
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -101,7 +125,15 @@
       <option name="project" value="LOCAL" />
       <updated>1784526030851</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="trivial">
+      <option name="closed" value="true" />
+      <created>1784526375145</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1784526375145</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -110,7 +142,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="first framework" />
     <MESSAGE value="日本語対応" />
-    <option name="LAST_COMMIT_MESSAGE" value="日本語対応" />
+    <MESSAGE value="trivial" />
+    <option name="LAST_COMMIT_MESSAGE" value="trivial" />
   </component>
   <component name="github-copilot-workspace">
     <instructionFileLocations>

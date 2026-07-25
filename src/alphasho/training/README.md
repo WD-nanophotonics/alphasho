@@ -15,9 +15,10 @@ cshogi が返す実際の終局を常に最優先します。CPU profile では�
 threshold と、最大手数での駒得差裁定を適用できます。Baseline は実ルールのみを
 使用します。
 
-短局ルールと初期局面集合から安定した `ruleset_id` を生成します。自己対局 shard と
-replay buffer はこの ID で分離されるため、駒取り threshold や局面集合を変更しても
-過去の異なる教師信号は混入しません。
+短局ルール、初期局面集合、検索ルールの意味論 version から安定した `ruleset_id` を
+生成します。自己対局 shard と replay buffer はこの ID で分離されるため、駒取り
+threshold、局面集合、反復局面の裁定方法を変更しても、過去の異なる教師信号は
+混入しません。千日手は UI と検索の両方で同一局面の4回目に成立します。
 
 ## Entry point と責務
 

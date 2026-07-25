@@ -1,6 +1,7 @@
 import numpy as np
 
 from alphasho.ai import (
+    AlphaZeroPlayer,
     ModelConfig,
     ShogiPolicyValueNet,
     TorchEvaluator,
@@ -8,7 +9,18 @@ from alphasho.ai import (
     load_inference_checkpoint,
     save_inference_checkpoint,
 )
-from alphasho.engine import SearchPosition
+from alphasho.ai.time_manager import allocate_thinking_budget
+from alphasho.domain import (
+    ClockState,
+    Color,
+    SideTimeConfig,
+    ThinkingConfig,
+    ThinkingPreset,
+    ThinkingStrategy,
+    TimeControl,
+    TimeControlMode,
+)
+from alphasho.engine import SearchPosition, ShogiGame
 from alphasho.training.data import ShardStore, TrainingSample
 from alphasho.training.trainer import PolicyValueTrainer
 
@@ -72,3 +84,60 @@ def test_model_train_checkpoint_and_shard_roundtrip(tmp_path) -> None:
     )
     assert np.allclose(actual, expected)
     assert metadata["search_config"]["n_playouts"] == 2
+
+
+def test_same_checkpoint_creates_independent_players_and_searches_cycle(tmp_path) -> None:
+    checkpoint = tmp_path / "shared.pt"
+    save_inference_checkpoint(
+        checkpoint,
+        ShogiPolicyValueNet(ModelConfig(8, 1, 16)),
+        search_config={"n_playouts": 2, "batch_size": 1},
+    )
+    black = AlphaZeroPlayer(checkpoint, device="cpu", seed=1)
+    white = AlphaZeroPlayer(checkpoint, device="cpu", seed=2)
+    assert black is not white
+    assert black._mcts is not white._mcts
+
+    game = ShogiGame()
+    for usi in ("3g3f", "4a4b", "6i6h", "7c7d", "2h1h", "8b9b", "1h2h", "9b8b"):
+        game.play(usi)
+    move = black.choose_move(game.snapshot(), game.legal_moves())
+    assert move in game.legal_moves()
+
+
+def test_ui_thinking_budget_uses_clock_and_presets() -> None:
+    balanced = ThinkingConfig.for_preset(ThinkingPreset.BALANCED)
+    untimed = allocate_thinking_budget(
+        balanced,
+        TimeControl(),
+        ClockState((0, 0), (0, 0), Color.BLACK, False),
+        Color.BLACK,
+    )
+    assert untimed.time_limit_seconds == 5.0
+    assert untimed.max_playouts == 10_000
+
+    byoyomi = TimeControl(
+        mode=TimeControlMode.BYOYOMI,
+        black=SideTimeConfig(0, 10),
+        white=SideTimeConfig(0, 10),
+    )
+    clock = ClockState((0, 0), (10_000, 10_000), Color.BLACK, True)
+    automatic = allocate_thinking_budget(
+        balanced,
+        byoyomi,
+        clock,
+        Color.BLACK,
+    )
+    assert automatic.time_limit_seconds == 5.0
+
+    fixed = allocate_thinking_budget(
+        ThinkingConfig(
+            strategy=ThinkingStrategy.FIXED_PLAYOUT,
+            max_playouts=321,
+        ),
+        TimeControl(),
+        clock,
+        Color.BLACK,
+    )
+    assert fixed.time_limit_seconds is None
+    assert fixed.max_playouts == 321

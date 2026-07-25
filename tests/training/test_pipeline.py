@@ -1,16 +1,19 @@
 import json
+from dataclasses import replace
 from types import SimpleNamespace
 
 import numpy as np
 import pytest
+import torch
 
 import alphasho.atomic_io as atomic_io
-from alphasho.ai import ModelConfig, ShogiPolicyValueNet
+from alphasho.ai import ModelConfig, ShogiPolicyValueNet, save_inference_checkpoint
 from alphasho.atomic_io import ExclusiveFileLock, FileLockError
 from alphasho.domain import GameRecord
 from alphasho.engine import ShogiGame, save_record
 from alphasho.training import (
     AlphaZeroTrainer,
+    IncompatibleRunError,
     MonitoringConfig,
     PipelineState,
     QuickTrainingSettings,
@@ -37,6 +40,71 @@ def _sample() -> TrainingSample:
         0,
         {"usi": "7g7f"},
     )
+
+
+def test_incompatible_rules_stop_before_checkpoint_write(tmp_path) -> None:
+    config = replace(
+        QuickTrainingSettings().build_config(),
+        artifact_root=tmp_path / "cpu-debug",
+    )
+    config.artifact_root.mkdir(parents=True)
+    state_path = config.artifact_root / "checkpoints" / "pipeline_state.json"
+    state_path.parent.mkdir(parents=True)
+    state_path.write_text('{"revision": 17}', encoding="utf-8")
+    original = state_path.read_bytes()
+    effective = {
+        "ruleset_id": "different-rules",
+        "model": config.model.to_dict(),
+    }
+    (config.artifact_root / "effective_config.json").write_text(
+        json.dumps(effective), encoding="utf-8"
+    )
+
+    with pytest.raises(IncompatibleRunError):
+        AlphaZeroTrainer(config).run()
+
+    assert state_path.read_bytes() == original
+    assert not (state_path.parent / "training_state.pt").exists()
+
+
+def test_replay_without_pipeline_state_is_rejected(tmp_path) -> None:
+    config = replace(
+        QuickTrainingSettings().build_config(),
+        artifact_root=tmp_path / "cpu-debug",
+    )
+    store = ShardStore(config.artifact_root / "selfplay")
+    store.write(
+        [_sample()],
+        source="selfplay",
+        model_version="iteration-0",
+        shard_id="iteration-000001-game-000001",
+        ruleset_id=config.ruleset_id,
+    )
+
+    with pytest.raises(IncompatibleRunError, match="pipeline_state"):
+        AlphaZeroTrainer(config).run()
+
+    assert not (config.artifact_root / "checkpoints" / "pipeline_state.json").exists()
+
+
+def test_incompatible_model_stops_before_checkpoint_write(tmp_path) -> None:
+    config = replace(
+        QuickTrainingSettings().build_config(),
+        artifact_root=tmp_path / "cpu-debug",
+    )
+    checkpoint = config.artifact_root / "checkpoints" / "best.pt"
+    save_inference_checkpoint(
+        checkpoint,
+        ShogiPolicyValueNet(ModelConfig(16, 1, 32)),
+        metadata={"ruleset_id": config.ruleset_id},
+    )
+    original = checkpoint.read_bytes()
+
+    with pytest.raises(IncompatibleRunError, match="model structure"):
+        AlphaZeroTrainer(config).run()
+
+    assert checkpoint.read_bytes() == original
+    assert not (checkpoint.parent / "pipeline_state.json").exists()
 
 
 def test_atomic_replace_retries_sharing_violation(monkeypatch, tmp_path) -> None:
@@ -237,6 +305,12 @@ def test_quick_settings_reporter_resume_and_idempotent_shard(tmp_path) -> None:
         weight_decay=0.01,
     )
     assert resumed.optimizer.param_groups[0]["lr"] == 0.001
+
+    legacy_payload = torch.load(checkpoint, weights_only=False)
+    legacy_payload.pop("torch_cuda_random_state_all", None)
+    legacy_checkpoint = tmp_path / "legacy-training.pt"
+    torch.save(legacy_payload, legacy_checkpoint)
+    resumed.load_state(legacy_checkpoint)
 
     store = ShardStore(tmp_path / "replay")
     first = store.write(

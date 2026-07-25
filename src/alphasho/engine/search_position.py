@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from collections import Counter
 from dataclasses import dataclass
 from typing import TYPE_CHECKING, Protocol
 
@@ -82,6 +83,9 @@ class SearchPosition:
             raise InvalidPositionError("invalid_position")
         self._initial_sfen = self._board.sfen()
         self._history: list[str] = []
+        initial_key = self._position_key()
+        self._position_keys = [initial_key]
+        self._position_counts = Counter({initial_key: 1})
         for usi in moves:
             self.push_usi(usi)
 
@@ -99,6 +103,8 @@ class SearchPosition:
         clone._board = self._board.copy()
         clone._initial_sfen = self._initial_sfen
         clone._history = self._history.copy()
+        clone._position_keys = self._position_keys.copy()
+        clone._position_counts = self._position_counts.copy()
         return clone
 
     @property
@@ -124,6 +130,10 @@ class SearchPosition:
     @property
     def move_number(self) -> int:
         return int(self._board.move_number)
+
+    @property
+    def repetition_count(self) -> int:
+        return self._position_counts[self._position_keys[-1]]
 
     def legal_actions(self) -> tuple[SearchAction, ...]:
         actions = tuple(
@@ -171,10 +181,17 @@ class SearchPosition:
             raise IllegalMoveError("illegal_move", usi=usi)
         self._board.push(action.native)
         self._history.append(action.usi)
+        position_key = self._position_key()
+        self._position_keys.append(position_key)
+        self._position_counts[position_key] += 1
 
     def pop(self) -> str:
         if not self._history:
             raise IndexError("Cannot pop the initial search position")
+        removed_key = self._position_keys.pop()
+        self._position_counts[removed_key] -= 1
+        if self._position_counts[removed_key] <= 0:
+            del self._position_counts[removed_key]
         usi = self._history.pop()
         self._board.pop()
         return usi
@@ -195,7 +212,11 @@ class SearchPosition:
     def terminal_value(self) -> float | None:
         """Return the result from the current side-to-move's perspective."""
 
-        repetition = self._board.is_draw()
+        repetition = (
+            self._board.is_draw()
+            if self.repetition_count >= 4
+            else cshogi.NOT_REPETITION
+        )
         if repetition == cshogi.REPETITION_DRAW:
             return 0.0
         if repetition in {cshogi.REPETITION_WIN, cshogi.REPETITION_SUPERIOR}:
@@ -207,3 +228,8 @@ class SearchPosition:
         if self._board.is_game_over():
             return -1.0
         return None
+
+    def _position_key(self) -> str:
+        """SFEN board, turn, and hands; the move counter is not repetition state."""
+
+        return " ".join(self._board.sfen().split()[:3])

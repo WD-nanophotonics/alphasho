@@ -11,6 +11,8 @@ from pathlib import Path
 from alphasho.engine import SearchPosition
 from alphasho.training.adjudication import AdjudicationRules
 
+SEARCH_RULES_VERSION = 2
+
 
 class TrainingStartMode(StrEnum):
     STANDARD = "standard"
@@ -56,7 +58,10 @@ def ruleset_id(
     rules: AdjudicationRules,
     starts: StartPositionConfig,
 ) -> str:
-    payload = f"{rules.fingerprint}:{starts.fingerprint()}"
+    payload = (
+        f"search-rules-v{SEARCH_RULES_VERSION}:"
+        f"{rules.fingerprint}:{starts.fingerprint()}"
+    )
     return hashlib.sha256(payload.encode("utf-8")).hexdigest()[:20]
 
 

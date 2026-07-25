@@ -92,6 +92,10 @@ class PipelineState:
         return cls(**fields)
 
 
+class IncompatibleRunError(RuntimeError):
+    """Raised before mutation when persisted artifacts do not match a run."""
+
+
 class AlphaZeroTrainer:
     """High-level lifecycle used by the compact user training pipeline."""
 
@@ -119,6 +123,7 @@ class AlphaZeroTrainer:
         )
         self._last_checkpoint = 0.0
         self._run_started = 0.0
+        self._checkpoint_ready = False
 
     def run(self) -> None:
         self._run_started = time.monotonic()
@@ -152,8 +157,11 @@ class AlphaZeroTrainer:
         try:
             self._install_signal_handlers()
             self._report_startup(previous_config)
+            self._audit_persisted_run(previous_config)
             self._initialize_models()
             self.resume()
+            self._audit_resumed_replay()
+            self._checkpoint_ready = True
             self._write_effective_config()
             self._run_supervised_warmup()
             self._ensure_initial_best()
@@ -171,7 +179,8 @@ class AlphaZeroTrainer:
                 self._run_iteration(self._state.completed_iterations + 1)
         except (KeyboardInterrupt, SearchCancelled):
             self.request_stop()
-            self._safe_checkpoint("interrupted", raise_on_error=False)
+            if self._checkpoint_ready:
+                self._safe_checkpoint("interrupted", raise_on_error=False)
             self._emit(
                 TrainingStage.STOPPED,
                 "stopped",
@@ -179,7 +188,8 @@ class AlphaZeroTrainer:
                 iteration=self._state.active_iteration,
             )
         except Exception as exc:
-            self._safe_checkpoint("error", raise_on_error=False)
+            if self._checkpoint_ready:
+                self._safe_checkpoint("error", raise_on_error=False)
             self._emit(
                 TrainingStage.ERROR,
                 "fatal-error",
@@ -839,6 +849,91 @@ class AlphaZeroTrainer:
             **fields,
         )
 
+    def _audit_persisted_run(self, previous: dict[str, Any] | None) -> None:
+        """Reject incompatible persisted data before loading or writing models."""
+
+        expected_model = self.config.model.to_dict()
+        if previous is not None:
+            if previous.get("ruleset_id") != self.config.ruleset_id:
+                self._incompatible(
+                    "effective_config ruleset_id does not match the current rules"
+                )
+            if previous.get("model") != expected_model:
+                self._incompatible(
+                    "effective_config model structure does not match the current model"
+                )
+
+        checkpoint_names = (
+            "best.pt",
+            "candidate.pt",
+            "iteration-0.pt",
+            "training_state.pt",
+        )
+        for name in checkpoint_names:
+            path = self.paths["checkpoints"] / name
+            if not path.exists():
+                continue
+            try:
+                payload = torch.load(path, map_location="cpu", weights_only=False)
+                model_config = payload.get("model_config")
+                metadata = payload.get("metadata", {})
+            except Exception as exc:
+                self._incompatible(f"cannot inspect {name}: {exc}")
+            if model_config != expected_model:
+                self._incompatible(f"{name} uses a different model structure")
+            if (
+                not isinstance(metadata, dict)
+                or metadata.get("ruleset_id") != self.config.ruleset_id
+            ):
+                self._incompatible(f"{name} does not belong to the current ruleset")
+
+        entries = ShardStore(self.paths["selfplay"]).entries()
+        state_path = self.paths["checkpoints"] / "pipeline_state.json"
+        temporary_state = state_path.with_suffix(state_path.suffix + ".tmp")
+        if entries and not (state_path.exists() or temporary_state.exists()):
+            self._incompatible(
+                "replay data exists but pipeline_state.json is missing; "
+                "refusing to overwrite iteration 1"
+            )
+        mismatched = [
+            entry.shard_id
+            for entry in entries
+            if entry.ruleset_id != self.config.ruleset_id
+        ]
+        if mismatched:
+            self._incompatible(
+                "replay data belongs to another ruleset: " + ", ".join(mismatched[:3])
+            )
+
+    def _audit_resumed_replay(self) -> None:
+        entries = ShardStore(self.paths["selfplay"]).entries()
+        if not entries or self._state.active_iteration <= 0:
+            return
+        prefix = f"iteration-{self._state.active_iteration:06d}-game-"
+        active_numbers: set[int] = set()
+        for entry in entries:
+            if entry.shard_id.startswith(prefix):
+                try:
+                    active_numbers.add(int(entry.shard_id.removeprefix(prefix)))
+                except ValueError:
+                    self._incompatible(f"invalid replay shard id {entry.shard_id!r}")
+        expected = set(range(1, self._state.selfplay_completed + 1))
+        if active_numbers != expected:
+            self._incompatible(
+                "pipeline state and replay progress disagree for active iteration "
+                f"{self._state.active_iteration}: state={sorted(expected)}, "
+                f"replay={sorted(active_numbers)}"
+            )
+
+    def _incompatible(self, detail: str) -> None:
+        self._emit(
+            TrainingStage.ERROR,
+            "incompatible-run",
+            level="ERROR",
+            detail=detail,
+        )
+        raise IncompatibleRunError(detail)
+
     def _report_startup(self, previous: dict[str, Any] | None) -> None:
         quick = _quick_summary(self.config)
         self._emit(
@@ -1295,4 +1390,3 @@ def recover_pipeline_state(
 
 def _copy_atomic(source: Path, destination: Path) -> None:
     atomic_copy(source, destination)
-

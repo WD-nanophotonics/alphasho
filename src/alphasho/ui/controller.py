@@ -23,7 +23,8 @@ from alphasho.players import Player, RandomPlayer
 
 
 class _PlayerTaskSignals(QObject):
-    finished = Signal(int, object, str, object, object)
+    finished = Signal(int, object, str, object, object, object)
+    progress = Signal(int, object, str, object)
 
 
 class _PlayerTask(QRunnable):
@@ -34,6 +35,8 @@ class _PlayerTask(QRunnable):
         legal_moves,
         generation: int,
         expected_turn: Color,
+        clock_state,
+        time_control,
     ) -> None:
         super().__init__()
         self.player = player
@@ -41,21 +44,41 @@ class _PlayerTask(QRunnable):
         self.legal_moves = legal_moves
         self.generation = generation
         self.expected_turn = expected_turn
+        self.clock_state = clock_state
+        self.time_control = time_control
         self.signals = _PlayerTaskSignals()
 
     @Slot()
     def run(self) -> None:
         move = error = None
         try:
-            move = self.player.choose_move(self.snapshot, self.legal_moves)
+            contextual = getattr(self.player, "choose_move_with_context", None)
+            if callable(contextual):
+                move = contextual(
+                    self.snapshot,
+                    self.legal_moves,
+                    clock_state=self.clock_state,
+                    time_control=self.time_control,
+                    color=self.expected_turn,
+                    progress_callback=lambda progress: self.signals.progress.emit(
+                        self.generation,
+                        self.expected_turn,
+                        self.snapshot.sfen,
+                        progress,
+                    ),
+                )
+            else:
+                move = self.player.choose_move(self.snapshot, self.legal_moves)
         except Exception as exc:  # delivered to the GUI thread
             error = exc
+        search_info = getattr(self.player, "last_search_info", None)
         self.signals.finished.emit(
             self.generation,
             self.expected_turn,
             self.snapshot.sfen,
             move,
             error,
+            search_info,
         )
 
 
@@ -66,6 +89,7 @@ class GameController(QObject):
     clock_changed = Signal(object)
     record_changed = Signal(object)
     error_occurred = Signal(object)
+    search_progress_changed = Signal(object)
 
     def __init__(self, parent: QObject | None = None) -> None:
         super().__init__(parent)
@@ -210,7 +234,7 @@ class GameController(QObject):
         self._selected_moves = moves
         self._publish_selection()
 
-    def choose_move(self, move: MoveOption) -> None:
+    def choose_move(self, move: MoveOption, *, search_info=None) -> None:
         self._on_clock_tick()
         before = self.game.snapshot()
         if before.outcome.is_over:
@@ -223,7 +247,9 @@ class GameController(QObject):
         elapsed = self.clock.complete_turn(before.turn)
         self.record.moves.append(move.usi)
         self.record.move_times.append(elapsed)
-        self.record.comments.append("")
+        self.record.comments.append(
+            self._format_search_comment(search_info) if search_info else ""
+        )
         self.record.dirty = True
         if (
             self.match_config.move_limit > 0
@@ -316,6 +342,7 @@ class GameController(QObject):
         self._invalidate_player_tasks()
 
     def schedule_current_player(self) -> None:
+        self.search_progress_changed.emit(None)
         snapshot = self.game.snapshot()
         player = self.players[snapshot.turn]
         if snapshot.outcome.is_over or player is None:
@@ -345,20 +372,33 @@ class GameController(QObject):
                 legal_moves,
                 generation,
                 expected_turn,
+                self.clock.state(),
+                self.match_config.time_control,
             )
             self._player_tasks.add(task)
-            task.signals.finished.connect(
-                lambda task_generation, task_turn, task_sfen, move, error, current=task: (
-                    self._player_finished(
-                        current,
-                        task_generation,
-                        task_turn,
-                        task_sfen,
-                        move,
-                        error,
-                    )
+            def on_finished(
+                task_generation,
+                task_turn,
+                task_sfen,
+                move,
+                error,
+                search_info,
+                current=task,
+            ) -> None:
+                self._player_finished(
+                    current,
+                    task_generation,
+                    task_turn,
+                    task_sfen,
+                    move,
+                    error,
+                    search_info,
                 )
+
+            task.signals.finished.connect(
+                on_finished
             )
+            task.signals.progress.connect(self._player_progress)
             self._thread_pool.start(task)
 
     def _player_finished(
@@ -369,6 +409,7 @@ class GameController(QObject):
         expected_sfen: str,
         move: MoveOption | None,
         error: BaseException | None,
+        search_info,
     ) -> None:
         self._player_tasks.discard(task)
         snapshot = self.game.snapshot()
@@ -380,13 +421,30 @@ class GameController(QObject):
         ):
             return
         if error is not None:
+            self.search_progress_changed.emit(None)
             if type(error).__name__ != "SearchCancelled":
                 self.error_occurred.emit(
                     UiMessage.create("ai_move_failed", detail=str(error))
                 )
             return
         if move is not None:
-            self.choose_move(move)
+            self.choose_move(move, search_info=search_info)
+
+    def _player_progress(
+        self,
+        generation: int,
+        expected_turn: Color,
+        expected_sfen: str,
+        progress,
+    ) -> None:
+        snapshot = self.game.snapshot()
+        if (
+            generation == self._generation
+            and snapshot.turn is expected_turn
+            and snapshot.sfen == expected_sfen
+            and not snapshot.outcome.is_over
+        ):
+            self.search_progress_changed.emit(progress)
 
     def _on_clock_tick(self) -> None:
         state = self.clock.state()
@@ -414,6 +472,10 @@ class GameController(QObject):
                 self.players[color] = None
             elif participant.kind is ParticipantKind.RANDOM_AI:
                 self.players[color] = RandomPlayer()
+            elif participant.kind is ParticipantKind.HEURISTIC:
+                from alphasho.heuristicplayer import HeuristicPlayer
+
+                self.players[color] = HeuristicPlayer(thinking=participant.thinking)
             elif participant.kind is ParticipantKind.ALPHAZERO:
                 checkpoint = Path(
                     participant.model_path or self.default_model_path()
@@ -430,7 +492,10 @@ class GameController(QObject):
                 try:
                     from alphasho.ai.player import AlphaZeroPlayer
 
-                    self.players[color] = AlphaZeroPlayer(checkpoint)
+                    self.players[color] = AlphaZeroPlayer(
+                        checkpoint,
+                        thinking=participant.thinking,
+                    )
                 except (ImportError, OSError, RuntimeError, ValueError) as exc:
                     self.players[color] = None
                     self.error_occurred.emit(
@@ -450,6 +515,21 @@ class GameController(QObject):
             if callable(cancel):
                 cancel()
         self._generation += 1
+        self.search_progress_changed.emit(None)
+
+    @staticmethod
+    def _format_search_comment(info) -> str:
+        pv = " ".join(info.principal_variation[:8]) or "—"
+        budget = (
+            "∞"
+            if info.budget_seconds is None
+            else f"{info.budget_seconds:.1f}s"
+        )
+        return (
+            f"AI search: {info.elapsed_seconds:.2f}s/{budget}, "
+            f"{info.playouts} playouts, depth {info.max_depth}, "
+            f"value {info.root_value:+.3f}, PV {pv}"
+        )
 
     def _new_record(self) -> GameRecord:
         snapshot = self.game.snapshot()

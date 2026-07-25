@@ -22,6 +22,10 @@
   - 戦術 benchmark や収束診断
 - `checkpoints/debug-best.pt`
   - 短局実験から公開された診断用モデル。正式な棋力を表しません
+- `checkpoints/legacy-debug-best-repetition-v1.pt`
+  - 反復局面の裁定修正前に学習した保存用モデル。比較目的にのみ使用します
+- `archive/cpu-debug-repetition-v1-*/`
+  - 反復局面を2回目で早期終了していた旧 ruleset の非破壊 archive
 - `checkpoints/best.pt`
   - 実ルールの Baseline だけが更新できる正式モデル。UI の既定読込先です
 - `book_ingest/`

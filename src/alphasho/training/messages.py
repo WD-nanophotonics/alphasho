@@ -55,6 +55,11 @@ MESSAGE_CATALOG: dict[str, dict[TrainingLanguage, str]] = {
         "无法启动训练：{detail}",
         "トレーニングを開始できません：{detail}",
     ),
+    "error.incompatible-run": _translations(
+        "Training cannot resume because persisted artifacts are incompatible: {detail}",
+        "无法恢复训练，因为现有训练产物不兼容：{detail}",
+        "保存済み artifact に互換性がないため再開できません：{detail}",
+    ),
     "completed.already-complete": _translations(
         "Training is already complete: {completed_iterations}/{iterations} iterations",
         "训练已经完成：{completed_iterations}/{iterations} iterations",

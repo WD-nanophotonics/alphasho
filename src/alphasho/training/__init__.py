@@ -17,15 +17,16 @@ from .config import (
     validate_training_config,
 )
 from .data import ShardStore, TrainingSample, load_recent_samples
-from .orchestrator import AlphaZeroTrainer, PipelineState
 from .messages import (
     MESSAGE_CATALOG,
     TrainingLanguage,
     render_training_message,
     validate_message_catalog,
 )
+from .orchestrator import AlphaZeroTrainer, IncompatibleRunError, PipelineState
 from .pipeline import run_training_entry
 from .positions import (
+    SEARCH_RULES_VERSION,
     StartPositionConfig,
     TacticalPosition,
     TrainingStartMode,
@@ -48,9 +49,11 @@ __all__ = [
     "CheckpointConfig",
     "MODEL_PRESETS",
     "MonitoringConfig",
+    "IncompatibleRunError",
     "MESSAGE_CATALOG",
     "PipelineState",
     "QuickTrainingSettings",
+    "SEARCH_RULES_VERSION",
     "ShardStore",
     "StartPositionConfig",
     "TacticalBenchmarkResult",

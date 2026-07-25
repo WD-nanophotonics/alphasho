@@ -63,8 +63,52 @@ class GameMode(StrEnum):
 class ParticipantKind(StrEnum):
     HUMAN = "human"
     RANDOM_AI = "random_ai"
+    HEURISTIC = "heuristic"
     ALPHAZERO = "alphazero"
     USI_ENGINE = "usi_engine"
+
+
+class ThinkingStrategy(StrEnum):
+    AUTO_TIME = "auto_time"
+    FIXED_TIME = "fixed_time"
+    FIXED_PLAYOUT = "fixed_playout"
+
+
+class ThinkingPreset(StrEnum):
+    QUICK = "quick"
+    BALANCED = "balanced"
+    DEEP = "deep"
+    CUSTOM = "custom"
+
+
+@dataclass(frozen=True, slots=True)
+class ThinkingConfig:
+    strategy: ThinkingStrategy = ThinkingStrategy.AUTO_TIME
+    preset: ThinkingPreset = ThinkingPreset.BALANCED
+    move_time_seconds: float = 5.0
+    min_playouts: int = 32
+    max_playouts: int = 10_000
+    max_depth: int = 128
+    safety_margin_ms: int = 200
+
+    @classmethod
+    def for_preset(cls, preset: ThinkingPreset | str) -> ThinkingConfig:
+        selected = ThinkingPreset(str(preset))
+        if selected is ThinkingPreset.QUICK:
+            return cls(
+                preset=selected,
+                move_time_seconds=1.0,
+                min_playouts=16,
+                max_playouts=1_000,
+            )
+        if selected is ThinkingPreset.DEEP:
+            return cls(
+                preset=selected,
+                move_time_seconds=15.0,
+                min_playouts=64,
+                max_playouts=50_000,
+            )
+        return cls(preset=selected)
 
 
 class TimeControlMode(StrEnum):
@@ -85,6 +129,7 @@ class ParticipantConfig:
     name: str = ""
     engine_id: str | None = None
     model_path: str | None = None
+    thinking: ThinkingConfig = ThinkingConfig()
 
 
 @dataclass(frozen=True, slots=True)

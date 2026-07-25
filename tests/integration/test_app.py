@@ -2,7 +2,14 @@ from PySide6.QtCore import Qt
 from PySide6.QtWidgets import QApplication
 
 from alphasho.ai import AlphaZeroPlayer
-from alphasho.domain import Color, GameMode, ParticipantKind, PieceType
+from alphasho.domain import (
+    Color,
+    GameMode,
+    ParticipantKind,
+    PieceType,
+    ThinkingPreset,
+)
+from alphasho.heuristicplayer import HeuristicPlayer
 from alphasho.ui.main_window import MainWindow
 from alphasho.ui.match_dialog import MatchSettingsDialog
 
@@ -95,8 +102,38 @@ def test_match_dialog_connects_selected_model_to_either_side(
     fields.model_selector.setCurrentIndex(
         fields.model_selector.findData(debug_path)
     )
+    fields.thinking_preset.setCurrentIndex(
+        fields.thinking_preset.findData(ThinkingPreset.QUICK.value)
+    )
 
     config = dialog.match_config()
     assert config.white.model_path == debug_path
+    assert config.white.thinking.preset is ThinkingPreset.QUICK
+    assert config.white.thinking.move_time_seconds == 1.0
     window.controller.new_game(config)
     assert isinstance(window.controller.players[Color.WHITE], AlphaZeroPlayer)
+
+
+def test_match_dialog_can_select_isolated_heuristic_player(
+    qtbot,
+    memory_settings,
+) -> None:
+    window = _window(qtbot, memory_settings)
+    dialog = MatchSettingsDialog(
+        window.translator,
+        window.controller.game.snapshot().sfen,
+        window.controller.match_config,
+        window,
+    )
+    qtbot.addWidget(dialog)
+    fields = dialog.white_fields
+    fields.ai.setChecked(True)
+    fields.ai_selector.setCurrentIndex(
+        fields.ai_selector.findData(ParticipantKind.HEURISTIC.value)
+    )
+
+    config = dialog.match_config()
+    assert config.white.kind is ParticipantKind.HEURISTIC
+    assert config.white.model_path is None
+    window.controller.new_game(config)
+    assert isinstance(window.controller.players[Color.WHITE], HeuristicPlayer)

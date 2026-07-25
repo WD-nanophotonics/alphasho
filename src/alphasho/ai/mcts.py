@@ -115,6 +115,9 @@ class SearchProgress:
     new_nodes: int
     evaluation_batches: int
     evaluated_leaves: int
+    max_depth: int = 0
+    root_value: float = 0.0
+    principal_variation: tuple[str, ...] = ()
 
 
 @dataclass(frozen=True, slots=True)
@@ -124,6 +127,7 @@ class SearchStats:
     new_nodes: int
     evaluation_batches: int
     evaluated_leaves: int
+    max_depth: int = 0
 
     @property
     def playouts_per_second(self) -> float:
@@ -202,10 +206,22 @@ class MCTS:
         cancel_event: threading.Event | None = None,
         progress_callback: Callable[[SearchProgress], None] | None = None,
         heartbeat_seconds: float = 10.0,
+        min_playouts: int = 0,
+        max_playouts: int | None = None,
+        deadline: float | None = None,
+        max_depth: int | None = None,
     ) -> SearchResult:
         started = time.monotonic()
         last_progress = started
         new_nodes = evaluation_batches = evaluated_leaves = 0
+        deepest = 0
+        playout_limit = max(
+            1,
+            self.config.n_playouts
+            if max_playouts is None
+            else int(max_playouts),
+        )
+        minimum = min(max(0, int(min_playouts)), playout_limit)
         terminal = position.terminal_value()
         if terminal is not None:
             raise ValueError("Cannot search a terminal position")
@@ -220,15 +236,20 @@ class MCTS:
             self._add_root_noise()
 
         completed = 0
-        while completed < self.config.n_playouts:
+        while completed < playout_limit:
             self._check_cancelled(cancel_event)
+            if self._deadline_reached(deadline):
+                break
             pending: list[_PendingLeaf] = []
             target = min(
                 self.config.batch_size,
-                self.config.n_playouts - completed,
+                playout_limit - completed,
             )
-            while len(pending) < target and completed < self.config.n_playouts:
-                leaf = self._select_leaf(position)
+            while len(pending) < target and completed < playout_limit:
+                if self._deadline_reached(deadline):
+                    break
+                leaf = self._select_leaf(position, max_depth=max_depth)
+                deepest = max(deepest, len(leaf.path) - 1)
                 value = leaf.position.terminal_value()
                 if value is None:
                     self._reserve(leaf.path)
@@ -242,6 +263,8 @@ class MCTS:
                 evaluation_batches += 1
                 evaluated_leaves += len(pending)
                 completed += len(pending)
+            elif self._deadline_reached(deadline):
+                break
             now = time.monotonic()
             if (
                 progress_callback is not None
@@ -250,14 +273,22 @@ class MCTS:
                 progress_callback(
                     SearchProgress(
                         completed,
-                        self.config.n_playouts,
+                        playout_limit,
                         now - started,
                         new_nodes,
                         evaluation_batches,
                         evaluated_leaves,
+                        deepest,
+                        float(self.root.q_value),
+                        self._principal_variation(),
                     )
                 )
                 last_progress = now
+
+            # ``minimum`` is a desired floor only. A hard time deadline always
+            # wins, which prevents a slow device from losing on time.
+            if completed < minimum and not self._deadline_reached(deadline):
+                continue
 
         children = tuple(self.root.children.values())
         if not children:
@@ -285,6 +316,7 @@ class MCTS:
                 new_nodes,
                 evaluation_batches,
                 evaluated_leaves,
+                deepest,
             ),
         )
 
@@ -298,11 +330,18 @@ class MCTS:
     def _key(position: SearchablePosition | None) -> tuple[object, ...] | None:
         return None if position is None else position.state_key
 
-    def _select_leaf(self, root_position: SearchablePosition) -> _PendingLeaf:
+    def _select_leaf(
+        self,
+        root_position: SearchablePosition,
+        *,
+        max_depth: int | None = None,
+    ) -> _PendingLeaf:
         position = root_position.clone()
         node = self.root
         path = [node]
-        while node.children:
+        while node.children and (
+            max_depth is None or len(path) - 1 < max_depth
+        ):
             node = node.select(self.config.c_puct, self.config.virtual_loss)
             if node.action is None:
                 raise RuntimeError("Non-root tree node is missing its action")
@@ -398,3 +437,7 @@ class MCTS:
     def _check_cancelled(cancel_event: threading.Event | None) -> None:
         if cancel_event is not None and cancel_event.is_set():
             raise SearchCancelled("Search was cancelled")
+
+    @staticmethod
+    def _deadline_reached(deadline: float | None) -> bool:
+        return deadline is not None and time.monotonic() >= deadline

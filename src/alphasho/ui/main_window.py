@@ -61,6 +61,7 @@ class MainWindow(QMainWindow):
         self._snapshot = self.controller.game.snapshot()
         self._clock_state = self.controller.clock.state()
         self._selected_drop = None
+        self._search_progress = None
         self._announced_outcome = OutcomeReason.ONGOING
         self._loading_comment = False
         self._allow_close = False
@@ -302,6 +303,9 @@ class MainWindow(QMainWindow):
         self.controller.clock_changed.connect(self._on_clock_changed)
         self.controller.record_changed.connect(self._on_record_changed)
         self.controller.error_occurred.connect(self._show_message)
+        self.controller.search_progress_changed.connect(
+            self._on_search_progress
+        )
         self.comment_edit.textChanged.connect(self._comment_changed)
 
     def _apply_style(self) -> None:
@@ -448,6 +452,7 @@ class MainWindow(QMainWindow):
             self._snapshot.sfen,
             self.controller.match_config,
             self,
+            settings=self.settings,
         )
         if dialog.exec():
             try:
@@ -605,7 +610,30 @@ class MainWindow(QMainWindow):
             if snapshot.is_check:
                 status += self.translator.tr("check")
             if self.controller.is_ai_thinking():
-                status += self.translator.tr("thinking")
+                if self._search_progress is None:
+                    status += self.translator.tr("thinking")
+                else:
+                    progress = self._search_progress
+                    budget = (
+                        "∞"
+                        if progress.budget_seconds is None
+                        else f"{progress.budget_seconds:.1f}"
+                    )
+                    pv = " ".join(progress.principal_variation[:6]) or "—"
+                    speed = progress.completed_playouts / max(
+                        progress.elapsed_seconds,
+                        1e-9,
+                    )
+                    status += "・" + self.translator.tr(
+                        "thinking_progress",
+                        elapsed=f"{progress.elapsed_seconds:.1f}",
+                        budget=budget,
+                        playouts=f"{progress.completed_playouts:,}",
+                        speed=f"{speed:,.0f}",
+                        depth=progress.max_depth,
+                        value=f"{progress.root_value:+.3f}",
+                        pv=pv,
+                    )
         self.status_label.setText(status)
         self.sfen_label.setText(snapshot.sfen)
         self.move_list.clear()
@@ -624,9 +652,13 @@ class MainWindow(QMainWindow):
                 "participant_random"
                 if participant.kind is ParticipantKind.RANDOM_AI
                 else (
-                    "participant_alphazero"
-                    if participant.kind is ParticipantKind.ALPHAZERO
-                    else "participant_human"
+                    "participant_heuristic"
+                    if participant.kind is ParticipantKind.HEURISTIC
+                    else (
+                        "participant_alphazero"
+                        if participant.kind is ParticipantKind.ALPHAZERO
+                        else "participant_human"
+                    )
                 )
             )
             marker = "▶ " if snapshot.turn is color and not snapshot.outcome.is_over else ""
@@ -642,6 +674,10 @@ class MainWindow(QMainWindow):
                 if snapshot.turn is color and not snapshot.outcome.is_over
                 else ""
             )
+
+    def _on_search_progress(self, progress) -> None:
+        self._search_progress = progress
+        self._render_state(self._snapshot)
 
     def _on_clock_changed(self, state: ClockState) -> None:
         self._clock_state = state

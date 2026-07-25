@@ -15,6 +15,9 @@ from .models import (
     PieceType,
     SideTimeConfig,
     StartPositionKind,
+    ThinkingConfig,
+    ThinkingPreset,
+    ThinkingStrategy,
     TimeControl,
     TimeControlMode,
     UiMessage,
@@ -39,5 +42,8 @@ __all__ = [
     "StartPositionKind",
     "TimeControl",
     "TimeControlMode",
+    "ThinkingConfig",
+    "ThinkingPreset",
+    "ThinkingStrategy",
     "UiMessage",
 ]

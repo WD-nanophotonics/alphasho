@@ -3,7 +3,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from pathlib import Path
 
-from PySide6.QtCore import Qt
+from PySide6.QtCore import QSettings, Qt
 from PySide6.QtGui import QStandardItemModel
 from PySide6.QtWidgets import (
     QButtonGroup,
@@ -11,6 +11,7 @@ from PySide6.QtWidgets import (
     QComboBox,
     QDialog,
     QDialogButtonBox,
+    QDoubleSpinBox,
     QFileDialog,
     QGridLayout,
     QGroupBox,
@@ -31,6 +32,9 @@ from alphasho.domain import (
     ParticipantKind,
     SideTimeConfig,
     StartPositionKind,
+    ThinkingConfig,
+    ThinkingPreset,
+    ThinkingStrategy,
     TimeControl,
     TimeControlMode,
 )
@@ -48,6 +52,15 @@ class _ParticipantFields:
     model_selector: QComboBox
     model_browse: QPushButton
     model_status: QLabel
+    thinking_label: QLabel
+    thinking_preset: QComboBox
+    thinking_summary: QLabel
+    thinking_custom: QWidget
+    thinking_strategy: QComboBox
+    thinking_seconds: QDoubleSpinBox
+    thinking_min_playouts: QSpinBox
+    thinking_max_playouts: QSpinBox
+    thinking_max_depth: QSpinBox
 
 
 @dataclass(slots=True)
@@ -81,17 +94,25 @@ class MatchSettingsDialog(QDialog):
         current_sfen: str,
         previous: MatchConfig,
         parent: QWidget | None = None,
+        settings: QSettings | None = None,
     ) -> None:
         super().__init__(parent)
         self.translator = translator
         self.current_sfen = current_sfen
         self.previous = previous
+        self.settings = settings
         project_root = Path(__file__).resolve().parents[3]
         self.default_model_path = (
             project_root / "artifacts" / "checkpoints" / "best.pt"
         )
         self.debug_model_path = (
             project_root / "artifacts" / "checkpoints" / "debug-best.pt"
+        )
+        self.legacy_debug_model_path = (
+            project_root
+            / "artifacts"
+            / "checkpoints"
+            / "legacy-debug-best-repetition-v1.pt"
         )
         self.candidate_model_path = (
             project_root
@@ -179,6 +200,10 @@ class MatchSettingsDialog(QDialog):
             ParticipantKind.RANDOM_AI.value,
         )
         ai_selector.addItem(
+            self.translator.tr("participant_heuristic"),
+            ParticipantKind.HEURISTIC.value,
+        )
+        ai_selector.addItem(
             self.translator.tr("participant_alphazero"),
             ParticipantKind.ALPHAZERO.value,
         )
@@ -188,7 +213,7 @@ class MatchSettingsDialog(QDialog):
         )
         model = ai_selector.model()
         if isinstance(model, QStandardItemModel):
-            planned = model.item(2)
+            planned = model.item(3)
             planned.setEnabled(False)
             planned.setToolTip(self.translator.tr("planned_status"))
 
@@ -201,6 +226,55 @@ class MatchSettingsDialog(QDialog):
         model_browse = QPushButton(self.translator.tr("browse"))
         model_status = QLabel()
         model_status.setWordWrap(True)
+        thinking_label = QLabel(self.translator.tr("thinking_settings"))
+        thinking_preset = QComboBox()
+        for preset in ThinkingPreset:
+            thinking_preset.addItem(
+                self.translator.tr(f"thinking_preset_{preset.value}"),
+                preset.value,
+            )
+        thinking_summary = QLabel()
+        thinking_summary.setWordWrap(True)
+        thinking_custom = QWidget()
+        custom_layout = QGridLayout(thinking_custom)
+        custom_layout.setContentsMargins(0, 0, 0, 0)
+        thinking_strategy = QComboBox()
+        for strategy in ThinkingStrategy:
+            thinking_strategy.addItem(
+                self.translator.tr(f"thinking_strategy_{strategy.value}"),
+                strategy.value,
+            )
+        thinking_seconds = QDoubleSpinBox()
+        thinking_seconds.setRange(0.1, 3600.0)
+        thinking_seconds.setDecimals(1)
+        thinking_seconds.setSuffix(self.translator.tr("thinking_seconds_suffix"))
+        thinking_min_playouts = QSpinBox()
+        thinking_min_playouts.setRange(1, 1_000_000)
+        thinking_max_playouts = QSpinBox()
+        thinking_max_playouts.setRange(1, 10_000_000)
+        thinking_max_depth = QSpinBox()
+        thinking_max_depth.setRange(1, 512)
+        custom_layout.addWidget(
+            QLabel(self.translator.tr("thinking_strategy")), 0, 0
+        )
+        custom_layout.addWidget(thinking_strategy, 0, 1)
+        custom_layout.addWidget(
+            QLabel(self.translator.tr("thinking_time")), 1, 0
+        )
+        custom_layout.addWidget(thinking_seconds, 1, 1)
+        custom_layout.addWidget(
+            QLabel(self.translator.tr("thinking_playout_range")), 2, 0
+        )
+        range_layout = QHBoxLayout()
+        range_layout.setContentsMargins(0, 0, 0, 0)
+        range_layout.addWidget(thinking_min_playouts)
+        range_layout.addWidget(QLabel("–"))
+        range_layout.addWidget(thinking_max_playouts)
+        custom_layout.addLayout(range_layout, 2, 1)
+        custom_layout.addWidget(
+            QLabel(self.translator.tr("thinking_max_depth")), 3, 0
+        )
+        custom_layout.addWidget(thinking_max_depth, 3, 1)
         layout.addWidget(human, 0, 0)
         layout.addWidget(ai, 0, 1)
         layout.addWidget(ai_selector, 0, 2)
@@ -210,6 +284,10 @@ class MatchSettingsDialog(QDialog):
         layout.addWidget(model_selector, 2, 1)
         layout.addWidget(model_browse, 2, 2)
         layout.addWidget(model_status, 3, 0, 1, 3)
+        layout.addWidget(thinking_label, 4, 0)
+        layout.addWidget(thinking_preset, 4, 1, 1, 2)
+        layout.addWidget(thinking_summary, 5, 0, 1, 3)
+        layout.addWidget(thinking_custom, 6, 0, 1, 3)
         fields = _ParticipantFields(
             human=human,
             ai=ai,
@@ -219,10 +297,25 @@ class MatchSettingsDialog(QDialog):
             model_selector=model_selector,
             model_browse=model_browse,
             model_status=model_status,
+            thinking_label=thinking_label,
+            thinking_preset=thinking_preset,
+            thinking_summary=thinking_summary,
+            thinking_custom=thinking_custom,
+            thinking_strategy=thinking_strategy,
+            thinking_seconds=thinking_seconds,
+            thinking_min_playouts=thinking_min_playouts,
+            thinking_max_playouts=thinking_max_playouts,
+            thinking_max_depth=thinking_max_depth,
         )
         model_browse.clicked.connect(
             lambda _checked=False, selected=fields: self._browse_model(selected)
         )
+        thinking_preset.currentIndexChanged.connect(self._refresh_enabled)
+        thinking_strategy.currentIndexChanged.connect(self._refresh_enabled)
+        thinking_seconds.valueChanged.connect(self._refresh_enabled)
+        thinking_min_playouts.valueChanged.connect(self._refresh_enabled)
+        thinking_max_playouts.valueChanged.connect(self._refresh_enabled)
+        thinking_max_depth.valueChanged.connect(self._refresh_enabled)
         return box, fields
 
     def _populate_models(
@@ -233,6 +326,7 @@ class MatchSettingsDialog(QDialog):
         choices = (
             ("model_formal_best", self.default_model_path),
             ("model_debug_best", self.debug_model_path),
+            ("model_legacy_debug_best", self.legacy_debug_model_path),
             ("model_current_candidate", self.candidate_model_path),
         )
         selected_index = -1
@@ -423,15 +517,16 @@ class MatchSettingsDialog(QDialog):
         self.move_limit_enabled.toggled.connect(self._refresh_enabled)
 
     def _load_previous(self, config: MatchConfig) -> None:
-        for fields, participant in (
-            (self.black_fields, config.black),
-            (self.white_fields, config.white),
+        for side, fields, participant in (
+            ("black", self.black_fields, config.black),
+            ("white", self.white_fields, config.white),
         ):
             is_human = participant.kind is ParticipantKind.HUMAN
             fields.human.setChecked(is_human)
             fields.ai.setChecked(not is_human)
             index = fields.ai_selector.findData(participant.kind.value)
             fields.ai_selector.setCurrentIndex(max(0, index))
+            self._load_thinking(fields, participant.thinking, side)
 
         start_buttons = {
             StartPositionKind.INITIAL: self.start_initial,
@@ -473,6 +568,14 @@ class MatchSettingsDialog(QDialog):
                 and fields.ai_selector.currentData()
                 == ParticipantKind.ALPHAZERO.value
             )
+            is_search_ai = (
+                fields.ai.isChecked()
+                and fields.ai_selector.currentData()
+                in {
+                    ParticipantKind.ALPHAZERO.value,
+                    ParticipantKind.HEURISTIC.value,
+                }
+            )
             for widget in (
                 fields.model_label,
                 fields.model_selector,
@@ -480,8 +583,21 @@ class MatchSettingsDialog(QDialog):
                 fields.model_status,
             ):
                 widget.setVisible(is_alphazero)
+            for widget in (
+                fields.thinking_label,
+                fields.thinking_preset,
+                fields.thinking_summary,
+            ):
+                widget.setVisible(is_search_ai)
             fields.model_selector.setEnabled(is_alphazero)
             fields.model_browse.setEnabled(is_alphazero)
+            is_custom = (
+                fields.thinking_preset.currentData()
+                == ThinkingPreset.CUSTOM.value
+            )
+            fields.thinking_custom.setVisible(is_search_ai and is_custom)
+            fields.thinking_custom.setEnabled(is_search_ai and is_custom)
+            self._update_thinking_summary(fields)
             self._update_model_status(fields)
 
         file_selected = self.start_file.isChecked()
@@ -574,7 +690,116 @@ class MatchSettingsDialog(QDialog):
             kind=kind,
             name=fields.name.text().strip(),
             model_path=model_path,
+            thinking=self._thinking_config(fields),
         )
+
+    def _load_thinking(
+        self,
+        fields: _ParticipantFields,
+        config: ThinkingConfig,
+        side: str,
+    ) -> None:
+        if self.settings is not None:
+            prefix = f"thinking/{side}/"
+            try:
+                preset = ThinkingPreset(
+                    str(self.settings.value(prefix + "preset", config.preset.value))
+                )
+                strategy = ThinkingStrategy(
+                    str(
+                        self.settings.value(
+                            prefix + "strategy",
+                            config.strategy.value,
+                        )
+                    )
+                )
+                config = ThinkingConfig(
+                    strategy=strategy,
+                    preset=preset,
+                    move_time_seconds=float(
+                        self.settings.value(
+                            prefix + "seconds",
+                            config.move_time_seconds,
+                        )
+                    ),
+                    min_playouts=int(
+                        self.settings.value(
+                            prefix + "min_playouts",
+                            config.min_playouts,
+                        )
+                    ),
+                    max_playouts=int(
+                        self.settings.value(
+                            prefix + "max_playouts",
+                            config.max_playouts,
+                        )
+                    ),
+                    max_depth=int(
+                        self.settings.value(
+                            prefix + "max_depth",
+                            config.max_depth,
+                        )
+                    ),
+                    safety_margin_ms=config.safety_margin_ms,
+                )
+            except (TypeError, ValueError):
+                pass
+        fields.thinking_preset.setCurrentIndex(
+            max(0, fields.thinking_preset.findData(config.preset.value))
+        )
+        fields.thinking_strategy.setCurrentIndex(
+            max(0, fields.thinking_strategy.findData(config.strategy.value))
+        )
+        fields.thinking_seconds.setValue(config.move_time_seconds)
+        fields.thinking_min_playouts.setValue(config.min_playouts)
+        fields.thinking_max_playouts.setValue(config.max_playouts)
+        fields.thinking_max_depth.setValue(config.max_depth)
+
+    def _thinking_config(self, fields: _ParticipantFields) -> ThinkingConfig:
+        preset = ThinkingPreset(str(fields.thinking_preset.currentData()))
+        if preset is not ThinkingPreset.CUSTOM:
+            return ThinkingConfig.for_preset(preset)
+        return ThinkingConfig(
+            strategy=ThinkingStrategy(str(fields.thinking_strategy.currentData())),
+            preset=preset,
+            move_time_seconds=fields.thinking_seconds.value(),
+            min_playouts=fields.thinking_min_playouts.value(),
+            max_playouts=fields.thinking_max_playouts.value(),
+            max_depth=fields.thinking_max_depth.value(),
+        )
+
+    def _update_thinking_summary(self, fields: _ParticipantFields) -> None:
+        config = self._thinking_config(fields)
+        strategy = self.translator.tr(
+            f"thinking_strategy_{config.strategy.value}"
+        )
+        fields.thinking_summary.setText(
+            self.translator.tr(
+                "thinking_summary",
+                strategy=strategy,
+                seconds=f"{config.move_time_seconds:g}",
+                minimum=f"{config.min_playouts:,}",
+                maximum=f"{config.max_playouts:,}",
+                depth=config.max_depth,
+            )
+        )
+
+    def _save_thinking_settings(self, config: MatchConfig) -> None:
+        if self.settings is None:
+            return
+        for side, participant in (
+            ("black", config.black),
+            ("white", config.white),
+        ):
+            thinking = participant.thinking
+            prefix = f"thinking/{side}/"
+            self.settings.setValue(prefix + "preset", thinking.preset.value)
+            self.settings.setValue(prefix + "strategy", thinking.strategy.value)
+            self.settings.setValue(prefix + "seconds", thinking.move_time_seconds)
+            self.settings.setValue(prefix + "min_playouts", thinking.min_playouts)
+            self.settings.setValue(prefix + "max_playouts", thinking.max_playouts)
+            self.settings.setValue(prefix + "max_depth", thinking.max_depth)
+        self.settings.sync()
 
     def _browse_model(self, fields: _ParticipantFields) -> None:
         path, _selected = QFileDialog.getOpenFileName(
@@ -651,6 +876,21 @@ class MatchSettingsDialog(QDialog):
             return
         config = self.match_config()
         for participant in (config.black, config.white):
+            if (
+                participant.kind in {
+                    ParticipantKind.ALPHAZERO,
+                    ParticipantKind.HEURISTIC,
+                }
+                and participant.thinking.min_playouts
+                > participant.thinking.max_playouts
+            ):
+                QMessageBox.warning(
+                    self,
+                    self.translator.tr("warning"),
+                    self.translator.tr("invalid_thinking_playouts"),
+                )
+                return
+        for participant in (config.black, config.white):
             if participant.kind is ParticipantKind.ALPHAZERO:
                 checkpoint = Path(participant.model_path or "")
                 if not checkpoint.is_file():
@@ -672,4 +912,5 @@ class MatchSettingsDialog(QDialog):
                         self.translator.tr("invalid_time_control"),
                     )
                     return
+        self._save_thinking_settings(config)
         self.accept()
