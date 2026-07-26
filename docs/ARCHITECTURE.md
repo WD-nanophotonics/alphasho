@@ -98,7 +98,8 @@ paired-color evaluation
 ```
 
 短局 profile の公開先は `debug-best.pt` です。実ルールの Baseline だけが UI の正式な
-既定モデル `best.pt` を更新できます。
+既定モデル `best.pt` を更新できます。`artifacts/models/` は UI で比較するモデルを
+利用者が明示的に置くライブラリであり、training pipeline は書き込みません。
 
 ## 変更時に守る invariant
 
@@ -126,4 +127,3 @@ parser で読み込んだ指し手を USI に変換し、必ず `ShogiGame` を�
 
 input encoding と action space の互換性を checkpoint metadata に明記してください。
 構造が異なる checkpoint を暗黙に読み込まず、起動時に明確なエラーを返します。
-

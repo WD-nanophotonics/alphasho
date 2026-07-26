@@ -141,4 +141,5 @@ process が動いていないか、`.trainer.lock` のログも確認します�
 ### UI でモデルを選べない
 
 checkpoint metadata と現在の model preset が一致するか確認してください。
-短局モデルは `debug-best.pt`、正式モデルは `best.pt` を使用します。
+正式モデルは `artifacts/checkpoints/best.pt` を使用します。比較用 checkpoint は
+`artifacts/models/` に置くか、対局設定のファイル選択から直接指定します。

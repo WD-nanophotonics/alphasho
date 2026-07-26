@@ -496,7 +496,7 @@ class GameController(QObject):
                         checkpoint,
                         thinking=participant.thinking,
                     )
-                except (ImportError, OSError, RuntimeError, ValueError) as exc:
+                except Exception as exc:
                     self.players[color] = None
                     self.error_occurred.emit(
                         UiMessage.create("alphazero_load_failed", detail=str(exc))

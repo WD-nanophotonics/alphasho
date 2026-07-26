@@ -5,6 +5,8 @@ from alphasho.ai import AlphaZeroPlayer
 from alphasho.domain import (
     Color,
     GameMode,
+    MatchConfig,
+    ParticipantConfig,
     ParticipantKind,
     PieceType,
     ThinkingPreset,
@@ -55,6 +57,7 @@ def test_both_local_sides_and_random_reply_can_move(
         lambda: len(controller.game.snapshot().move_history) == 2,
         timeout=2000,
     )
+    controller.record.dirty = False
 
 
 def test_promotion_sprite_commits_promoted_move(
@@ -79,6 +82,7 @@ def test_promotion_sprite_commits_promoted_move(
     assert snapshot.piece_at(39) is None
     assert snapshot.piece_at(38).piece_type is PieceType.PROMOTED_PAWN
     assert snapshot.last_move.usi == "5d5c+"
+    window.controller.record.dirty = False
 
 
 def test_match_dialog_connects_selected_model_to_either_side(
@@ -98,16 +102,16 @@ def test_match_dialog_connects_selected_model_to_either_side(
     fields.ai_selector.setCurrentIndex(
         fields.ai_selector.findData(ParticipantKind.ALPHAZERO.value)
     )
-    debug_path = str(dialog.debug_model_path)
+    model_path = str(dialog.default_model_path)
     fields.model_selector.setCurrentIndex(
-        fields.model_selector.findData(debug_path)
+        fields.model_selector.findData(model_path)
     )
     fields.thinking_preset.setCurrentIndex(
         fields.thinking_preset.findData(ThinkingPreset.QUICK.value)
     )
 
     config = dialog.match_config()
-    assert config.white.model_path == debug_path
+    assert config.white.model_path == model_path
     assert config.white.thinking.preset is ThinkingPreset.QUICK
     assert config.white.thinking.move_time_seconds == 1.0
     window.controller.new_game(config)
@@ -137,3 +141,29 @@ def test_match_dialog_can_select_isolated_heuristic_player(
     assert config.white.model_path is None
     window.controller.new_game(config)
     assert isinstance(window.controller.players[Color.WHITE], HeuristicPlayer)
+
+
+def test_invalid_alphazero_checkpoint_is_reported(
+    qtbot,
+    memory_settings,
+    tmp_path,
+) -> None:
+    window = _window(qtbot, memory_settings)
+    invalid = tmp_path / "invalid.pt"
+    invalid.write_text("not a PyTorch checkpoint", encoding="utf-8")
+    errors = []
+    window.controller.error_occurred.disconnect()
+    window.controller.error_occurred.connect(errors.append)
+
+    window.controller.new_game(
+        MatchConfig(
+            white=ParticipantConfig(
+                kind=ParticipantKind.ALPHAZERO,
+                model_path=str(invalid),
+            )
+        )
+    )
+
+    assert window.controller.players[Color.WHITE] is None
+    assert errors
+    assert errors[-1].key == "alphazero_load_failed"

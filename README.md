@@ -14,7 +14,7 @@ AlphaSho 側は、安全なルールアダプター、対局制御、UI、MCTS�
 - Windows 11
 - PySide6
 - cshogi 1.0.4
-- NumPy / PyTorch（学習時のみ）
+- NumPy / PyTorch（AlphaZero 推論および学習時）
 
 PyCharm でプロジェクトを開き、インタープリターとして
 `.venv\Scripts\python.exe` を選択してください。新しい環境を作る場合は、プロジェクト
@@ -63,8 +63,9 @@ PyCharm の共有実行構成から **AlphaSho UI** を選び、Run をクリッ
 - データ：圧縮された自己対局 shard と `ruleset_id` で分離された replay buffer
 - 学習：任意の KIF/CSA 教師あり warm-up、自己対局、候補モデル学習、評価、昇格
 
-対局設定では、正式モデル `artifacts/checkpoints/best.pt`、CPU Debug の
-`debug-best.pt`、現在の候補モデル、または任意の `.pt` ファイルを選択できます。
+対局設定では、正式モデル `artifacts/checkpoints/best.pt`、
+`artifacts/models/` に置いた比較用モデル、または任意の `.pt` ファイルを選択できます。
+モデルライブラリは対局設定を開くたびに更新され、学習 pipeline からは変更されません。
 AI の探索は Qt worker thread で実行されるため、UI をブロックしません。
 局面変更後に返ってきた古い探索結果は適用されません。
 
@@ -151,6 +152,11 @@ alphasho/
 ├── tests/                     # ルール、AI、学習、UI の回帰テスト
 └── artifacts/                 # Git 管理外のモデル、データ、ログ
 ```
+
+UI 専用環境では、正式な `artifacts/checkpoints/best.pt` と、必要に応じて
+`artifacts/models/*.pt` だけを配置すればよく、学習 artifact をコピーする必要は
+ありません。学習サーバーは同じソースコードを使用しますが、replay、optimizer state、
+ログはサーバー側だけで管理します。
 
 ## 開発用コマンド
 

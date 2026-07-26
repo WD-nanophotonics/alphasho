@@ -105,22 +105,7 @@ class MatchSettingsDialog(QDialog):
         self.default_model_path = (
             project_root / "artifacts" / "checkpoints" / "best.pt"
         )
-        self.debug_model_path = (
-            project_root / "artifacts" / "checkpoints" / "debug-best.pt"
-        )
-        self.legacy_debug_model_path = (
-            project_root
-            / "artifacts"
-            / "checkpoints"
-            / "legacy-debug-best-repetition-v1.pt"
-        )
-        self.candidate_model_path = (
-            project_root
-            / "artifacts"
-            / "cpu-debug"
-            / "checkpoints"
-            / "candidate.pt"
-        )
+        self.model_library_path = project_root / "artifacts" / "models"
         self._file_sfen: str | None = (
             previous.start_sfen
             if previous.start_position is StartPositionKind.FILE
@@ -323,12 +308,16 @@ class MatchSettingsDialog(QDialog):
         selector: QComboBox,
         selected_path: str | None,
     ) -> None:
-        choices = (
-            ("model_formal_best", self.default_model_path),
-            ("model_debug_best", self.debug_model_path),
-            ("model_legacy_debug_best", self.legacy_debug_model_path),
-            ("model_current_candidate", self.candidate_model_path),
-        )
+        choices = [("model_formal_best", self.default_model_path)]
+        if self.model_library_path.is_dir():
+            choices.extend(
+                ("model_library", path)
+                for path in sorted(
+                    self.model_library_path.glob("*.pt"),
+                    key=lambda candidate: candidate.name.casefold(),
+                )
+                if path.is_file()
+            )
         selected_index = -1
         first_available = -1
         requested = str(Path(selected_path)) if selected_path else ""
@@ -336,7 +325,10 @@ class MatchSettingsDialog(QDialog):
         for label_key, path in choices:
             index = selector.count()
             path_text = str(path)
-            selector.addItem(self.translator.tr(label_key), path_text)
+            selector.addItem(
+                self.translator.tr(label_key, name=path.name),
+                path_text,
+            )
             item = (
                 item_model.item(index)
                 if isinstance(item_model, QStandardItemModel)

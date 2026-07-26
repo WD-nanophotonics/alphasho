@@ -1,8 +1,18 @@
 # 実行時に生成される成果物
 
 このディレクトリには、モデル、自己対局データ、ログなどの実行時成果物を保存します。
-この README 以外は Git の管理対象外です。実行中ではない profile のディレクトリを
-削除してもソースコードには影響しませんが、その profile の学習進捗は失われます。
+この README 以外は Git の管理対象外です。
+
+UI 専用環境で必要なのは次の二つだけです。
+
+- `checkpoints/best.pt`
+  - UI が既定で読み込む正式モデルです。
+- `models/*.pt`
+  - 利用者が比較用 checkpoint を置くモデルライブラリです。対局設定を開くたびに
+    ファイル名順で再検出されます。training pipeline はこの directory を変更しません。
+
+学習サーバーでは、これに加えて profile ごとの artifact を保持します。これらを削除すると
+学習の再開に必要な状態が失われるため、UI 用コピーへ持ち込まずサーバー側で管理します。
 
 - `cpu-debug/`、`tactical-overfit/`、`smoke-short/`、`baseline/`
   - 相互に分離された学習 profile
@@ -20,17 +30,5 @@
   - 言語別の可読ログ、構造化 JSONL、現在の status
 - `<profile>/diagnostics/`
   - 戦術 benchmark や収束診断
-- `checkpoints/debug-best.pt`
-  - 短局実験から公開された診断用モデル。正式な棋力を表しません
-- `checkpoints/legacy-debug-best-repetition-v1.pt`
-  - 反復局面の裁定修正前に学習した保存用モデル。比較目的にのみ使用します
-- `archive/cpu-debug-repetition-v1-*/`
-  - 反復局面を2回目で早期終了していた旧 ruleset の非破壊 archive
-- `checkpoints/best.pt`
-  - 実ルールの Baseline だけが更新できる正式モデル。UI の既定読込先です
-- `book_ingest/`
-  - ローカルに保存した書籍の読取資料。プログラムの実行には使用しません
-
-Smoke の成果物は削除しても20秒以内に再生成できます。`manual`、`pytest`、
-`test-temp` を名前に含むディレクトリは正式な profile ではなく、ここに残さないで
-ください。
+Smoke の成果物は削除しても再生成できます。`manual`、`pytest`、`test-temp` を名前に
+含む directory は正式な profile ではなく、長期保存しないでください。
