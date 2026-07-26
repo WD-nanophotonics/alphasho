@@ -81,6 +81,7 @@ class AlphaZeroPlayer:
             time_control,
             clock_state,
             color,
+            move_number=snapshot.move_number,
         )
         started = time.monotonic()
         deadline = (

@@ -64,7 +64,6 @@ class MainWindow(QMainWindow):
         self._search_progress = None
         self._announced_outcome = OutcomeReason.ONGOING
         self._loading_comment = False
-        self._allow_close = False
 
         self._build_menus()
         root = QWidget()
@@ -771,35 +770,5 @@ class MainWindow(QMainWindow):
         )
 
     def closeEvent(self, event: QCloseEvent) -> None:
-        if (
-            self._allow_close
-            or not self.controller.record.dirty
-            or QApplication.platformName() == "offscreen"
-        ):
-            self.controller.shutdown()
-            event.accept()
-            return
-        self.controller.pause_clock()
-        result = QMessageBox.question(
-            self,
-            self.translator.tr("unsaved_title"),
-            self.translator.tr("unsaved_prompt"),
-            QMessageBox.StandardButton.Save
-            | QMessageBox.StandardButton.Discard
-            | QMessageBox.StandardButton.Cancel,
-        )
-        if result == QMessageBox.StandardButton.Save:
-            if self._save_record():
-                self._allow_close = True
-                self.controller.shutdown()
-                event.accept()
-            else:
-                event.ignore()
-                self.controller.resume_clock()
-        elif result == QMessageBox.StandardButton.Discard:
-            self._allow_close = True
-            self.controller.shutdown()
-            event.accept()
-        else:
-            event.ignore()
-            self.controller.resume_clock()
+        self.controller.shutdown()
+        event.accept()

@@ -765,9 +765,15 @@ class MatchSettingsDialog(QDialog):
         strategy = self.translator.tr(
             f"thinking_strategy_{config.strategy.value}"
         )
+        if config.strategy is ThinkingStrategy.AUTO_TIME:
+            key = "thinking_summary_auto"
+        elif config.strategy is ThinkingStrategy.FIXED_TIME:
+            key = "thinking_summary_fixed_time"
+        else:
+            key = "thinking_summary_fixed_playout"
         fields.thinking_summary.setText(
             self.translator.tr(
-                "thinking_summary",
+                key,
                 strategy=strategy,
                 seconds=f"{config.move_time_seconds:g}",
                 minimum=f"{config.min_playouts:,}",

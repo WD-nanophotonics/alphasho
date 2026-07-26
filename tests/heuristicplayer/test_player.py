@@ -68,3 +68,45 @@ def test_context_search_obeys_small_time_budget() -> None:
 
     assert move in game.legal_moves()
     assert time.monotonic() - started < 0.5
+
+
+def test_context_auto_uses_allocated_clock_time(monkeypatch) -> None:
+    game = ShogiGame()
+    player = HeuristicPlayer(ThinkingConfig.for_preset(ThinkingPreset.BALANCED))
+    captured = {}
+
+    def capture_budget(
+        snapshot,
+        legal_moves,
+        seconds,
+        node_limit,
+        max_depth,
+        progress_callback,
+    ):
+        captured.update(
+            seconds=seconds,
+            node_limit=node_limit,
+            max_depth=max_depth,
+        )
+        return legal_moves[0]
+
+    monkeypatch.setattr(player, "_search", capture_budget)
+    move = player.choose_move_with_context(
+        game.snapshot(),
+        game.legal_moves(),
+        clock_state=ClockState(
+            (3_600_000, 3_600_000),
+            (0, 0),
+            Color.BLACK,
+            True,
+        ),
+        time_control=TimeControl(mode=TimeControlMode.FISCHER),
+        color=Color.BLACK,
+    )
+
+    assert move in game.legal_moves()
+    assert captured == {
+        "seconds": 54.0,
+        "node_limit": 5_400_000,
+        "max_depth": 128,
+    }

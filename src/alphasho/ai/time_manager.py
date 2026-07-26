@@ -2,12 +2,14 @@
 
 from __future__ import annotations
 
+import math
 from dataclasses import dataclass
 
 from alphasho.domain import (
     ClockState,
     Color,
     ThinkingConfig,
+    ThinkingPreset,
     ThinkingStrategy,
     TimeControl,
     TimeControlMode,
@@ -48,6 +50,8 @@ def allocate_thinking_budget(
     control: TimeControl,
     clock: ClockState,
     color: Color,
+    *,
+    move_number: int = 1,
 ) -> ThinkingBudget:
     """Return a bounded per-move budget without changing the match clock."""
 
@@ -60,7 +64,13 @@ def allocate_thinking_budget(
     elif config.strategy is ThinkingStrategy.FIXED_TIME:
         limit = config.move_time_seconds
     else:
-        limit = _automatic_seconds(config, control, clock, color)
+        limit = _automatic_seconds(
+            config,
+            control,
+            clock,
+            color,
+            move_number=move_number,
+        )
 
     if limit is not None:
         limit = max(0.01, float(limit))
@@ -69,10 +79,23 @@ def allocate_thinking_budget(
             remaining = _clock_available_seconds(control, clock, color)
             limit = min(limit, max(0.01, remaining - safety))
 
+    max_playouts = max(1, config.max_playouts)
+    if (
+        config.strategy is ThinkingStrategy.AUTO_TIME
+        and control.mode is not TimeControlMode.NONE
+        and limit is not None
+    ):
+        # In a timed game the deadline should normally end an automatic search.
+        # Keep a generous hard ceiling as protection against a broken clock.
+        max_playouts = max(
+            max_playouts,
+            min(10_000_000, math.ceil(limit * 100_000)),
+        )
+
     return ThinkingBudget(
         time_limit_seconds=limit,
         min_playouts=max(1, config.min_playouts),
-        max_playouts=max(1, config.max_playouts),
+        max_playouts=max_playouts,
         max_depth=max(1, config.max_depth),
     )
 
@@ -82,23 +105,31 @@ def _automatic_seconds(
     control: TimeControl,
     clock: ClockState,
     color: Color,
+    *,
+    move_number: int,
 ) -> float:
-    cap = max(0.01, config.move_time_seconds)
     if control.mode is TimeControlMode.NONE:
-        return cap
+        return max(0.01, config.move_time_seconds)
 
     main = clock.remaining_for(color) / 1000.0
-    overtime = control.for_color(color).overtime_seconds
+    overtime = max(0.0, float(control.for_color(color).overtime_seconds))
+    own_moves_played = max(0, (max(1, move_number) - 1) // 2)
+    expected_moves, minimum_moves = {
+        ThinkingPreset.QUICK: (80, 30),
+        ThinkingPreset.BALANCED: (60, 20),
+        ThinkingPreset.DEEP: (40, 15),
+        ThinkingPreset.CUSTOM: (60, 20),
+    }[config.preset]
+    moves_to_go = max(minimum_moves, expected_moves - own_moves_played)
     if control.mode is TimeControlMode.BYOYOMI:
         if main <= 0:
-            calculated = overtime * 0.8
+            current_overtime = clock.overtime_for(color) / 1000.0
+            calculated = current_overtime * 0.8
         else:
-            reserve = main * 0.05
-            calculated = max(0.0, main - reserve) / 40.0 + overtime * 0.8
+            calculated = main * 0.9 / moves_to_go + overtime * 0.8
     else:
-        calculated = main / 40.0 + overtime * 0.8
-        calculated = min(calculated, main * 0.2)
-    return min(cap, max(0.01, calculated))
+        calculated = main * 0.9 / moves_to_go + overtime * 0.8
+    return max(0.01, calculated)
 
 
 def _clock_available_seconds(

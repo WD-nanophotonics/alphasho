@@ -128,7 +128,35 @@ def test_ui_thinking_budget_uses_clock_and_presets() -> None:
         clock,
         Color.BLACK,
     )
-    assert automatic.time_limit_seconds == 5.0
+    assert automatic.time_limit_seconds == 8.0
+    assert automatic.max_playouts == 800_000
+
+    one_hour = allocate_thinking_budget(
+        balanced,
+        TimeControl(
+            mode=TimeControlMode.FISCHER,
+            black=SideTimeConfig(3600, 0),
+            white=SideTimeConfig(3600, 0),
+        ),
+        ClockState((3_600_000, 3_600_000), (0, 0), Color.BLACK, True),
+        Color.BLACK,
+        move_number=1,
+    )
+    assert one_hour.time_limit_seconds == 54.0
+    assert one_hour.max_playouts == 5_400_000
+
+    late_game = allocate_thinking_budget(
+        balanced,
+        TimeControl(
+            mode=TimeControlMode.FISCHER,
+            black=SideTimeConfig(3600, 0),
+            white=SideTimeConfig(3600, 0),
+        ),
+        ClockState((3_600_000, 3_600_000), (0, 0), Color.BLACK, True),
+        Color.BLACK,
+        move_number=81,
+    )
+    assert late_game.time_limit_seconds == 162.0
 
     fixed = allocate_thinking_budget(
         ThinkingConfig(

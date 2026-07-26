@@ -11,15 +11,14 @@ from enum import IntEnum
 
 import cshogi
 
+from alphasho.ai.time_manager import allocate_thinking_budget
 from alphasho.domain import (
     ClockState,
     Color,
     GameSnapshot,
     MoveOption,
     ThinkingConfig,
-    ThinkingStrategy,
     TimeControl,
-    TimeControlMode,
 )
 
 MATE = 1_000_000
@@ -84,7 +83,14 @@ class HeuristicPlayer:
         self._cancelled.set()
 
     def choose_move(self, snapshot: GameSnapshot, legal_moves: Sequence[MoveOption]) -> MoveOption:
-        return self._search(snapshot, legal_moves, None, None)
+        return self._search(
+            snapshot,
+            legal_moves,
+            None,
+            self.thinking.max_playouts,
+            self.thinking.max_depth,
+            None,
+        )
 
     def choose_move_with_context(
         self,
@@ -96,14 +102,29 @@ class HeuristicPlayer:
         color: Color,
         progress_callback: Callable[[HeuristicSearchProgress], None] | None = None,
     ) -> MoveOption:
-        seconds = self._time_budget(clock_state, time_control, color)
-        return self._search(snapshot, legal_moves, seconds, progress_callback)
+        budget = allocate_thinking_budget(
+            self.thinking,
+            time_control,
+            clock_state,
+            color,
+            move_number=snapshot.move_number,
+        )
+        return self._search(
+            snapshot,
+            legal_moves,
+            budget.time_limit_seconds,
+            budget.max_playouts,
+            budget.max_depth,
+            progress_callback,
+        )
 
     def _search(
         self,
         snapshot: GameSnapshot,
         legal_moves: Sequence[MoveOption],
         seconds: float | None,
+        node_limit: int,
+        max_depth: int,
         progress_callback: Callable[[HeuristicSearchProgress], None] | None,
     ) -> MoveOption:
         if not legal_moves:
@@ -118,11 +139,11 @@ class HeuristicPlayer:
         self._start = time.monotonic()
         self._deadline = None if seconds is None else self._start + max(0.01, seconds)
         self._nodes = 0
-        self._node_limit = max(1, self.thinking.max_playouts)
+        self._node_limit = max(1, node_limit)
         self._table.clear()
         best_usi, best_score, completed_depth = legal_moves[0].usi, 0, 0
         pv: tuple[str, ...] = (best_usi,)
-        for depth in range(1, max(1, self.thinking.max_depth) + 1):
+        for depth in range(1, max(1, max_depth) + 1):
             try:
                 score, usi = self._root(board, depth, best_usi)
             except TimeoutError:
@@ -247,28 +268,6 @@ class HeuristicPlayer:
             raise TimeoutError
         if self._deadline is not None and time.monotonic() >= self._deadline:
             raise TimeoutError
-
-    def _time_budget(self, clock: ClockState, control: TimeControl, color: Color) -> float | None:
-        config = self.thinking
-        available = clock.remaining_for(color) / 1000.0
-        if control.mode is TimeControlMode.BYOYOMI:
-            available += clock.overtime_for(color) / 1000.0
-        if config.strategy is ThinkingStrategy.FIXED_PLAYOUT:
-            seconds = None if control.mode is TimeControlMode.NONE else available
-        elif config.strategy is ThinkingStrategy.FIXED_TIME:
-            seconds = config.move_time_seconds
-        elif control.mode is TimeControlMode.NONE:
-            seconds = config.move_time_seconds
-        else:
-            main = clock.remaining_for(color) / 1000.0
-            overtime = control.for_color(color).overtime_seconds
-            seconds = overtime * 0.8 if main <= 0 else main * 0.95 / 40.0 + overtime * 0.8
-            seconds = min(config.move_time_seconds, seconds)
-        if seconds is None:
-            return None
-        if control.mode is not TimeControlMode.NONE and control.time_forfeit:
-            seconds = min(seconds, available - config.safety_margin_ms / 1000.0)
-        return max(0.01, seconds)
 
     def _progress(
         self,

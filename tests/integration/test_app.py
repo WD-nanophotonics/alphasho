@@ -1,5 +1,5 @@
 from PySide6.QtCore import Qt
-from PySide6.QtWidgets import QApplication
+from PySide6.QtWidgets import QApplication, QMessageBox
 
 from alphasho.ai import AlphaZeroPlayer
 from alphasho.domain import (
@@ -33,6 +33,24 @@ def test_main_window_smoke(qtbot, memory_settings) -> None:
     assert not window.assets.missing_files()
 
 
+def test_closing_dirty_game_discards_without_prompt(
+    qtbot,
+    memory_settings,
+    monkeypatch,
+) -> None:
+    window = _window(qtbot, memory_settings)
+    window.controller.record.dirty = True
+
+    def unexpected_prompt(*_args, **_kwargs):
+        raise AssertionError("closing the UI must not ask to save a record")
+
+    monkeypatch.setattr(QMessageBox, "question", unexpected_prompt)
+
+    assert window.close()
+    QApplication.processEvents()
+    assert not window.isVisible()
+
+
 def test_both_local_sides_and_random_reply_can_move(
     qtbot,
     memory_settings,
@@ -57,7 +75,6 @@ def test_both_local_sides_and_random_reply_can_move(
         lambda: len(controller.game.snapshot().move_history) == 2,
         timeout=2000,
     )
-    controller.record.dirty = False
 
 
 def test_promotion_sprite_commits_promoted_move(
@@ -82,7 +99,6 @@ def test_promotion_sprite_commits_promoted_move(
     assert snapshot.piece_at(39) is None
     assert snapshot.piece_at(38).piece_type is PieceType.PROMOTED_PAWN
     assert snapshot.last_move.usi == "5d5c+"
-    window.controller.record.dirty = False
 
 
 def test_match_dialog_connects_selected_model_to_either_side(

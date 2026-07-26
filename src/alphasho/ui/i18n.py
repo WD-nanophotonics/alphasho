@@ -117,7 +117,9 @@ _JA = {
     "thinking_seconds_suffix": " 秒",
     "thinking_playout_range": "playout 最小–最大",
     "thinking_max_depth": "最大探索深さ",
-    "thinking_summary": "{strategy}・{seconds}秒・{minimum}–{maximum} playout・深さ≤{depth}",
+    "thinking_summary_auto": "{strategy}・棋時計算を優先・最低{minimum} playout・深さ≤{depth}",
+    "thinking_summary_fixed_time": "{strategy}・{seconds}秒・最大{maximum} playout・深さ≤{depth}",
+    "thinking_summary_fixed_playout": "{strategy}・{minimum}–{maximum} playout・深さ≤{depth}",
     "invalid_thinking_playouts": "最小playout数は最大playout数以下にしてください。",
     "thinking_progress": (
         "AI思考中：{elapsed}/{budget}秒・{playouts} playout・"
@@ -177,8 +179,6 @@ _JA = {
     "invalid_record_move": "棋譜に不正な指し手があります：{detail}",
     "empty_record": "棋譜に対局データがありません。",
     "unsupported_record_format": "未対応の棋譜形式です：{extension}",
-    "unsaved_title": "未保存の棋譜",
-    "unsaved_prompt": "棋譜に未保存の変更があります。保存しますか？",
     "about_text": "AlphaSho\n将棋対局UIと将来のAlphaZero学習基盤",
 }
 
@@ -281,7 +281,11 @@ _ZH = {
     "thinking_seconds_suffix": " 秒",
     "thinking_playout_range": "playout 最小–最大",
     "thinking_max_depth": "最大搜索深度",
-    "thinking_summary": "{strategy} · {seconds}秒 · {minimum}–{maximum} playout · 深度≤{depth}",
+    "thinking_summary_auto": "{strategy} · 优先使用棋钟预算 · 至少{minimum} playout · 深度≤{depth}",
+    "thinking_summary_fixed_time": (
+        "{strategy} · {seconds}秒 · 最多{maximum} playout · 深度≤{depth}"
+    ),
+    "thinking_summary_fixed_playout": "{strategy} · {minimum}–{maximum} playout · 深度≤{depth}",
     "invalid_thinking_playouts": "最小 playout 数不能大于最大 playout 数。",
     "thinking_progress": (
         "AI思考中：{elapsed}/{budget}秒 · {playouts} playout · "
@@ -341,8 +345,6 @@ _ZH = {
     "invalid_record_move": "棋谱中存在非法走子：{detail}",
     "empty_record": "棋谱中没有对局数据。",
     "unsupported_record_format": "不支持的棋谱格式：{extension}",
-    "unsaved_title": "棋谱尚未保存",
-    "unsaved_prompt": "棋谱有未保存的更改，是否保存？",
     "about_text": "AlphaSho\n将棋对局 UI 与未来的 AlphaZero 训练基础",
 }
 
@@ -445,7 +447,13 @@ _EN = {
     "thinking_seconds_suffix": " s",
     "thinking_playout_range": "Min–max playouts",
     "thinking_max_depth": "Maximum search depth",
-    "thinking_summary": "{strategy} · {seconds}s · {minimum}–{maximum} playouts · depth≤{depth}",
+    "thinking_summary_auto": (
+        "{strategy} · clock budget first · at least {minimum} playouts · depth≤{depth}"
+    ),
+    "thinking_summary_fixed_time": (
+        "{strategy} · {seconds}s · at most {maximum} playouts · depth≤{depth}"
+    ),
+    "thinking_summary_fixed_playout": "{strategy} · {minimum}–{maximum} playouts · depth≤{depth}",
     "invalid_thinking_playouts": "Minimum playouts must not exceed maximum playouts.",
     "thinking_progress": (
         "AI thinking: {elapsed}/{budget}s · {playouts} playouts · "
@@ -508,8 +516,6 @@ _EN = {
     "invalid_record_move": "The record contains an illegal move: {detail}",
     "empty_record": "The file contains no game record.",
     "unsupported_record_format": "Unsupported record format: {extension}",
-    "unsaved_title": "Unsaved record",
-    "unsaved_prompt": "The record has unsaved changes. Save it?",
     "about_text": "AlphaSho\nShogi match UI and future AlphaZero training foundation",
 }
 
