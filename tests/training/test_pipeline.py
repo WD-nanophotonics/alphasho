@@ -194,6 +194,21 @@ def test_newer_temporary_pipeline_state_is_recovered(tmp_path) -> None:
     assert not temporary.exists()
 
 
+def test_persisted_pipeline_state_uses_current_schema(tmp_path) -> None:
+    trainer = AlphaZeroTrainer.__new__(AlphaZeroTrainer)
+    trainer.paths = {"checkpoints": tmp_path}
+    trainer._state = PipelineState(schema_version=1)
+    trainer._emit = lambda *_args, **_kwargs: None
+
+    trainer._persist_state()
+
+    saved = json.loads(
+        (tmp_path / "pipeline_state.json").read_text(encoding="utf-8")
+    )
+    assert trainer._state.schema_version == 5
+    assert saved["schema_version"] == 5
+
+
 def test_profile_lock_rejects_second_trainer(tmp_path) -> None:
     first = ExclusiveFileLock(tmp_path / ".trainer.lock")
     second = ExclusiveFileLock(tmp_path / ".trainer.lock")

@@ -1491,7 +1491,7 @@ class AlphaZeroTrainer:
 
     def _persist_state(self) -> None:
         path = self.paths["checkpoints"] / "pipeline_state.json"
-        self._state.schema_version = 4
+        self._state.schema_version = 5
         self._state.selfplay_completed = len(
             self._state.selfplay_completed_games
         )
