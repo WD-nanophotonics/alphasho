@@ -340,6 +340,9 @@ def run_benchmark(options: BenchmarkOptions) -> dict[str, object]:
             nonlocal latest_inference
             latest_inference = inference
             result = completed.result
+            evaluation_position = config.evaluation_position_for_game(
+                result.game_index
+            )
             row = {
                 "game_index": result.game_index,
                 "candidate_color": int(result.candidate_color),
@@ -352,6 +355,12 @@ def run_benchmark(options: BenchmarkOptions) -> dict[str, object]:
                     if result.adjudication.winner is None
                     else int(result.adjudication.winner)
                 ),
+                "position_id": (
+                    "standard"
+                    if evaluation_position is None
+                    else evaluation_position.name
+                ),
+                "evaluation_suite_id": config.evaluation_suite_id,
             }
             completed_games.append(row)
             writer.write(
@@ -380,7 +389,11 @@ def run_benchmark(options: BenchmarkOptions) -> dict[str, object]:
         else:
             if best is None:
                 raise RuntimeError("Evaluation benchmark did not load the best model")
-            sfens = config.start_positions.initial_sfens()
+
+            def evaluation_sfen(index: int) -> str | None:
+                position = config.evaluation_position_for_game(index)
+                return None if position is None else position.sfen
+
             run_parallel_evaluation(
                 candidate,
                 best,
@@ -389,9 +402,7 @@ def run_benchmark(options: BenchmarkOptions) -> dict[str, object]:
                 configured_workers=options.workers,
                 parallel_config=parallel,
                 seed_for_game=lambda index: base_seed + index,
-                initial_sfen_for_game=lambda index: sfens[
-                    (index // 2) % len(sfens)
-                ],
+                initial_sfen_for_game=evaluation_sfen,
                 rules=config.adjudication,
                 stop_event=stop_event,
                 on_complete=on_evaluation,
