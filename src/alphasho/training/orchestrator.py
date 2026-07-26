@@ -66,7 +66,7 @@ from alphasho.training.trainer import (
 
 @dataclass(slots=True)
 class PipelineState:
-    schema_version: int = 4
+    schema_version: int = 5
     revision: int = 0
     completed_iterations: int = 0
     active_iteration: int = 0
@@ -79,6 +79,7 @@ class PipelineState:
     best_wins: int = 0
     draws: int = 0
     evaluation_results: list[dict[str, Any]] = field(default_factory=list)
+    evaluation_suite_id: str = ""
     evaluation_required: bool | None = None
     best_iteration: int = 0
     consecutive_no_promotion: int = 0
@@ -152,7 +153,7 @@ class PipelineState:
                 if source_schema < 3
                 else None
             )
-        fields["schema_version"] = 4
+        fields["schema_version"] = 5
         fields["selfplay_completed_games"] = sorted(
             {int(item) for item in fields.get("selfplay_completed_games", [])}
         )
@@ -717,6 +718,9 @@ class AlphaZeroTrainer:
         self,
         iteration: int,
     ) -> tuple[EvaluationResult, bool]:
+        suite_id = self.config.evaluation_suite_id
+        positions = self.config.evaluation_positions
+        self._reconcile_evaluation_suite(suite_id)
         self._reconcile_evaluation_progress()
         self._emit(
             TrainingStage.EVALUATION,
@@ -725,6 +729,8 @@ class AlphaZeroTrainer:
             completed_games=self._state.evaluation_completed,
             evaluation_games=self.config.evaluation_games,
             promotion_score=self.config.promotion_score,
+            evaluation_suite_id=suite_id,
+            evaluation_positions=max(1, len(positions)),
         )
         existing = {
             int(item["game_index"])
@@ -774,6 +780,12 @@ class AlphaZeroTrainer:
                 "terminal": adjudication.reason.value,
                 "captures": sum(adjudication.capture_counts),
                 "absolute_material_diff": abs(adjudication.material_diff),
+                "position_id": (
+                    "standard"
+                    if not positions
+                    else positions[(game.game_index // 2) % len(positions)].name
+                ),
+                "evaluation_suite_id": suite_id,
             }
             records = {
                 int(item["game_index"]): item
@@ -814,6 +826,8 @@ class AlphaZeroTrainer:
                 gpu_average_batch_size=inference.average_batch_size,
                 inference_batches=inference.batches,
                 inference_leaves=inference.leaves,
+                position_id=record["position_id"],
+                evaluation_suite_id=suite_id,
             )
             if self._checkpoint_due(
                 self._state.evaluation_completed,
@@ -830,10 +844,9 @@ class AlphaZeroTrainer:
             parallel_config=self.config.parallel,
             rules=self.config.adjudication,
             initial_sfen_for_game=lambda game_index: (
-                self.config.start_positions.initial_sfens()[
-                    (game_index // 2)
-                    % len(self.config.start_positions.initial_sfens())
-                ]
+                None
+                if not positions
+                else positions[(game_index // 2) % len(positions)].sfen
             ),
             seed_for_game=lambda game_index: (
                 self.config.seed + iteration * 1_000_000 + game_index
@@ -867,6 +880,7 @@ class AlphaZeroTrainer:
             termination_counts=dict(result.termination_counts),
             mean_captures=result.mean_captures,
             mean_absolute_material_diff=result.mean_absolute_material_diff,
+            evaluation_suite_id=suite_id,
         )
         if self._state.consecutive_no_promotion >= 3:
             self._emit(
@@ -879,6 +893,29 @@ class AlphaZeroTrainer:
                 ),
             )
         return result, promoted
+
+    def _reconcile_evaluation_suite(self, suite_id: str) -> None:
+        """Never combine resumable results from different opening suites."""
+
+        previous_suite_id = self._state.evaluation_suite_id
+        if previous_suite_id == suite_id:
+            return
+        previous_games = len(self._state.evaluation_results)
+        if previous_games:
+            self._state.evaluation_results = []
+            self._refresh_evaluation_totals()
+        self._state.evaluation_suite_id = suite_id
+        self._persist_state()
+        if previous_games:
+            self._emit(
+                TrainingStage.EVALUATION,
+                "evaluation-suite-reset",
+                level="WARNING",
+                iteration=self._state.active_iteration,
+                previous_games=previous_games,
+                previous_suite_id=previous_suite_id or "legacy",
+                evaluation_suite_id=suite_id,
+            )
 
     def _reconcile_evaluation_progress(self) -> None:
         """Keep resumable results inside the currently configured game range."""

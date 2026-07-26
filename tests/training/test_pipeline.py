@@ -288,6 +288,41 @@ def test_resumed_evaluation_trims_results_after_game_count_reduction() -> None:
     assert persisted == [20]
 
 
+def test_changed_evaluation_suite_discards_only_partial_evaluation() -> None:
+    trainer = AlphaZeroTrainer.__new__(AlphaZeroTrainer)
+    trainer._state = PipelineState(
+        active_iteration=86,
+        stage=TrainingStage.EVALUATION,
+        evaluation_suite_id="legacy-suite",
+        evaluation_results=[
+            {"game_index": 7, "outcome": "candidate"},
+            {"game_index": 2, "outcome": "best"},
+        ],
+    )
+    persisted: list[str] = []
+    events: list[tuple[str, dict[str, object]]] = []
+    trainer._persist_state = lambda: persisted.append(
+        trainer._state.evaluation_suite_id
+    )
+    trainer._emit = lambda _stage, event, **fields: events.append(
+        (event, fields)
+    )
+
+    trainer._reconcile_evaluation_suite("diverse-suite")
+
+    assert trainer._state.evaluation_suite_id == "diverse-suite"
+    assert trainer._state.evaluation_results == []
+    assert trainer._state.evaluation_completed == 0
+    assert trainer._state.candidate_wins == 0
+    assert trainer._state.best_wins == 0
+    assert persisted == ["diverse-suite"]
+    assert events[0][0] == "evaluation-suite-reset"
+    assert events[0][1]["previous_games"] == 2
+
+    trainer._reconcile_evaluation_suite("diverse-suite")
+    assert persisted == ["diverse-suite"]
+
+
 def test_off_cycle_iteration_skips_evaluation() -> None:
     trainer = AlphaZeroTrainer.__new__(AlphaZeroTrainer)
     trainer.config = SimpleNamespace(iterations=200, check_frequency=5)

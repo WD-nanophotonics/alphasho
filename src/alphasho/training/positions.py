@@ -27,6 +27,14 @@ class TacticalPosition:
 
 
 @dataclass(frozen=True, slots=True)
+class EvaluationPosition:
+    """A named, fixed opening used only for candidate/best evaluation."""
+
+    name: str
+    sfen: str
+
+
+@dataclass(frozen=True, slots=True)
 class StartPositionConfig:
     mode: TrainingStartMode = TrainingStartMode.STANDARD
     path: Path | None = None
@@ -103,3 +111,71 @@ def load_tactical_positions(path: str | Path) -> tuple[TacticalPosition, ...]:
     if not positions:
         raise ValueError(f"No tactical positions found in {source}")
     return tuple(positions)
+
+
+def load_evaluation_positions(
+    path: str | Path,
+) -> tuple[EvaluationPosition, ...]:
+    """Load and validate a deterministic evaluation opening suite."""
+
+    source = Path(path)
+    positions: list[EvaluationPosition] = []
+    names: set[str] = set()
+    sfens: set[str] = set()
+    for line_number, line in enumerate(
+        source.read_text(encoding="utf-8").splitlines(),
+        1,
+    ):
+        if not line.strip() or line.lstrip().startswith("#"):
+            continue
+        try:
+            row = json.loads(line)
+            position = EvaluationPosition(
+                name=str(row["name"]).strip(),
+                sfen=str(row["sfen"]).strip(),
+            )
+        except (KeyError, TypeError, ValueError) as exc:
+            raise ValueError(
+                f"Invalid evaluation position at {source}:{line_number}"
+            ) from exc
+        if not position.name:
+            raise ValueError(
+                f"Evaluation position name cannot be empty at "
+                f"{source}:{line_number}"
+            )
+        if position.name in names:
+            raise ValueError(
+                f"Duplicate evaluation position name: {position.name}"
+            )
+        if position.sfen in sfens:
+            raise ValueError(
+                f"Duplicate evaluation position SFEN: {position.name}"
+            )
+        board = SearchPosition(position.sfen)
+        if not board.legal_actions():
+            raise ValueError(
+                f"{position.name}: evaluation position has no legal moves"
+            )
+        names.add(position.name)
+        sfens.add(position.sfen)
+        positions.append(position)
+    if not positions:
+        raise ValueError(f"No evaluation positions found in {source}")
+    return tuple(positions)
+
+
+def evaluation_suite_id(
+    positions: tuple[EvaluationPosition, ...],
+) -> str:
+    """Return a stable content hash independent of the suite file path."""
+
+    payload = [
+        {"name": position.name, "sfen": position.sfen}
+        for position in positions
+    ]
+    encoded = json.dumps(
+        payload,
+        ensure_ascii=True,
+        separators=(",", ":"),
+    ).encode("utf-8")
+    return hashlib.sha256(encoded).hexdigest()[:20]

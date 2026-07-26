@@ -14,8 +14,11 @@ from alphasho.training.adjudication import (
 )
 from alphasho.training.messages import TrainingLanguage
 from alphasho.training.positions import (
+    EvaluationPosition,
     StartPositionConfig,
     TrainingStartMode,
+    evaluation_suite_id,
+    load_evaluation_positions,
     ruleset_id,
 )
 
@@ -72,6 +75,7 @@ class TrainingConfig:
     learning_rate: float
     weight_decay: float
     evaluation_games: int
+    evaluation_positions_path: Path | None
     promotion_score: float
     check_frequency: int
     monitoring: MonitoringConfig
@@ -89,6 +93,26 @@ class TrainingConfig:
     @property
     def ruleset_id(self) -> str:
         return ruleset_id(self.adjudication, self.start_positions)
+
+    @property
+    def evaluation_positions(self) -> tuple[EvaluationPosition, ...]:
+        if self.evaluation_positions_path is None:
+            return ()
+        return load_evaluation_positions(self.evaluation_positions_path)
+
+    @property
+    def evaluation_suite_id(self) -> str:
+        positions = self.evaluation_positions
+        return "standard" if not positions else evaluation_suite_id(positions)
+
+    def evaluation_position_for_game(
+        self,
+        game_index: int,
+    ) -> EvaluationPosition | None:
+        positions = self.evaluation_positions
+        if not positions:
+            return None
+        return positions[(game_index // 2) % len(positions)]
 
 
 MODEL_PRESETS: dict[str, ModelConfig] = {
@@ -315,6 +339,11 @@ def load_training_config(path: str | Path) -> TrainingConfig:
         learning_rate=float(training.get("learning_rate", 1e-3)),
         weight_decay=float(training.get("weight_decay", 1e-4)),
         evaluation_games=int(evaluation.get("games", 20)),
+        evaluation_positions_path=(
+            _resolve_path(project_root, str(evaluation["positions_path"]))
+            if evaluation.get("positions_path")
+            else None
+        ),
         promotion_score=float(evaluation.get("promotion_score", 0.55)),
         check_frequency=int(evaluation.get("check_frequency", 1)),
         monitoring=MonitoringConfig(
@@ -419,6 +448,25 @@ def validate_training_config(config: TrainingConfig) -> None:
             "evaluation_games: must be even for paired colors, "
             f"got {config.evaluation_games}"
         )
+    if config.evaluation_positions_path is not None:
+        if not config.evaluation_positions_path.is_file():
+            errors.append(
+                "evaluation.positions_path: file not found: "
+                f"{config.evaluation_positions_path}"
+            )
+        else:
+            try:
+                position_count = len(config.evaluation_positions)
+            except (OSError, ValueError) as exc:
+                errors.append(f"evaluation.positions_path: {exc}")
+            else:
+                expected_games = position_count * 2
+                if config.evaluation_games != expected_games:
+                    errors.append(
+                        "evaluation_games: must equal two games per evaluation "
+                        f"position ({expected_games}), got "
+                        f"{config.evaluation_games}"
+                    )
     if config.supervised_epochs < 0:
         errors.append(
             "supervised_epochs: expected a non-negative integer, "
@@ -564,6 +612,12 @@ def effective_config_dict(config: TrainingConfig) -> dict[str, Any]:
     values["benchmark_path"] = (
         None if config.benchmark_path is None else str(config.benchmark_path)
     )
+    values["evaluation_positions_path"] = (
+        None
+        if config.evaluation_positions_path is None
+        else str(config.evaluation_positions_path)
+    )
+    values["evaluation_suite_id"] = config.evaluation_suite_id
     values["ruleset_id"] = config.ruleset_id
     values["source_path"] = str(config.source_path)
     return values

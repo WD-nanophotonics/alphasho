@@ -222,6 +222,15 @@ MESSAGE_CATALOG: dict[str, dict[TrainingLanguage, str]] = {
         "評価数を {evaluation_games} 局に変更しました。完了済み "
         "{previous_games} 局のうち {retained_games} 局を保持しました。",
     ),
+    "evaluation.evaluation-suite-reset": _translations(
+        "Evaluation opening suite changed from {previous_suite_id} to "
+        "{evaluation_suite_id}; discarded {previous_games} partial results.",
+        "评估开局集已从 {previous_suite_id} 变更为 {evaluation_suite_id}；"
+        "已丢弃 {previous_games} 局旧的未完成评估结果。",
+        "評価開始局面セットが {previous_suite_id} から "
+        "{evaluation_suite_id} に変更されたため、途中結果 "
+        "{previous_games} 局を破棄しました。",
+    ),
     "evaluation.parallel-start": _translations(
         "Evaluation scheduler started: {workers} workers, "
         "{pending_games} pending games, GPU batch up to {gpu_batch_size}",

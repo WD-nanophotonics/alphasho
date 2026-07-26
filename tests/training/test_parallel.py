@@ -91,7 +91,7 @@ def test_pipeline_state_v2_migrates_out_of_order_progress() -> None:
         }
     )
 
-    assert state.schema_version == 4
+    assert state.schema_version == 5
     assert state.selfplay_completed_games == [0, 1, 2]
     assert [item["game_index"] for item in state.evaluation_results] == [
         0,
