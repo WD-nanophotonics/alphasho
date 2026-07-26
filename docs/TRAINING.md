@@ -108,7 +108,7 @@ Terminal と言語別 text log には、次の情報が継続的に出力され�
 - playouts、batch size、buffer size、game 数、learning rate などの変更は許可し、
   前回値との差を startup log に記録します。
 
-## CUDA / cloud への移行
+## CUDA 環境への移行
 
 1. Python 3.13 と cshogi が利用できる環境を準備します。
 2. GPU と driver に合う CUDA 版 PyTorch を公式手順で導入します。
@@ -120,10 +120,6 @@ Terminal と言語別 text log には、次の情報が継続的に出力され�
 
 `artifacts/` は Git 管理外です。GitHub へ push しただけでは、モデル、optimizer、
 replay shard、学習進捗は保存されません。
-
-Runpod から Windows へ正式モデル、candidate、状態、ログを定期取得する場合は
-[`RUNPOD_SYNC.md`](RUNPOD_SYNC.md) のローカル pull 方式を使用します。候補モデルは
-正式 `artifacts/checkpoints/best.pt` を上書きしません。
 
 ## よくある問題
 
