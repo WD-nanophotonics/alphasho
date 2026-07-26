@@ -16,3 +16,15 @@ timeout_seconds = 600
 full_backup_timeout_seconds = 7200
 retry_attempts = 3
 task_name = "AlphaSho Runpod Sync"
+
+[control]
+tmux_session = "alphasho-v3"
+training_profile = "baseline"
+training_entry = "training_pipeline.py"
+training_config = "configs/training/baseline.toml"
+log_path = "artifacts/baseline/logs/console.log"
+state_path = "artifacts/baseline/checkpoints/pipeline_state.json"
+status_poll_seconds = 15
+pause_timeout_seconds = 120
+log_tail_lines = 300
+log_reconnect_seconds = 5

@@ -20,6 +20,7 @@ from alphasho.runpod_sync import (
     install_snapshot,
     install_task,
     load_sync_config,
+    silent_subprocess_kwargs,
     verify_snapshot,
 )
 
@@ -110,6 +111,30 @@ task_name = "AlphaSho Runpod Sync"
     assert config.project_root == project
     assert config.sync_root == project / "artifacts" / "cloud-sync"
     assert config.runpodctl == tmp_path / "tools" / "runpodctl.exe"
+
+
+def test_silent_subprocess_options_hide_windows_console(monkeypatch) -> None:
+    class StartupInfo:
+        def __init__(self) -> None:
+            self.dwFlags = 0
+            self.wShowWindow = -1
+
+    monkeypatch.setattr(runpod_sync.os, "name", "nt")
+    monkeypatch.setattr(runpod_sync.subprocess, "STARTUPINFO", StartupInfo)
+    monkeypatch.setattr(runpod_sync.subprocess, "STARTF_USESHOWWINDOW", 1)
+    monkeypatch.setattr(runpod_sync.subprocess, "SW_HIDE", 0)
+    monkeypatch.setattr(runpod_sync.subprocess, "CREATE_NO_WINDOW", 0x08000000)
+
+    options = silent_subprocess_kwargs()
+
+    assert options["creationflags"] == 0x08000000
+    assert options["startupinfo"].dwFlags & 1
+    assert options["startupinfo"].wShowWindow == 0
+
+
+def test_silent_subprocess_options_are_empty_off_windows(monkeypatch) -> None:
+    monkeypatch.setattr(runpod_sync.os, "name", "posix")
+    assert silent_subprocess_kwargs() == {}
 
 
 def test_snapshot_install_inherits_unchanged_models_and_publishes_only_best(

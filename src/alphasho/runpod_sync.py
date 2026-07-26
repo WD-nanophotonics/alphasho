@@ -17,7 +17,7 @@ import tempfile
 import time
 import tomllib
 import urllib.request
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from datetime import UTC, datetime
 from pathlib import Path, PurePosixPath
 from typing import Any
@@ -44,6 +44,35 @@ class SyncError(RuntimeError):
     """A safe, user-facing synchronization failure."""
 
 
+def silent_subprocess_kwargs() -> dict[str, Any]:
+    """Hide console children spawned by the pythonw desktop controller."""
+    if os.name != "nt":
+        return {}
+    startupinfo = subprocess.STARTUPINFO()
+    startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW
+    startupinfo.wShowWindow = subprocess.SW_HIDE
+    return {
+        "creationflags": subprocess.CREATE_NO_WINDOW,
+        "startupinfo": startupinfo,
+    }
+
+
+@dataclass(frozen=True, slots=True)
+class ControlConfig:
+    """Remote training controls shared by the desktop controller."""
+
+    tmux_session: str = "alphasho-v3"
+    training_profile: str = "baseline"
+    training_entry: str = "training_pipeline.py"
+    training_config: str = "configs/training/baseline.toml"
+    log_path: str = "artifacts/baseline/logs/console.log"
+    state_path: str = "artifacts/baseline/checkpoints/pipeline_state.json"
+    status_poll_seconds: int = 15
+    pause_timeout_seconds: int = 120
+    log_tail_lines: int = 300
+    log_reconnect_seconds: int = 5
+
+
 @dataclass(frozen=True, slots=True)
 class SyncConfig:
     project_root: Path
@@ -61,6 +90,7 @@ class SyncConfig:
     full_backup_timeout_seconds: int
     retry_attempts: int
     task_name: str
+    control: ControlConfig = field(default_factory=ControlConfig)
 
 
 def _expand_path(value: str, base: Path | None = None) -> Path:
@@ -81,6 +111,7 @@ def load_sync_config(path: str | Path) -> SyncConfig:
     connection = values.get("connection", {})
     local = values.get("local", {})
     sync = values.get("sync", {})
+    control = values.get("control", {})
     project_root = source.parent.parent
     config = SyncConfig(
         project_root=project_root,
@@ -100,6 +131,27 @@ def load_sync_config(path: str | Path) -> SyncConfig:
         ),
         retry_attempts=int(sync.get("retry_attempts", 3)),
         task_name=str(sync.get("task_name", "AlphaSho Runpod Sync")),
+        control=ControlConfig(
+            tmux_session=str(control.get("tmux_session", "alphasho-v3")),
+            training_profile=str(control.get("training_profile", "baseline")),
+            training_entry=str(control.get("training_entry", "training_pipeline.py")),
+            training_config=str(
+                control.get("training_config", "configs/training/baseline.toml")
+            ),
+            log_path=str(
+                control.get("log_path", "artifacts/baseline/logs/console.log")
+            ),
+            state_path=str(
+                control.get(
+                    "state_path",
+                    "artifacts/baseline/checkpoints/pipeline_state.json",
+                )
+            ),
+            status_poll_seconds=int(control.get("status_poll_seconds", 15)),
+            pause_timeout_seconds=int(control.get("pause_timeout_seconds", 120)),
+            log_tail_lines=int(control.get("log_tail_lines", 300)),
+            log_reconnect_seconds=int(control.get("log_reconnect_seconds", 5)),
+        ),
     )
     if config.interval_minutes <= 0:
         raise ValueError("sync.interval_minutes must be positive")
@@ -109,6 +161,24 @@ def load_sync_config(path: str | Path) -> SyncConfig:
         raise ValueError("sync.retry_attempts must be positive")
     if not config.ssh_target or not config.remote_project_root.startswith("/"):
         raise ValueError("connection settings are incomplete")
+    if not re.fullmatch(r"[A-Za-z0-9_.-]+", config.control.tmux_session):
+        raise ValueError("control.tmux_session contains unsafe characters")
+    for name in (
+        "training_entry",
+        "training_config",
+        "log_path",
+        "state_path",
+    ):
+        path = PurePosixPath(getattr(config.control, name))
+        if path.is_absolute() or ".." in path.parts:
+            raise ValueError(f"control.{name} must be a project-relative safe path")
+    if min(
+        config.control.status_poll_seconds,
+        config.control.pause_timeout_seconds,
+        config.control.log_tail_lines,
+        config.control.log_reconnect_seconds,
+    ) <= 0:
+        raise ValueError("control timing and log settings must be positive")
     return config
 
 
@@ -139,6 +209,7 @@ def _git_revision(project_root: Path) -> str:
             capture_output=True,
             text=True,
             timeout=10,
+            **silent_subprocess_kwargs(),
         ).stdout.strip()
     except (OSError, subprocess.SubprocessError):
         return "unknown"
@@ -542,6 +613,7 @@ def _transfer_once(config: SyncConfig, *, full_backup: bool) -> Path:
                 stderr=subprocess.STDOUT,
                 text=True,
                 encoding="utf-8",
+                **silent_subprocess_kwargs(),
             )
             assert ssh.stdin is not None
             ssh.stdin.write(remote_command)
@@ -559,6 +631,7 @@ def _transfer_once(config: SyncConfig, *, full_backup: bool) -> Path:
                     capture_output=True,
                     text=True,
                     timeout=timeout,
+                    **silent_subprocess_kwargs(),
                 )
             except subprocess.TimeoutExpired as exc:
                 ssh.kill()
@@ -687,6 +760,7 @@ def install_runpodctl(config: SyncConfig) -> None:
             capture_output=True,
             text=True,
             timeout=20,
+            **silent_subprocess_kwargs(),
         )
     finally:
         temporary.unlink(missing_ok=True)
@@ -726,6 +800,7 @@ def install_task(config: SyncConfig) -> None:
             "/F",
         ],
         check=True,
+        **silent_subprocess_kwargs(),
     )
     powershell = _expand_path(
         "%WINDIR%/System32/WindowsPowerShell/v1.0/powershell.exe"
@@ -748,6 +823,7 @@ def install_task(config: SyncConfig) -> None:
             settings_script,
         ],
         check=True,
+        **silent_subprocess_kwargs(),
     )
 
 
@@ -757,6 +833,7 @@ def uninstall_task(config: SyncConfig) -> None:
     subprocess.run(
         ["schtasks.exe", "/Delete", "/TN", config.task_name, "/F"],
         check=True,
+        **silent_subprocess_kwargs(),
     )
     _task_launcher_path().unlink(missing_ok=True)
 
