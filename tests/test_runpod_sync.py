@@ -13,6 +13,7 @@ from alphasho.runpod_sync import (
     MODEL_ARCHIVE_PATHS,
     SyncConfig,
     SyncError,
+    _connection_code_timeout,
     _safe_extract,
     _wait_for_connection_code,
     build_remote_command,
@@ -281,6 +282,21 @@ def test_runpodctl_checksum_suffix_is_read_from_sender_log(tmp_path: Path) -> No
         _wait_for_connection_code(log, "requested-code", process, timeout=0.1)
         == "requested-code-47"
     )
+
+
+def test_full_backup_allows_compression_before_transfer_code() -> None:
+    assert _connection_code_timeout(
+        full_backup=False,
+        transfer_timeout=7200,
+    ) == 30
+    assert _connection_code_timeout(
+        full_backup=True,
+        transfer_timeout=7200,
+    ) == 600
+    assert _connection_code_timeout(
+        full_backup=True,
+        transfer_timeout=120,
+    ) == 120
 
 
 def test_task_install_uses_fifteen_minutes_and_battery_safe_settings(

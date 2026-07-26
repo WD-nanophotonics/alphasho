@@ -577,6 +577,16 @@ def _wait_for_connection_code(
     raise SyncError("Timed out waiting for the remote runpodctl transfer code")
 
 
+def _connection_code_timeout(
+    *,
+    full_backup: bool,
+    transfer_timeout: float,
+) -> float:
+    """Allow full snapshots time to compress before runpodctl prints a code."""
+
+    return min(float(transfer_timeout), 600.0) if full_backup else 30.0
+
+
 def _transfer_once(config: SyncConfig, *, full_backup: bool) -> Path:
     if not config.ssh_executable.is_file():
         raise SyncError(f"SSH executable not found: {config.ssh_executable}")
@@ -623,6 +633,10 @@ def _transfer_once(config: SyncConfig, *, full_backup: bool) -> Path:
                 ssh_log,
                 code,
                 ssh,
+                timeout=_connection_code_timeout(
+                    full_backup=full_backup,
+                    transfer_timeout=timeout,
+                ),
             )
             try:
                 receive = subprocess.run(
