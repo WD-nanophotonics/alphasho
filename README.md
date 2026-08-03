@@ -3,6 +3,32 @@
 AlphaSho は、将棋の対局用デスクトップアプリケーションと、AlphaZero 方式の
 自己対局学習基盤を統合したプロジェクトです。
 
+## 静的 Web 版
+
+`web/` はデスクトップ版から独立した TypeScript/Vite アプリです。ブラウザだけで
+ローカル二人対局、Web Worker 上の heuristic ABP との対局、PeerJS/WebRTC による
+二人用オンラインルームを利用できます。日本語・中国語・英語、スマートフォン表示、
+PWA のオフライン対局に対応します。第一版はニューラルネットワークを同梱しません。
+
+```powershell
+cd web
+npm.cmd install
+npm.cmd run dev
+```
+
+本番ビルドは `npm.cmd run build`、単体テストは `npm.cmd test` です。cshogi との
+10,000局面 rules parity は次のように実行します（生成物は Git 管理外です）。
+
+```powershell
+.\.venv\Scripts\python.exe benchmarks\web_rule_parity.py --positions 10000
+cd web
+npm.cmd run test:parity
+```
+
+`master` へマージ後は `.github/workflows/pages.yml` が `web/dist` を GitHub Pages へ
+配信します。初回だけ GitHub の Settings → Pages → Source で **GitHub Actions** を
+選択してください。Vite の公開 base は `/alphasho/` です。
+
 盤面、合法手、成り、持ち駒、王手、終局判定、SFEN/USI などの将棋ルールは
 [cshogi](https://github.com/TadaoYamaoka/cshogi) を唯一の正として扱います。
 AlphaSho 側は、安全なルールアダプター、対局制御、UI、MCTS、方策価値ネットワーク、
