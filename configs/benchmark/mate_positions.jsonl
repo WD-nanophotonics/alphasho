@@ -1,0 +1,6 @@
+{"expected_status":"proven","legal_first_moves":["R*3a","R*4a","R*5a","R*6a","R*7a","R*8a","R*9a"],"max_ply":1,"name":"synthetic_multiple_mate_in_one","proven_ply":1,"source":"deterministic_test","sfen":"8k/9/7G1/9/9/9/9/9/K8 b R 1"}
+{"expected_status":"proven","legal_first_moves":["6g6f"],"max_ply":3,"name":"audit_short_mate_3","proven_ply":3,"source":"frozen_audit_history","sfen":"l2g5/3r5/pp+R6/2p3p2/2b1NG3/2k1GP3/PP1PP3P/1S1KB4/LN3S2L b G2S2N6Pl2p 99"}
+{"expected_status":"proven","legal_first_moves":["S*7i"],"max_ply":5,"name":"audit_short_mate_5","proven_ply":5,"source":"frozen_audit_history","sfen":"4s2g1/2+r6/+R1s2k1p1/1plp1p3/4p4/PP1P1+p1g1/3+bn3+l/1K5+b1/+p4g3 w Sgs3n2l8p 144"}
+{"expected_status":"proven","legal_first_moves":["S*8h"],"max_ply":7,"name":"audit_short_mate_7","proven_ply":7,"source":"frozen_audit_history","sfen":"4s2g1/2+r6/+R1s2k1p1/1plp1p3/4p4/PP1P1+p1g1/K2+bn3+l/7+b1/+p4g3 w g2s3n2l8p 142"}
+{"expected_status":"disproven","max_ply":3,"name":"quiet_initial_no_mate","source":"deterministic_test","sfen":"lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 1"}
+{"expected_status":"disproven","max_ply":1,"name":"illegal_pawn_drop_mate","source":"deterministic_uchifuzume_test","sfen":"8k/9/6NG1/9/9/9/9/9/K8 b P 1"}

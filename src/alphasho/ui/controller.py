@@ -22,6 +22,14 @@ from alphasho.engine import IllegalMoveError, MatchClock, ShogiGame
 from alphasho.players import Player, RandomPlayer
 
 
+def _timeout_winner(config: MatchConfig, expired_color: Color | None) -> Color | None:
+    if expired_color is None:
+        return None
+    if config.participant(expired_color).kind is ParticipantKind.HUMAN:
+        return None
+    return expired_color.opponent
+
+
 class _PlayerTaskSignals(QObject):
     finished = Signal(int, object, str, object, object, object)
     progress = Signal(int, object, str, object)
@@ -449,11 +457,13 @@ class GameController(QObject):
     def _on_clock_tick(self) -> None:
         state = self.clock.state()
         snapshot = self.game.snapshot()
-        if state.expired_color is not None and not snapshot.outcome.is_over:
+        expired_color = state.expired_color
+        timeout_winner = _timeout_winner(self.match_config, expired_color)
+        if timeout_winner is not None and not snapshot.outcome.is_over:
             self._invalidate_player_tasks()
             outcome = GameOutcome(
                 OutcomeReason.TIMEOUT,
-                state.expired_color.opponent,
+                timeout_winner,
             )
             self.game.finish(outcome)
             self.record.outcome = outcome

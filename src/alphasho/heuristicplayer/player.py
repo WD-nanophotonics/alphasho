@@ -1,17 +1,15 @@
-"""Time-bounded iterative-deepening alpha-beta player."""
+"""Desktop Player adapter for the classical alpha-beta search."""
 
 from __future__ import annotations
 
-import math
 import threading
 import time
+from collections import Counter
 from collections.abc import Callable, Sequence
 from dataclasses import dataclass
-from enum import IntEnum
 
 import cshogi
 
-from alphasho.ai.time_manager import allocate_thinking_budget
 from alphasho.domain import (
     ClockState,
     Color,
@@ -20,69 +18,48 @@ from alphasho.domain import (
     ThinkingConfig,
     TimeControl,
 )
+from alphasho.search import (
+    MoveSearchInfo,
+    PlayerSearchProgress,
+    allocate_thinking_budget,
+)
 
-MATE = 1_000_000
-INF = MATE + 10_000
-PIECE_VALUES = (0, 100, 300, 320, 450, 800, 1_000, 520, 0, 520, 520, 520, 520, 950, 1_150)
-HAND_VALUES = (100, 300, 320, 450, 520, 800, 1_000)
+from .backend import PythonSearchBackend
+from .search import AlphaBetaSearch, SearchCancelled, SearchTuning
 
-
-class SearchCancelled(RuntimeError):
-    pass
-
-
-class _Bound(IntEnum):
-    EXACT = 0
-    LOWER = 1
-    UPPER = 2
-
-
-@dataclass(slots=True)
-class _Entry:
-    depth: int
-    score: int
-    bound: _Bound
-    best_move: str | None
+HeuristicSearchInfo = MoveSearchInfo
+HeuristicSearchProgress = PlayerSearchProgress
 
 
 @dataclass(frozen=True, slots=True)
-class HeuristicSearchInfo:
-    elapsed_seconds: float
-    budget_seconds: float | None
-    playouts: int
-    max_depth: int
-    root_value: float
-    principal_variation: tuple[str, ...]
-
-
-@dataclass(frozen=True, slots=True)
-class HeuristicSearchProgress:
-    completed_playouts: int
-    max_playouts: int
-    elapsed_seconds: float
-    budget_seconds: float | None
-    max_depth: int
-    root_value: float
-    principal_variation: tuple[str, ...]
+class _RebuiltSearchPosition:
+    board: cshogi.Board
+    repetition_counts: Counter[int]
+    history_plies: int
 
 
 class HeuristicPlayer:
-    """Classical negamax player with no neural/training dependencies."""
+    """Time-bounded classical search with no neural or training dependencies."""
 
-    def __init__(self, thinking: ThinkingConfig | None = None) -> None:
+    def __init__(
+        self,
+        thinking: ThinkingConfig | None = None,
+        *,
+        _search_tuning: SearchTuning | None = None,
+    ) -> None:
         self.thinking = thinking or ThinkingConfig()
-        self.last_search_info: HeuristicSearchInfo | None = None
+        self.last_search_info: MoveSearchInfo | None = None
         self._cancelled = threading.Event()
-        self._deadline: float | None = None
-        self._start = 0.0
-        self._nodes = 0
-        self._node_limit = 1
-        self._table: dict[str, _Entry] = {}
+        self._search_tuning = _search_tuning
 
     def cancel(self) -> None:
         self._cancelled.set()
 
-    def choose_move(self, snapshot: GameSnapshot, legal_moves: Sequence[MoveOption]) -> MoveOption:
+    def choose_move(
+        self,
+        snapshot: GameSnapshot,
+        legal_moves: Sequence[MoveOption],
+    ) -> MoveOption:
         return self._search(
             snapshot,
             legal_moves,
@@ -100,7 +77,7 @@ class HeuristicPlayer:
         clock_state: ClockState,
         time_control: TimeControl,
         color: Color,
-        progress_callback: Callable[[HeuristicSearchProgress], None] | None = None,
+        progress_callback: Callable[[PlayerSearchProgress], None] | None = None,
     ) -> MoveOption:
         budget = allocate_thinking_budget(
             self.thinking,
@@ -125,165 +102,137 @@ class HeuristicPlayer:
         seconds: float | None,
         node_limit: int,
         max_depth: int,
-        progress_callback: Callable[[HeuristicSearchProgress], None] | None,
+        progress_callback: Callable[[PlayerSearchProgress], None] | None,
     ) -> MoveOption:
         if not legal_moves:
             raise ValueError("HeuristicPlayer requires at least one legal move")
-        board = cshogi.Board(snapshot.initial_sfen or snapshot.sfen)
-        if snapshot.initial_sfen:
-            for usi in snapshot.move_history:
-                board.push_usi(usi)
-        if board.sfen() != snapshot.sfen:
-            raise ValueError("snapshot replay mismatch")
+        started = time.monotonic()
+        deadline = None if seconds is None else started + max(0.01, seconds)
         self._cancelled.clear()
-        self._start = time.monotonic()
-        self._deadline = None if seconds is None else self._start + max(0.01, seconds)
-        self._nodes = 0
-        self._node_limit = max(1, node_limit)
-        self._table.clear()
-        best_usi, best_score, completed_depth = legal_moves[0].usi, 0, 0
-        pv: tuple[str, ...] = (best_usi,)
-        for depth in range(1, max(1, max_depth) + 1):
-            try:
-                score, usi = self._root(board, depth, best_usi)
-            except TimeoutError:
-                break
-            if usi is not None:
-                best_usi, best_score, completed_depth = usi, score, depth
-                pv = self._principal_variation(board, depth)
-                if progress_callback is not None:
-                    progress_callback(self._progress(seconds, depth, score, pv))
-            if abs(best_score) >= MATE - 256:
-                break
-        if self._cancelled.is_set():
-            raise SearchCancelled()
-        elapsed = time.monotonic() - self._start
-        self.last_search_info = HeuristicSearchInfo(
-            elapsed, seconds, self._nodes, completed_depth, self._normalized(best_score), pv
+        rebuilt = _rebuild_search_position(snapshot)
+        setup_elapsed = time.monotonic() - started
+        search = AlphaBetaSearch(
+            rebuilt.board,
+            deadline=deadline,
+            node_limit=node_limit,
+            cancelled=self._cancelled,
+            budget_seconds=seconds,
+            repetition_counts=rebuilt.repetition_counts,
+            started_at=started,
+            setup_elapsed_seconds=setup_elapsed,
+            position_history_plies=rebuilt.history_plies,
+            tuning=self._search_tuning,
         )
-        return {move.usi: move for move in legal_moves}.get(best_usi, legal_moves[0])
-
-    def _root(self, board: cshogi.Board, depth: int, preferred: str) -> tuple[int, str | None]:
-        alpha, best_score, best_move = -INF, -INF, None
-        for move in self._ordered_moves(board, preferred):
-            self._check_limits()
-            board.push(move)
-            try:
-                score = -self._negamax(board, depth - 1, -INF, -alpha, 1)
-            finally:
-                board.pop()
-            if score > best_score:
-                best_score, best_move = score, cshogi.move_to_usi(move)
-            alpha = max(alpha, score)
-        return best_score, best_move
-
-    def _negamax(self, board: cshogi.Board, depth: int, alpha: int, beta: int, ply: int) -> int:
-        self._nodes += 1
-        self._check_limits()
-        if board.is_game_over():
-            return -MATE + ply
-        if board.is_draw():
-            return 0
-        if depth <= 0:
-            return self._evaluate(board)
-        key = " ".join(board.sfen().split()[:3])
-        entry = self._table.get(key)
-        original_alpha = alpha
-        if entry is not None and entry.depth >= depth:
-            if entry.bound is _Bound.EXACT:
-                return entry.score
-            if entry.bound is _Bound.LOWER:
-                alpha = max(alpha, entry.score)
-            else:
-                beta = min(beta, entry.score)
-            if alpha >= beta:
-                return entry.score
-        best, best_usi = -INF, None
-        for move in self._ordered_moves(board, entry.best_move if entry else None):
-            board.push(move)
-            try:
-                score = -self._negamax(board, depth - 1, -beta, -alpha, ply + 1)
-            finally:
-                board.pop()
-            if score > best:
-                best, best_usi = score, cshogi.move_to_usi(move)
-            alpha = max(alpha, score)
-            if alpha >= beta:
-                break
-        bound = (
-            _Bound.UPPER
-            if best <= original_alpha
-            else _Bound.LOWER
-            if best >= beta
-            else _Bound.EXACT
+        result = PythonSearchBackend(search).run(
+            fallback_usi=legal_moves[0].usi,
+            max_depth=max_depth,
+            progress_callback=progress_callback,
         )
-        self._table[key] = _Entry(depth, best, bound, best_usi)
-        return best
-
-    @staticmethod
-    def _evaluate(board: cshogi.Board) -> int:
-        black = 0
-        for raw in board.pieces:
-            piece = int(raw)
-            if piece:
-                white = piece >= 16
-                value = PIECE_VALUES[piece - 16 if white else piece]
-                black += -value if white else value
-        for index, value in enumerate(HAND_VALUES):
-            black += value * int(board.pieces_in_hand[cshogi.BLACK][index])
-            black -= value * int(board.pieces_in_hand[cshogi.WHITE][index])
-        score = black if board.turn == cshogi.BLACK else -black
-        return score - 35 if board.is_check() else score
-
-    @staticmethod
-    def _ordered_moves(board: cshogi.Board, preferred: str | None) -> list[int]:
-        def priority(move: int) -> int:
-            if cshogi.move_to_usi(move) == preferred:
-                return 10_000_000
-            captured = int(board.piece(cshogi.move_to(move)))
-            captured_type = captured - 16 if captured >= 16 else captured
-            return (PIECE_VALUES[captured_type] if captured_type else 0) * 10 + (
-                500 if cshogi.move_is_promotion(move) else 0
-            )
-        return sorted((int(move) for move in board.legal_moves), key=priority, reverse=True)
-
-    def _principal_variation(self, board: cshogi.Board, depth: int) -> tuple[str, ...]:
-        clone, result = board.copy(), []
-        for _ in range(depth):
-            entry = self._table.get(" ".join(clone.sfen().split()[:3]))
-            if entry is None or entry.best_move is None:
-                break
-            legal = {cshogi.move_to_usi(move): int(move) for move in clone.legal_moves}
-            move = legal.get(entry.best_move)
-            if move is None:
-                break
-            result.append(entry.best_move)
-            clone.push(move)
-        return tuple(result)
-
-    def _check_limits(self) -> None:
-        if self._cancelled.is_set():
-            raise SearchCancelled()
-        if self._nodes >= self._node_limit:
-            raise TimeoutError
-        if self._deadline is not None and time.monotonic() >= self._deadline:
-            raise TimeoutError
-
-    def _progress(
-        self,
-        seconds: float | None,
-        depth: int,
-        score: int,
-        pv: tuple[str, ...],
-    ) -> HeuristicSearchProgress:
-        return HeuristicSearchProgress(
-            self._nodes, self._node_limit, time.monotonic() - self._start,
-            seconds, depth, self._normalized(score), pv,
+        elapsed = time.monotonic() - started
+        deadline_overshoot_ms = (
+            result.deadline_overshoot_ms
+            if seconds is None
+            else max(result.deadline_overshoot_ms, (elapsed - seconds) * 1_000.0, 0.0)
         )
+        self.last_search_info = MoveSearchInfo(
+            elapsed_seconds=elapsed,
+            budget_seconds=seconds,
+            playouts=result.nodes,
+            max_depth=result.completed_depth,
+            root_value=result.normalized_score,
+            principal_variation=result.principal_variation,
+            main_nodes=result.main_nodes,
+            quiescence_nodes=result.quiescence_nodes,
+            tt_hits=result.tt_hits,
+            beta_cutoffs=result.beta_cutoffs,
+            nodes_per_second=result.nodes / max(elapsed, 1e-9),
+            completed_root_moves=result.completed_root_moves,
+            used_fallback=result.used_fallback,
+            quiescence_truncations=result.quiescence_truncations,
+            attempted_depth=result.attempted_depth,
+            fallback_reason=result.fallback_reason,
+            deadline_overshoot_ms=deadline_overshoot_ms,
+            q_depth_truncations=result.q_depth_truncations,
+            q_leaf_truncations=result.q_leaf_truncations,
+            q_budget_truncations=result.q_budget_truncations,
+            q_evasion_nodes=result.q_evasion_nodes,
+            move_ordering_seconds=result.move_ordering_seconds,
+            legal_generation_seconds=result.legal_generation_seconds,
+            checking_probe_seconds=result.checking_probe_seconds,
+            evaluation_seconds=result.evaluation_seconds,
+            evaluation_calls=result.evaluation_calls,
+            ordering_calls=result.ordering_calls,
+            ordered_moves=result.ordered_moves,
+            setup_elapsed_seconds=result.setup_elapsed_seconds,
+            position_history_plies=result.position_history_plies,
+            timeout_stage=result.timeout_stage,
+            incremental_evaluation_calls=result.incremental_evaluation_calls,
+            full_evaluation_calls=result.full_evaluation_calls,
+            lazy_beta_skips=result.lazy_beta_skips,
+            lazy_alpha_skips=result.lazy_alpha_skips,
+            cpu_elapsed_seconds=result.cpu_elapsed_seconds,
+            cpu_evaluation_seconds=result.cpu_evaluation_seconds,
+            cpu_ordering_seconds=result.cpu_ordering_seconds,
+            cpu_see_seconds=result.cpu_see_seconds,
+            cpu_tt_seconds=result.cpu_tt_seconds,
+            cpu_search_overhead_seconds=result.cpu_search_overhead_seconds,
+            move_picker_generated=result.move_picker_generated,
+            move_picker_yielded=result.move_picker_yielded,
+            move_picker_yielded_by_stage=result.move_picker_yielded_by_stage,
+            full_evaluation_bound_skips=result.full_evaluation_bound_skips,
+            occupied_piece_iterations=result.occupied_piece_iterations,
+            mate_status=result.mate_status,
+            mate_nodes=result.mate_nodes,
+            mate_elapsed_seconds=result.mate_elapsed_seconds,
+            mate_principal_variation=result.mate_principal_variation,
+            scheduler_wait_seconds=result.scheduler_wait_seconds,
+            timing_cause=result.timing_cause,
+            classification_seconds=result.classification_seconds,
+            sorting_seconds=result.sorting_seconds,
+            pvs_null_window_searches=result.pvs_null_window_searches,
+            pvs_researches=result.pvs_researches,
+            aspiration_fail_low=result.aspiration_fail_low,
+            aspiration_fail_high=result.aspiration_fail_high,
+            aspiration_researches=result.aspiration_researches,
+            see_queries=result.see_queries,
+            see_prunes=result.see_prunes,
+            lmr_reductions=result.lmr_reductions,
+            lmr_researches=result.lmr_researches,
+            null_move_attempts=result.null_move_attempts,
+            null_move_cutoffs=result.null_move_cutoffs,
+            null_move_verifications=result.null_move_verifications,
+            razor_prunes=result.razor_prunes,
+            reverse_futility_prunes=result.reverse_futility_prunes,
+            move_picker_stage_counts=result.move_picker_stage_counts,
+            move_picker_stage_seconds=result.move_picker_stage_seconds,
+        )
+        legal_by_usi = {move.usi: move for move in legal_moves}
+        return legal_by_usi.get(result.best_move, legal_moves[0])
 
-    @staticmethod
-    def _normalized(score: int) -> float:
-        return math.copysign(1.0, score) if abs(score) >= MATE - 256 else math.tanh(score / 2_000.0)
+
+def _rebuild_search_position(snapshot: GameSnapshot) -> _RebuiltSearchPosition:
+    board = cshogi.Board(snapshot.initial_sfen or snapshot.sfen)
+    counts: Counter[int] = Counter({int(board.zobrist_hash()): 1})
+    history_plies = 0
+    if snapshot.initial_sfen:
+        for usi in snapshot.move_history:
+            board.push_usi(usi)
+            counts[int(board.zobrist_hash())] += 1
+            history_plies += 1
+    if board.sfen() != snapshot.sfen:
+        raise ValueError("snapshot replay mismatch")
+    return _RebuiltSearchPosition(board, counts, history_plies)
 
 
-__all__ = ["HeuristicPlayer", "HeuristicSearchInfo", "HeuristicSearchProgress", "SearchCancelled"]
+def _board_from_snapshot(snapshot: GameSnapshot) -> cshogi.Board:
+    """Compatibility wrapper for callers that only need the rebuilt board."""
+
+    return _rebuild_search_position(snapshot).board
+
+
+__all__ = [
+    "HeuristicPlayer",
+    "HeuristicSearchInfo",
+    "HeuristicSearchProgress",
+    "SearchCancelled",
+]

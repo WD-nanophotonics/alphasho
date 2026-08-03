@@ -11,11 +11,6 @@ import numpy as np
 
 from alphasho.ai.mcts import MCTS, SearchCancelled, SearchConfig
 from alphasho.ai.model import load_inference_checkpoint
-from alphasho.ai.time_manager import (
-    MoveSearchInfo,
-    PlayerSearchProgress,
-    allocate_thinking_budget,
-)
 from alphasho.domain import (
     ClockState,
     Color,
@@ -25,6 +20,11 @@ from alphasho.domain import (
     TimeControl,
 )
 from alphasho.engine import SearchPosition
+from alphasho.search import (
+    MoveSearchInfo,
+    PlayerSearchProgress,
+    allocate_thinking_budget,
+)
 
 
 class AlphaZeroPlayer:

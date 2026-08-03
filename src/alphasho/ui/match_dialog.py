@@ -602,7 +602,9 @@ class MatchSettingsDialog(QDialog):
         self.common_time.widget.setVisible(timed and shared)
         self.black_time.widget.setVisible(timed and not shared)
         self.white_time.widget.setVisible(timed and not shared)
-        self.time_forfeit.setEnabled(timed)
+        has_non_human = self.black_fields.ai.isChecked() or self.white_fields.ai.isChecked()
+        self.time_forfeit.setVisible(has_non_human)
+        self.time_forfeit.setEnabled(timed and has_non_human)
 
         overtime_key = (
             "byoyomi_seconds"

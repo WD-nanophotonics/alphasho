@@ -53,6 +53,27 @@ PyCharm の共有実行構成から **AlphaSho UI** を選び、Run をクリッ
 ランダム AI は Player インターフェースの動作確認用であり、棋力を目的としたものでは
 ありません。
 
+Heuristic ABP は iterative deepening、quiescence search、置換表、PV、王安全を含む
+CPU 専用 player です。旧 material-only ABP との換先比較は通常の test suite から分離され、
+次の command で実行できます。
+
+```powershell
+.\.venv\Scripts\python.exe benchmarks\heuristic_strength.py
+```
+
+既定は固定10局面の換先、1秒/手、最大256手です。手数上限に達した対局は和棋ではなく
+`unresolved` として得点から除外します。`candidate_score` は rule 上決着し、fallback と
+deadline tolerance 超過がなかった対局だけから計算されます。benchmark は既定で合否を返さず、
+100局以上の
+有効 sample と95%信頼区間が揃うまで「旧版より強い」とは判定しません。詳細は
+[`docs/ABP_BENCHMARK.md`](docs/ABP_BENCHMARK.md) を参照してください。
+
+引数なしで実行しても、監査結果は `artifacts/reports/abp-<timestamp>/` に自動保存されます。
+console は各手の深さ、探索 node、経過時間を real-time に表示し、`summary.json` は1局ごとに
+更新されます。最新 run の場所は `artifacts/reports/latest.json` から確認できます。
+Stop / Ctrl+C 後は、最初に表示された run directory を `--run-dir` に渡して `--resume` すれば、
+完了済みの対局を飛ばして再開できます。
+
 ウィンドウを閉じる操作は棋譜を破棄する意思表示として扱い、保存確認を表示しません。
 棋譜を残す場合は、閉じる前にメニューの「棋譜を保存」を使用してください。
 

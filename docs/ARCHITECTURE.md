@@ -23,13 +23,47 @@
 |---|---|---|
 | `domain` | immutable な型、enum、Player interface | Python 標準ライブラリ |
 | `engine` | cshogi adapter、対局状態、棋譜、探索局面 | `domain`、cshogi |
+| `search` | Player 共通の思考時間配分、進捗、探索結果 | `domain` |
 | `players` | Human / Random Player | `domain` |
 | `ui` | PySide6 widget、dialog、対局 controller | `domain`、`engine`、`players`、`ai` |
 | `ai` | encoding、network、MCTS、AlphaZero Player | `domain`、`engine`、Torch、cshogi |
+| `heuristicplayer` | CPU 向け評価関数、手順排序、alpha-beta 探索 | `domain`、`engine`、`search`、cshogi |
 | `training` | self-play、replay、optimization、evaluation | `ai`、`engine`、Torch |
 
 `domain` と `engine` は Qt を import しません。`training` はデスクトップ UI から
 独立しており、UI 起動時に Trainer や replay data を読み込みません。
+
+`search` は探索 algorithm に依存しない共通 layer です。`ai` と `heuristicplayer` は
+同じ時間配分・進捗型を使用しますが、MCTS と alpha-beta の tree や評価器を共有しません。
+
+## Heuristic alpha-beta が1手を選ぶ流れ
+
+```text
+GameSnapshot + legal MoveOption + ThinkingBudget
+        ▼
+cshogi.Board を履歴付きで再構築
+        ▼
+iterative deepening negamax
+        ├─ zobrist transposition table / PV
+        ├─ staged native-move picker / SEE / killer・countermove・history
+        ├─ optional bounded short-mate proof (benchmark profile)
+        └─ quiescence search
+                ▼
+material + piece-square + mobility + king-safety evaluation
+        ▼
+最後に完了した深さの USI を返す（deadline 時は部分 root 結果）
+```
+
+`heuristicplayer.player` は UI adapter、`search` は木探索、`evaluation` は静的評価、
+`move_ordering` は着手順序だけを所有します。探索中の native move は package 外へ公開せず、
+Player 境界では引き続き `MoveOption` と USI のみを使用します。
+`mate_search` は通常 alpha-beta から独立した証明探索です。資源切れを不詰と混同せず、成功した
+証明列だけが root move を短絡できます。`benchmarks/yaneuraou_usi.py` は外部 oracle adapter であり、
+product layer から import しません。
+
+`heuristicplayer.evaluator` と `heuristicplayer.backend` は内部差し替え境界です。既定は増分
+handcrafted evaluator と Python search backend のままで、将来の整数 NNUE や native hot core
+を UI 依存なしで追加できるようにします。
 
 ## UI で1手を指す流れ
 
