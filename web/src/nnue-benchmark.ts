@@ -8,12 +8,14 @@ root.innerHTML = `<main class="about-shell"><h1>AlphaSho NN 第一代 · Benchma
 const text = (id: string, value: string) => { document.getElementById(id)!.textContent = value; };
 text('capability', `crossOriginIsolated=${crossOriginIsolated}; SharedArrayBuffer=${typeof SharedArrayBuffer !== 'undefined'}; secure=${isSecureContext}; serviceWorker=${'serviceWorker' in navigator}; controlled=${!!navigator.serviceWorker?.controller}`);
 text('device', navigator.userAgent);
+const buildLabel = document.createElement('p'); buildLabel.textContent = `Controller ${NnueWorkerPlayer.policyHash.slice(0,12)} · WASM ${NnueWorkerPlayer.engineSha.slice(0,12)}`; document.getElementById('device')!.after(buildLabel);
 interface Entry { kind: string; sfen: string; nodes?: number; elapsedMs?: number; engineElapsedMs?: number; nps?: number; depth?: number; memoryBytes?: number; cp?: number; expectedCp?: number; ok?: boolean }
 let player: NnueWorkerPlayer | null = null, abort: AbortController | null = null;
-const report = { schemaVersion: 1, startedAt: '', device: navigator.userAgent, entries: [] as Entry[], error: '', finished: false, runs: [] as Array<{ kind: string; startedAt: string; finished: boolean; error: string; entries: Entry[] }>, physicalDevice: false, deviceModel: '', level1GameCompleted: false, level10GameCompleted: false, model: null as unknown, loading: null as unknown };
+const report = { schemaVersion: 1, policyHash: NnueWorkerPlayer.policyHash, engineWasmSha256: NnueWorkerPlayer.engineSha, startedAt: '', device: navigator.userAgent, entries: [] as Entry[], error: '', finished: false, runs: [] as Array<{ kind: string; startedAt: string; finishedAt: string; elapsedMs: number; loading: unknown; finished: boolean; error: string; entries: Entry[] }>, physicalDevice: false, deviceModel: '', level1GameCompleted: false, level10GameCompleted: false, model: null as unknown, loading: null as unknown };
 async function run(kind: string) {
   if (abort) return;
   abort = new AbortController(); const signal = abort.signal; report.startedAt = new Date().toISOString(); report.error = ''; report.finished = false; report.entries = [];
+  const runStarted = performance.now();
   player = new NnueWorkerPlayer(); player.onLoading = p => text('status', `Model ${Math.floor(p * 100)}%`);
   try {
     const fixtures = await fetch(import.meta.env.BASE_URL + 'nnue/benchmark.json', { signal }).then(r => r.json()) as Array<{ sfen: string; category: string }>;
@@ -38,7 +40,7 @@ async function run(kind: string) {
     }
     report.finished = true; text('status', 'Complete / 已完成');
   } catch (e) { report.error = e instanceof Error ? e.message : String(e); text('status', 'Stopped / ' + report.error); }
-  finally { report.runs.push({ kind, startedAt: report.startedAt, finished: report.finished, error: report.error, entries: report.entries.slice() }); report.model = player?.manifest; report.loading = player?.loadMetrics; text('model', JSON.stringify(player?.manifest)); player?.dispose(); player = null; abort = null; text('results', JSON.stringify(report, null, 2)); }
+  finally { report.runs.push({ kind, startedAt: report.startedAt, finishedAt: new Date().toISOString(), elapsedMs: performance.now() - runStarted, loading: player?.loadMetrics, finished: report.finished, error: report.error, entries: report.entries.slice() }); report.model = player?.manifest; report.loading = player?.loadMetrics; text('model', JSON.stringify(player?.manifest)); player?.dispose(); player = null; abort = null; text('results', JSON.stringify(report, null, 2)); }
 }
 for (const id of ['quick', 'full', 'parity', 'stress']) document.getElementById(id)!.onclick = () => { void run(id); };
 document.getElementById('stop')!.onclick = () => abort?.abort();

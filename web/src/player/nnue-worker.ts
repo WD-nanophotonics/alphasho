@@ -1,10 +1,13 @@
 /// <reference lib="webworker" />
 import { NNUE_LEVELS, parseInfo, selectCandidate, type Candidate } from './nnue-config';
+declare const __NNUE_ENGINE_SHA__: string;
+declare const __NNUE_ENGINE_JS_SHA__: string;
 interface Module {
   FS: { mkdir(path: string): void; writeFile(path: string, bytes: Uint8Array): void };
   postMessage(command: string): void; addMessageListener(listener: (line: string) => void): void;
   HEAPU8: Uint8Array;
   ccall(name: string, result: string, args: string[], values: string[]): number;
+  terminate(): void;
 }
 let engine: Module | null = null;
 let listener: ((line: string) => void) | null = null;
@@ -19,8 +22,8 @@ function wait(prefix: string, seconds = 45): Promise<string[]> {
   });
 }
 async function initialize(base: string, bytes: ArrayBuffer) {
-  const { default: factory } = await import(/* @vite-ignore */ base + 'nnue/engine/yaneuraou.js');
-  engine = await factory({ print: (line: string) => listener?.(line), printErr: (line: string) => listener?.('Error! ' + line), locateFile: (file: string) => base + 'nnue/engine/' + file });
+  const { default: factory } = await import(/* @vite-ignore */ base + 'nnue/engine/yaneuraou.js?sha256=' + __NNUE_ENGINE_JS_SHA__);
+  engine = await factory({ print: (line: string) => listener?.(line), printErr: (line: string) => listener?.('Error! ' + line), locateFile: (file: string) => base + 'nnue/engine/' + file + '?sha256=' + (file.endsWith('.wasm') ? __NNUE_ENGINE_SHA__ : __NNUE_ENGINE_JS_SHA__) });
   engine!.addMessageListener(line => listener?.(line));
   engine!.postMessage = command => { engine!.ccall('alphasho_usi_command', 'number', ['string'], [command]); };
 
@@ -34,6 +37,7 @@ async function initialize(base: string, bytes: ArrayBuffer) {
 self.onmessage = async ({ data }) => {
   const { id } = data;
   try {
+    if (data.type === 'shutdown') { engine?.terminate(); self.postMessage({ type: 'closed', id }); self.close(); return; }
     if (data.type === 'init') { await initialize(data.base, data.bytes); self.postMessage({ type: 'ready', id, memoryBytes: engine!.HEAPU8.byteLength }); return; }
     if (!engine) throw new Error('Engine not initialized');
     if (data.type === 'stop') { engine.postMessage('stop'); return; }

@@ -6,5 +6,6 @@
   "desktopReliabilityPassed": false,
   "difficultyScreeningReviewed": false,
   "parityPositions": 1024,
-  "parityMismatches": 0
+  "parityMismatches": 0,
+  "policyHash": "7ea3b893ef8e2b4162d05767b99eead0180b3890784fc2874f07c4984e3dbbc7"
 }

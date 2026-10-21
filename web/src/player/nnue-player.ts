@@ -3,8 +3,12 @@ import { Position } from '../engine/position';
 import { loadModel } from './nnue-model';
 import { guidedRoots, type RookRoute } from './rook-guide';
 import type { NnueManifest } from './nnue-config';
+declare const __NNUE_POLICY_HASH__: string;
+declare const __NNUE_ENGINE_SHA__: string;
 export interface NnueResult extends PlayerResult { engineElapsedMs: number; memoryBytes: number }
 export class NnueWorkerPlayer implements BrowserPlayer {
+  static readonly policyHash = __NNUE_POLICY_HASH__;
+  static readonly engineSha = __NNUE_ENGINE_SHA__;
   private worker: Worker | null = null;
   private initialized: Promise<void> | null = null;
   private serial = 0;
@@ -30,9 +34,9 @@ export class NnueWorkerPlayer implements BrowserPlayer {
       this.worker.onmessage = ({ data }) => {
         const pending = this.pending.get(data.id); if (!pending) return;
         if (data.type === 'progress') pending.progress?.(data.progress);
-        else { this.pending.delete(data.id); if (data.type === 'error') pending.reject(new Error(data.message)); else pending.resolve(data.result ?? data.cp ?? data); }
+        else { this.pending.delete(data.id); if (data.type === 'error') { const error = new Error(data.message); pending.reject(error); this.fail(error, true); } else pending.resolve(data.result ?? data.cp ?? data); }
       };
-      this.worker.onerror = event => { this.fail(new Error(event.message || 'NNUE Worker crashed')); };
+      this.worker.onerror = event => { this.fail(new Error(event.message || 'NNUE Worker crashed'), true); };
       await this.call({ type: 'init', base: new URL(import.meta.env.BASE_URL, location.origin).href, bytes }, [bytes], undefined, 60000);
       this.loadMetrics.workerMs = performance.now() - workerStart;
     })().catch(error => { if (generation === this.generation) this.dispose(); throw error; });
@@ -41,7 +45,7 @@ export class NnueWorkerPlayer implements BrowserPlayer {
   private call(data: Record<string, unknown>, transfer: Transferable[] = [], progress?: (p: SearchProgress) => void, timeout = 10000): Promise<unknown> {
     const id = ++this.serial;
     return new Promise((resolve, reject) => {
-      const timer = setTimeout(() => { this.fail(new Error('NNUE Worker response timeout')); }, timeout);
+      const timer = setTimeout(() => { this.fail(new Error('NNUE Worker response timeout'), true); }, timeout);
       this.pending.set(id, { resolve: v => { clearTimeout(timer); resolve(v); }, reject: e => { clearTimeout(timer); reject(e); }, progress });
       this.worker!.postMessage({ ...data, id }, transfer);
     });
@@ -65,11 +69,24 @@ export class NnueWorkerPlayer implements BrowserPlayer {
       const result = await this.call({ type: 'go', position, budget: { ...budget, milliseconds: remaining }, level: budget.level ?? 10, roots, benchmark: budget.benchmark }, [], onProgress, remaining + 250) as NnueResult;
       signal.throwIfAborted(); if (performance.now() - start > budget.milliseconds + 250) throw new Error('NNUE returned an expired result');
       if (!p.legalMoves().some(m => p.moveToUsi(m) === result.move)) throw new Error('NNUE returned an illegal move');
-      result.elapsedMs = performance.now() - start; return result;
+      result.elapsedMs = performance.now() - start;
+      if (result.elapsedMs > budget.milliseconds + 250) throw new Error('NNUE returned an expired result');
+      return result;
     } catch (error) { if (generation === this.generation) this.dispose(); throw error; }
     finally { signal.removeEventListener('abort', abort); }
   }
   async evaluate(position: string, signal: AbortSignal): Promise<number> { await this.init(signal); return await this.call({ type: 'eval', position }) as number; }
-  private fail(error: Error) { this.generation++; for (const p of this.pending.values()) p.reject(error); this.pending.clear(); this.worker?.terminate(); this.worker = null; this.initialized = null; }
+  private fail(error: Error, immediate = false) {
+    this.generation++; for (const p of this.pending.values()) p.reject(error); this.pending.clear();
+    const worker = this.worker; this.worker = null; this.initialized = null;
+    if (!worker) return;
+    worker.onerror = null;
+    if (immediate) { worker.onmessage = null; worker.terminate(); return; }
+    // Normal cancellation explicitly tears down Emscripten's pthread pool.
+    // A crashed/unresponsive worker still has a strict bounded termination path.
+    const timer = setTimeout(() => worker.terminate(), 50);
+    worker.onmessage = ({ data }) => { if (data.type === 'closed') { clearTimeout(timer); worker.terminate(); } };
+    try { worker.postMessage({ type: 'shutdown' }); } catch { clearTimeout(timer); worker.terminate(); }
+  }
   dispose(): void { this.fail(new DOMException('Search cancelled', 'AbortError')); }
 }

@@ -64,7 +64,8 @@ Windows使用`emsdk.bat`，将make所在目录加入PATH或设置`NNUE_MAKE`，�
 - `public/nnue/benchmark.json`：48固定局面；开局10、中盘12、残局10、被将军8、打入着8。
 - `nnue-reports/wasm-parity.json`：1024/1024整数评分一致，零差异。
 - `nnue-reports/browser-quick.json`：桌面浏览器24次搜索，包含通信开销。
-- `nnue-reports/difficulty/`：冻结赛程、逐手数据、JSON/KIF和进度；未结束前不把中途结果称为通过。
+- `nnue-reports/difficulty/`：首批177局探索记录；发现低档将死评分可能退回浅层cp候选，已修补，旧结果不用于最终验收。
+- `nnue-reports/difficulty-acceptance/`：修补后重新冻结的独立开局、赛程及逐手JSON/KIF；未结束前不把中途结果称为通过。
 - `nnue-reports/release-acceptance.json`：真实手机验收闸门，当前pending。
 
 完整基准：48局面×6预算×3重复（864次），预算为1万/5万节点及0.1/0.5/2/5秒。引擎NPS使用引擎时间；实际NPS使用完整搜索请求时间，不含模型加载/预热。快速基准只覆盖8局面，不代替完整基准。
@@ -78,6 +79,8 @@ node node_modules/tsx/dist/cli.mjs scripts/export-nnue-kif.ts
 
 每组相邻档24局，1/5/10交叉各24局，10档对原网页ABP困难档40局，共328局。最多512半手记实验和棋，超时单列。ABP困难档2秒而NN10档5秒，预算不同；不能把结果换算官方段位。Node WASM比赛验证难度筛选，不能冒充手机浏览器性能。校准如需改变参数，最多两轮，必须重新冻结独立验收，不能以已观察的对局追认通过。
 
+当前Windows有限批次由`nnue-suite.py`隐藏运行，不新增服务或计划任务。它持有独立锁，等浏览器压力测试完成后才启动原生基准，最多同时两个搜索。完成全部比赛后按真实开局聚类汇总、导出JSON/KIF ZIP；仅在本地已授权的`.cache/preview-publish.json`保护清单一致时更新独立预览的`results.html`，不合并PR或发布正式站。错误写入`suite-error.json`，不盲目重试。CLI直接运行时默认输出`difficulty-acceptance`，可用`--output`指定独立目录；完成局按冻结清单复用。
+
 ## 手机人工验收
 
 在**真实iPhone Safari**及**真实Android Chrome**分别：
@@ -85,7 +88,7 @@ node node_modules/tsx/dist/cli.mjs scripts/export-nnue-kif.ts
 1. 打开独立预览基准页，运行完整48局面基准与10分钟压力测试；保持前台，导出JSON，填真实设备型号并勾选真实设备。页面进入后台会取消测试。
 2. 选择NN1档与10档各完成至少一盘，导出两份棋局JSON；检查无非法着、崩溃、卡死或每手重复加载。
 3. 10档前台选着时间95分位≤5.25秒。手机尺寸模拟只验布局，不算真机通过。
-4. 提交设备JSON、两盘棋局JSON及异常说明；在`release-acceptance.json`登记对应文件、设备/引擎/模型哈希和审阅结果。
+4. 提交设备JSON、两盘棋局JSON及异常说明；在`release-acceptance.json`登记对应文件、设备/引擎/模型及控制器哈希和审阅结果。导出记录必须来自当前预览的同一控制器，不用旧版本记录追认。
 
 生产Pages工作流执行`node scripts/check-nnue-release.mjs`。缺少任一手机证据或桌面验收时会拒绝发布。验收通过后才合并发布，检查正式站加载、缓存升级、ABP及在线房间；失败回滚到上一网页构建。
 

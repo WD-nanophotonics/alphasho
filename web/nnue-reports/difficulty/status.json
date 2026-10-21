@@ -1,7 +1,8 @@
 {
-  "phase": "running",
-  "completed": 176,
+  "phase": "retired-exploratory",
+  "completed": 177,
   "total": 328,
-  "latest": "L8-L9-07",
-  "time": "2026-10-21T04:28:24.994Z"
+  "latest": "L8-L9-08",
+  "time": 1792557213.5459247,
+  "reason": "Deeper mate must not fall back to older cp candidate pool; independent acceptance restarted with fixed mate priority and new openings"
 }

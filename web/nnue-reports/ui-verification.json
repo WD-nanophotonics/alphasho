@@ -1,0 +1,19 @@
+{
+  "time": 1792561035.2372158,
+  "preview": "https://wd-nanophotonics.github.io/alphasho-nn-preview/",
+  "modelRound": 7200,
+  "policyHash": "7ea3b893ef8e2b4162d05767b99eead0180b3890784fc2874f07c4984e3dbbc7",
+  "nnLevel10ObservedFirstMove": "7g7f",
+  "abpEasyObservedMoves": [
+    "7g7f",
+    "8b5b"
+  ],
+  "peerjsMoveResignRematchCycles": 3,
+  "undoDuringThinkingVerified": true,
+  "workerCancelThenReinitializeVerified": true,
+  "offlineOriginStopped": true,
+  "offlineSearches": 24,
+  "physicalDevicesTested": false,
+  "visibilityTransition": "Pending real-device verification; in-app browser tab changes do not emit a hidden transition",
+  "unitTestsPassed": 36
+}

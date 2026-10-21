@@ -1,0 +1,442 @@
+{
+  "schemaVersion": 1,
+  "time": "2026-10-21T05:27:03.974Z",
+  "status": "desktop-batches-running-phones-pending",
+  "model": {
+    "schemaVersion": 1,
+    "modelVersion": "alphasho-nn-v1",
+    "displayName": "AlphaSho NN 1",
+    "round": 7200,
+    "format": "yaneuraou-halfkp-256x2-32-32",
+    "bytes": 64216967,
+    "sha256": "8835e7a98c790a7e15b36f05384df645dacd806934151cfd9f8c9d73400fe466",
+    "modelUrl": "nnue/nn.bin",
+    "engineVersion": "YaneuraOu V9.00 + USI drop-case fix",
+    "fvScale": 16,
+    "frozenAt": 1792550986.5398924,
+    "sourceCommit": "commits\\best\\00007200-0708231be5914b398d55a5671a462bee"
+  },
+  "policyHash": "7ea3b893ef8e2b4162d05767b99eead0180b3890784fc2874f07c4984e3dbbc7",
+  "cpu": "Intel Core Ultra 7 265KF, 20 cores / 20 logical processors",
+  "performance": [
+    {
+      "budget": "nodes-10000",
+      "browserSearches": 144,
+      "nativeSearches": 144,
+      "browserMedianActualNps": 707302.7359540765,
+      "browserMedianEngineNps": 715928.5714285714,
+      "nativeMedianActualNps": 1208907.7724656994,
+      "nativeMedianEngineNps": 1250312.5,
+      "pairedMedianWasmNativeRatio": 0.5874982586004053,
+      "browserP95Ms": 16.365000009536743,
+      "browserMaxMs": 22.424999952316284,
+      "nativeP95Ms": 12.958800070919096,
+      "medianDepth": 10
+    },
+    {
+      "budget": "nodes-50000",
+      "browserSearches": 144,
+      "nativeSearches": 144,
+      "browserMedianActualNps": 795159.9468922578,
+      "browserMedianEngineNps": 806895.1612903227,
+      "nativeMedianActualNps": 1330578.8341250084,
+      "nativeMedianEngineNps": 1334373.399715505,
+      "pairedMedianWasmNativeRatio": 0.6214763344194552,
+      "browserP95Ms": 74.75499999523163,
+      "browserMaxMs": 80.71000003814697,
+      "nativeP95Ms": 53.93039993941784,
+      "medianDepth": 12
+    },
+    {
+      "budget": "100ms",
+      "browserSearches": 144,
+      "nativeSearches": 144,
+      "browserMedianActualNps": 802384.5390314084,
+      "browserMedianEngineNps": 804910,
+      "nativeMedianActualNps": 1310738.8365973537,
+      "nativeMedianEngineNps": 1303770,
+      "pairedMedianWasmNativeRatio": 0.6272327681230236,
+      "browserP95Ms": 51.05999994277954,
+      "browserMaxMs": 53.75999999046326,
+      "nativeP95Ms": 50.46900000888854,
+      "medianDepth": 12
+    },
+    {
+      "budget": "500ms",
+      "browserSearches": 144,
+      "nativeSearches": 144,
+      "browserMedianActualNps": 812255.2985284808,
+      "browserMedianEngineNps": 814037.7777777778,
+      "nativeMedianActualNps": 1340353.1384142537,
+      "nativeMedianEngineNps": 1336205.1081612585,
+      "pairedMedianWasmNativeRatio": 0.6179355625518206,
+      "browserP95Ms": 451.2350000143051,
+      "browserMaxMs": 451.64999997615814,
+      "nativeP95Ms": 450.57829993311316,
+      "medianDepth": 16
+    },
+    {
+      "budget": "2000ms",
+      "browserSearches": 144,
+      "nativeSearches": 144,
+      "browserMedianActualNps": 804771.8960746701,
+      "browserMedianEngineNps": 815429.7435897436,
+      "nativeMedianActualNps": 1323087.5927990414,
+      "nativeMedianEngineNps": 1322868.9743589745,
+      "pairedMedianWasmNativeRatio": 0.6141445628314623,
+      "browserP95Ms": 1951.1500000953674,
+      "browserMaxMs": 1951.414999961853,
+      "nativeP95Ms": 1950.6158999865875,
+      "medianDepth": 19
+    },
+    {
+      "budget": "5000ms",
+      "browserSearches": 144,
+      "nativeSearches": 144,
+      "browserMedianActualNps": 806174.0989624142,
+      "browserMedianEngineNps": 814483.1313131313,
+      "nativeMedianActualNps": 1310420.852002821,
+      "nativeMedianEngineNps": 1317271.01010101,
+      "pairedMedianWasmNativeRatio": 0.6173416654810333,
+      "browserP95Ms": 4951.325000047684,
+      "browserMaxMs": 4952.535000085831,
+      "nativeP95Ms": 4950.52209997084,
+      "medianDepth": 21
+    }
+  ],
+  "nativeFinished": true,
+  "browserSearches": 864,
+  "integerParity": {
+    "positions": 1024,
+    "mismatches": 0,
+    "node": 0,
+    "browser": 0
+  },
+  "stress": {
+    "completed": true,
+    "searches": 246,
+    "error": "",
+    "wasmMemoryBytes": [
+      201326592
+    ],
+    "medianFirst24Nps": 805353.5645634178,
+    "medianLast24Nps": 784709.3826785566,
+    "medianMatchedThroughputRatio": 0.9785164069651051,
+    "note": "Desktop browser, ongoing training and one match search. Ratio is observed throughput, not a diagnosis of thermal throttling. Linear WASM memory is not browser RSS."
+  },
+  "difficulty": {
+    "finished": false,
+    "time": "2026-10-21T05:21:07.039Z",
+    "completed": 166,
+    "total": 328,
+    "modelSha256": "8835e7a98c790a7e15b36f05384df645dacd806934151cfd9f8c9d73400fe466",
+    "policy": "mate-priority-r1",
+    "manifestSha256": "d3d46499a407df6f0f7a909f3b414b79143273b2aee0dcb6cd6fb77be3492f91",
+    "groups": [
+      {
+        "a": 1,
+        "b": 2,
+        "completed": 24,
+        "required": 24,
+        "wins": 7,
+        "draws": 0,
+        "losses": 17,
+        "score": 0.2916666666666667,
+        "openingClusters": 12,
+        "openingClusterBootstrap95": [
+          0.125,
+          0.5
+        ],
+        "timeouts": 0,
+        "experimentalDraws": 0,
+        "p95MoveMs": 16.801799999999275
+      },
+      {
+        "a": 2,
+        "b": 3,
+        "completed": 24,
+        "required": 24,
+        "wins": 4,
+        "draws": 0,
+        "losses": 20,
+        "score": 0.16666666666666666,
+        "openingClusters": 12,
+        "openingClusterBootstrap95": [
+          0.041666666666666664,
+          0.2916666666666667
+        ],
+        "timeouts": 0,
+        "experimentalDraws": 0,
+        "p95MoveMs": 17.14310000000114
+      },
+      {
+        "a": 3,
+        "b": 4,
+        "completed": 24,
+        "required": 24,
+        "wins": 5,
+        "draws": 0,
+        "losses": 19,
+        "score": 0.20833333333333334,
+        "openingClusters": 12,
+        "openingClusterBootstrap95": [
+          0.08333333333333333,
+          0.3333333333333333
+        ],
+        "timeouts": 0,
+        "experimentalDraws": 0,
+        "p95MoveMs": 16.91710000000603
+      },
+      {
+        "a": 4,
+        "b": 5,
+        "completed": 24,
+        "required": 24,
+        "wins": 4,
+        "draws": 0,
+        "losses": 20,
+        "score": 0.16666666666666666,
+        "openingClusters": 12,
+        "openingClusterBootstrap95": [
+          0,
+          0.375
+        ],
+        "timeouts": 0,
+        "experimentalDraws": 0,
+        "p95MoveMs": 27.315399999992223
+      },
+      {
+        "a": 5,
+        "b": 6,
+        "completed": 24,
+        "required": 24,
+        "wins": 3,
+        "draws": 0,
+        "losses": 21,
+        "score": 0.125,
+        "openingClusters": 12,
+        "openingClusterBootstrap95": [
+          0,
+          0.25
+        ],
+        "timeouts": 0,
+        "experimentalDraws": 0,
+        "p95MoveMs": 48.05630000002566
+      },
+      {
+        "a": 6,
+        "b": 7,
+        "completed": 24,
+        "required": 24,
+        "wins": 1,
+        "draws": 0,
+        "losses": 23,
+        "score": 0.041666666666666664,
+        "openingClusters": 12,
+        "openingClusterBootstrap95": [
+          0,
+          0.125
+        ],
+        "timeouts": 0,
+        "experimentalDraws": 0,
+        "p95MoveMs": 316.2001000000164
+      },
+      {
+        "a": 7,
+        "b": 8,
+        "completed": 22,
+        "required": 24,
+        "wins": 2,
+        "draws": 1,
+        "losses": 19,
+        "score": 0.11363636363636363,
+        "openingClusters": 11,
+        "openingClusterBootstrap95": [
+          0,
+          0.22727272727272727
+        ],
+        "timeouts": 0,
+        "experimentalDraws": 1,
+        "p95MoveMs": 1964.3950999998488
+      },
+      {
+        "a": 8,
+        "b": 9,
+        "completed": 0,
+        "required": 24,
+        "wins": 0,
+        "draws": 0,
+        "losses": 0,
+        "score": null,
+        "openingClusters": 0,
+        "openingClusterBootstrap95": null,
+        "timeouts": 0,
+        "experimentalDraws": 0,
+        "p95MoveMs": null
+      },
+      {
+        "a": 9,
+        "b": 10,
+        "completed": 0,
+        "required": 24,
+        "wins": 0,
+        "draws": 0,
+        "losses": 0,
+        "score": null,
+        "openingClusters": 0,
+        "openingClusterBootstrap95": null,
+        "timeouts": 0,
+        "experimentalDraws": 0,
+        "p95MoveMs": null
+      },
+      {
+        "a": 1,
+        "b": 5,
+        "completed": 0,
+        "required": 24,
+        "wins": 0,
+        "draws": 0,
+        "losses": 0,
+        "score": null,
+        "openingClusters": 0,
+        "openingClusterBootstrap95": null,
+        "timeouts": 0,
+        "experimentalDraws": 0,
+        "p95MoveMs": null
+      },
+      {
+        "a": 1,
+        "b": 10,
+        "completed": 0,
+        "required": 24,
+        "wins": 0,
+        "draws": 0,
+        "losses": 0,
+        "score": null,
+        "openingClusters": 0,
+        "openingClusterBootstrap95": null,
+        "timeouts": 0,
+        "experimentalDraws": 0,
+        "p95MoveMs": null
+      },
+      {
+        "a": 5,
+        "b": 10,
+        "completed": 0,
+        "required": 24,
+        "wins": 0,
+        "draws": 0,
+        "losses": 0,
+        "score": null,
+        "openingClusters": 0,
+        "openingClusterBootstrap95": null,
+        "timeouts": 0,
+        "experimentalDraws": 0,
+        "p95MoveMs": null
+      },
+      {
+        "a": 10,
+        "b": 0,
+        "completed": 0,
+        "required": 40,
+        "wins": 0,
+        "draws": 0,
+        "losses": 0,
+        "score": null,
+        "openingClusters": 0,
+        "openingClusterBootstrap95": null,
+        "timeouts": 0,
+        "experimentalDraws": 0,
+        "p95MoveMs": null
+      }
+    ],
+    "levels": [
+      {
+        "level": 0,
+        "moves": 0,
+        "totalNodes": 0,
+        "p95MoveMs": null,
+        "maximumMoveMs": null
+      },
+      {
+        "level": 1,
+        "moves": 1094,
+        "totalNodes": 824000,
+        "p95MoveMs": 16.467299999996612,
+        "maximumMoveMs": 23.355900000002293
+      },
+      {
+        "level": 2,
+        "moves": 2150,
+        "totalNodes": 4575522,
+        "p95MoveMs": 16.981700000000274,
+        "maximumMoveMs": 31.173099999999977
+      },
+      {
+        "level": 3,
+        "moves": 2246,
+        "totalNodes": 6096064,
+        "p95MoveMs": 17.1475999999966,
+        "maximumMoveMs": 30.855899999995017
+      },
+      {
+        "level": 4,
+        "moves": 2370,
+        "totalNodes": 6847791,
+        "p95MoveMs": 17.38259999998263,
+        "maximumMoveMs": 31.96129999999539
+      },
+      {
+        "level": 5,
+        "moves": 2200,
+        "totalNodes": 14470398,
+        "p95MoveMs": 31.832599999994272,
+        "maximumMoveMs": 96.45619999998598
+      },
+      {
+        "level": 6,
+        "moves": 1932,
+        "totalNodes": 26444346,
+        "p95MoveMs": 63.59810000000289,
+        "maximumMoveMs": 208.29589999996824
+      },
+      {
+        "level": 7,
+        "moves": 2219,
+        "totalNodes": 398910385,
+        "p95MoveMs": 1179.4929000004195,
+        "maximumMoveMs": 1268.3628000000026
+      },
+      {
+        "level": 8,
+        "moves": 1309,
+        "totalNodes": 1191637202,
+        "p95MoveMs": 1966.251200000057,
+        "maximumMoveMs": 1975.6386000000057
+      },
+      {
+        "level": 9,
+        "moves": 0,
+        "totalNodes": 0,
+        "p95MoveMs": null,
+        "maximumMoveMs": null
+      },
+      {
+        "level": 10,
+        "moves": 0,
+        "totalNodes": 0,
+        "p95MoveMs": null,
+        "maximumMoveMs": null
+      }
+    ],
+    "note": "Node WASM paired screening, not phone speed. Intervals resample actual opening clusters, including repeated ABP openings. Partial groups cannot pass acceptance. No official Elo."
+  },
+  "physicalDevices": "pending; no phone performance or rank is claimed",
+  "production": "unchanged",
+  "notes": [
+    "NN fixed r7200; later distillation champions are separate.",
+    "Retired 177-game screening had a mate-priority bug; its outcomes are exploratory only.",
+    "CPU training and at most one other search run during benchmarks. WASM linear memory is not total RSS.",
+    "Adjacent screening and budget differences do not establish certified rank or Elo."
+  ]
+}

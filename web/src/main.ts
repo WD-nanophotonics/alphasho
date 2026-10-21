@@ -3,6 +3,7 @@ import { registerSW } from "virtual:pwa-register";
 import { GameController, Difficulty, Mode, EngineKind } from "./game-controller";
 import { BLACK, Color, HAND_TYPES, Move, PieceType, WHITE, colorOf, typeOf } from "./engine/types";
 import { NNUE_LEVELS } from "./player/nnue-config";
+import { storageKey } from './storage';
 import type { RookRoute } from "./player/rook-guide";
 import { Position, squareOf } from "./engine/position";
 import { Language, MessageKey, detectLanguage, t } from "./i18n";
@@ -21,7 +22,7 @@ let language = detectLanguage();
 let setupEngine: EngineKind = "abp";
 let screen: Screen = "home";
 let flipped = false;
-let sound = localStorage.getItem("alphasho.sound") !== "off";
+let sound = localStorage.getItem(storageKey("alphasho.sound")) !== "off";
 let selection: Selection = { square: null, hand: null };
 let promotionChoices: Move[] | null = null;
 let peer: PeerSession | null = null;
@@ -303,7 +304,7 @@ app.addEventListener("click", (event) => {
     else controller.declareEnteringKing();
   }
   else if (action === "restart") { if (peer) peer.rematch(true); else controller.start(controller.state.mode, controller.state.humanColor, controller.difficulty); }
-  else if (action === "sound") { sound = !sound; localStorage.setItem("alphasho.sound", sound ? "on" : "off"); render(); }
+  else if (action === "sound") { sound = !sound; localStorage.setItem(storageKey("alphasho.sound"), sound ? "on" : "off"); render(); }
   else if (action === "refresh-update" && activateUpdate) { void activateUpdate(true); }
   else if (action === "about") { screen = "about"; render(); }
   else if (action === "promotion-yes" && promotionChoices) submitMove(promotionChoices.find((move) => move.promote) ?? promotionChoices[0]!);
@@ -312,7 +313,7 @@ app.addEventListener("click", (event) => {
 
 app.addEventListener("change", (event) => {
   const select = event.target as HTMLSelectElement;
-  if (select.dataset.action === "language") { language = select.value as Language; localStorage.setItem("alphasho.language", language); render(); }
+  if (select.dataset.action === "language") { language = select.value as Language; localStorage.setItem(storageKey("alphasho.language"), language); render(); }
 });
 
 function playSound(): void {
@@ -351,7 +352,7 @@ const invitation = new URLSearchParams(location.search).get("room");
 if (invitation) screen = "setup-online";
 else {
   try {
-    const saved = JSON.parse(localStorage.getItem("alphasho.game") ?? "null") as {
+    const saved = JSON.parse(localStorage.getItem(storageKey("alphasho.game")) ?? "null") as {
       schemaVersion?: number; mode?: Mode; sfen?: string; history?: string[]; humanColor?: Color | null;
       outcome?: import("./engine/types").GameOutcome | null; difficulty?: Difficulty; engineKind?: EngineKind; nnLevel?: number; rookTarget?: RookRoute;
     } | null;
@@ -360,6 +361,6 @@ else {
       screen = "game";
       controller.load(saved.sfen, saved.history, saved.mode, saved.humanColor ?? null, saved.outcome ?? null);
     }
-  } catch { localStorage.removeItem("alphasho.game"); }
+  } catch { localStorage.removeItem(storageKey("alphasho.game")); }
 }
 render();

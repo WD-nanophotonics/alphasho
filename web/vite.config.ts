@@ -1,9 +1,14 @@
 import { defineConfig } from "vitest/config";
 import { VitePWA } from "vite-plugin-pwa";
+import { readFileSync, readdirSync } from 'node:fs';
+import { createHash } from 'node:crypto';
 
 const base = process.env.ALPHASHO_BASE ?? "/alphasho/";
+const policyHash = createHash('sha256');
+for (const name of readdirSync(new URL('./src/', import.meta.url), {recursive:true}).map(p=>String(p).replace(/\\/g,'/')).filter(p=>/\.(ts|css)$/.test(p)).sort()) policyHash.update(name + '\n' + readFileSync(new URL('./src/' + name, import.meta.url), 'utf8').replace(/\r\n/g, '\n'));
 export default defineConfig({
   base,
+  define: { __NNUE_POLICY_HASH__: JSON.stringify(policyHash.digest('hex')), __NNUE_ENGINE_SHA__: JSON.stringify(JSON.parse(readFileSync(new URL('./public/nnue/engine/build.json', import.meta.url), 'utf8')).files['yaneuraou.wasm']), __NNUE_ENGINE_JS_SHA__: JSON.stringify(JSON.parse(readFileSync(new URL('./public/nnue/engine/build.json', import.meta.url), 'utf8')).files['yaneuraou.js']) },
   plugins: [
     VitePWA({
       strategies: "injectManifest",

@@ -7,7 +7,7 @@ export async function loadModel(signal: AbortSignal, progress: (fraction: number
   const url = new URL(base + manifest.modelUrl, location.origin);
   const key = url.href + '?sha256=' + manifest.sha256;
   let response = await cache.match(key); const cached = !!response;
-  if (!response) response = await fetch(url, { signal });
+  if (!response) response = await fetch(key, { signal });
   if (!response.ok || !response.body) throw new Error('NNUE download failed');
   const reader = response.body.getReader(); const chunks: Uint8Array[] = []; let size = 0;
   try {

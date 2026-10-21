@@ -14,6 +14,7 @@ describe('NNUE safety and levels', () => {
     expect(selectCandidate([a, b, c], '7g7f', 1, () => .99)).toBe('7g7f');
     const mate = parseInfo('info depth 3 multipv 1 score mate 3 nodes 300 time 3 pv 7g7f')!;
     expect(selectCandidate([mate, { ...b, depth: 3 }], '7g7f', 1, () => .99)).toBe('7g7f');
+    expect(selectCandidate([{ ...a, depth: 2 }, b, mate], '7g7f', 1, () => .99)).toBe('7g7f');
   });
   it('can weaken among reliable candidates and keeps top levels strongest', () => {
     const a = parseInfo('info depth 3 multipv 1 score cp 100 nodes 300 time 3 pv 7g7f')!;

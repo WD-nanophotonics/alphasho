@@ -3,3 +3,4 @@ web/public/nnue/engine/yaneuraou.js -text
 web/public/nnue/engine/yaneuraou.wasm -text
 web/public/nnue/engine/source.tar.gz -text
 web/public/nnue/nn.bin -text
+web/nnue-reports/*.log whitespace=-blank-at-eol,-blank-at-eof

@@ -7,7 +7,7 @@ class FakeWorker {
   onmessage: ((event:{data:unknown})=>void)|null=null; onerror:((e:{message:string})=>void)|null=null;
   terminated=false; calls:Array<{type:string;id:number}>=[];
   constructor(){FakeWorker.instances.push(this);}
-  postMessage(data:{type:string;id:number}){this.calls.push(data);if(data.type==='init')queueMicrotask(()=>this.reply({type:'ready',id:data.id}));}
+  postMessage(data:{type:string;id:number}){this.calls.push(data);if(data.type==='init')queueMicrotask(()=>this.reply({type:'ready',id:data.id}));if(data.type==='shutdown')this.reply({type:'closed'});}
   reply(data:unknown){this.onmessage?.({data});}
   terminate(){this.terminated=true;}
 }
@@ -15,7 +15,7 @@ const state=()=>({schemaVersion:1 as const,sfen:new Position().sfen(),history:[]
 const flush=async()=>{for(let i=0;i<12;i++)await Promise.resolve();};
 describe('NN worker lifecycle',()=>{
  beforeEach(()=>{FakeWorker.instances=[];vi.stubGlobal('Worker',FakeWorker);vi.stubGlobal('crossOriginIsolated',true);vi.stubGlobal('location',{origin:'https://example.test'});});
- afterEach(()=>{vi.unstubAllGlobals();vi.useRealTimers();});
+ afterEach(()=>{vi.restoreAllMocks();vi.unstubAllGlobals();vi.useRealTimers();});
  it('reuses the initialized worker and ignores replies belonging to old requests',async()=>{
   const player=new NnueWorkerPlayer('ibisha'); const abort=new AbortController();
   const first=player.chooseMove(state(),{milliseconds:500,maxDepth:6,guidance:false},abort.signal);await flush();
@@ -36,5 +36,11 @@ describe('NN worker lifecycle',()=>{
  });
  it('terminates a worker that misses the hard response deadline',async()=>{
   vi.useFakeTimers();const player=new NnueWorkerPlayer(),abort=new AbortController();const pending=player.chooseMove(state(),{milliseconds:100,maxDepth:1},abort.signal);const rejection=expect(pending).rejects.toThrow(/timeout/);await flush();await vi.advanceTimersByTimeAsync(400);await rejection;expect(FakeWorker.instances[0]!.terminated).toBe(true);
+ });
+ it('includes final legality checking in the total move deadline',async()=>{
+  let clock=0,received=false;vi.spyOn(performance,'now').mockImplementation(()=>clock);
+  const legal=Position.prototype.legalMoves;vi.spyOn(Position.prototype,'legalMoves').mockImplementation(function(this:Position,...args){const moves=legal.apply(this,args);if(received)clock=1000;return moves;});
+  const player=new NnueWorkerPlayer(),abort=new AbortController();const pending=player.chooseMove(state(),{milliseconds:500,maxDepth:6,guidance:false},abort.signal);const rejection=expect(pending).rejects.toThrow(/expired/);await flush();
+  received=true;const worker=FakeWorker.instances[0]!;worker.reply({type:'result',id:worker.calls.at(-1)!.id,result:{move:'7g7f',nodes:10,depth:1,elapsedMs:1}});await rejection;expect(worker.terminated).toBe(true);
  });
 });

@@ -27,3 +27,9 @@ web/*.tsbuildinfo
 
 # Local browser toolchains and build objects
 .cache/
+
+# Live acceptance batch: preserve locally; final JSON/KIF bundle is published
+# to the separately authorized preview. Do not commit half-written progress.
+web/nnue-reports/difficulty-acceptance/*
+!web/nnue-reports/difficulty-acceptance/manifest.json
+!web/nnue-reports/difficulty-acceptance/README.md

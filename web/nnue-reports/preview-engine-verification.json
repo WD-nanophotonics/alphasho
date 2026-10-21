@@ -1,0 +1,14 @@
+[
+  {
+    "file": "yaneuraou.js",
+    "bytes": 86369,
+    "sha256": "c03f95989cb3a7bccccd441e383fee79671069d2f4cffb180dbd355766957a16",
+    "valid": true
+  },
+  {
+    "file": "yaneuraou.wasm",
+    "bytes": 815874,
+    "sha256": "041a2caf87e5f49bedc2598aa64e2f9e1c108783ccde34cb5a2606a1cdc88cd5",
+    "valid": true
+  }
+]

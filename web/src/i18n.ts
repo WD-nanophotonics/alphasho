@@ -1,4 +1,5 @@
 export type Language = "ja" | "zh" | "en";
+import { storageKey } from './storage';
 
 const messages = {
   en: {
@@ -82,7 +83,7 @@ export type MessageKey = keyof typeof messages.en;
 export function t(language: Language, key: MessageKey): string { return messages[language][key] ?? messages.en[key]; }
 
 export function detectLanguage(): Language {
-  const saved = localStorage.getItem("alphasho.language");
+  const saved = localStorage.getItem(storageKey("alphasho.language"));
   if (saved === "ja" || saved === "zh" || saved === "en") return saved;
   const locale = navigator.language.toLowerCase();
   return locale.startsWith("ja") ? "ja" : locale.startsWith("zh") ? "zh" : "en";

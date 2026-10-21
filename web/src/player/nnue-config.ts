@@ -28,7 +28,10 @@ export function selectCandidate(candidates: Candidate[], best: string, level: nu
   for (const depth of depths) {
     const same = candidates.filter(c => c.depth === depth && !c.bound && c.pv[0]);
     const first = same.find(c => c.rank === 1 && c.pv[0] === best);
-    if (!first || first.mate !== undefined || first.cp === undefined) continue;
+    if (!first) continue;
+    // A deeper forced mate must not fall through to an older cp-scored pool.
+    if (first.mate !== undefined) return best;
+    if (first.cp === undefined) continue;
     const pool = same.filter(c => c.cp !== undefined && Number.isFinite(c.cp) && c.mate === undefined && first.cp! - c.cp! <= config.lossLimit);
     if (pool.length < 2) continue;
     const weights = pool.map(c => Math.exp((c.cp! - first.cp!) / config.temperature));

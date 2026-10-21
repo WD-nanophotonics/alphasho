@@ -1,5 +1,7 @@
 """Single-search-thread native baseline for the frozen browser fixtures (no teacher)."""
 import argparse,pathlib,json,subprocess,threading,queue,time,hashlib,platform
+try:import psutil
+except ImportError:psutil=None
 p=argparse.ArgumentParser();p.add_argument('--engine',required=True);args=p.parse_args()
 WEB=pathlib.Path(__file__).resolve().parents[1];BASE=WEB/'public/nnue';OUT=WEB/'nnue-reports/native-benchmark.json'
 fixtures=json.loads((BASE/'benchmark.json').read_text());rows=[];q=queue.Queue()
@@ -30,7 +32,7 @@ try:
     lines=wait('bestmove ',ms/1000+3);elapsed=(time.perf_counter()-start)*1000
     infos=[s.split() for s in lines if s.startswith('info depth') and 'nodes' in s.split()]
     info=infos[-1] if infos else [];number=lambda key:int(info[info.index(key)+1]) if key in info else 0
-    count=number('nodes');row=dict(repeat=repeat,position=i,category=f['category'],budgetNodes=nodes,budgetMs=ms,nodes=count,depth=number('depth'),engineElapsedMs=number('time'),elapsedMs=elapsed,nps=count/max(.001,elapsed/1000));rows.append(row)
+    count=number('nodes');row=dict(repeat=repeat,position=i,category=f['category'],budgetNodes=nodes,budgetMs=ms,nodes=count,depth=number('depth'),engineElapsedMs=number('time'),elapsedMs=elapsed,nps=count/max(.001,elapsed/1000),rssBytes=psutil.Process(proc.pid).memory_info().rss if psutil else None);rows.append(row)
     OUT.write_text(json.dumps(dict(runtime='native',platform=platform.platform(),engineSha256=hashlib.sha256(pathlib.Path(args.engine).read_bytes()).hexdigest(),threads=1,hashMiB=16,loadingSeconds=loading,completed=len(rows),total=864,finished=False,entries=rows),indent=2))
     if len(rows)%48==0:print(len(rows),flush=True)
  report=json.loads(OUT.read_text());report['finished']=True;OUT.write_text(json.dumps(report,indent=2))

@@ -4,6 +4,7 @@ import { DIFFICULTIES, HeuristicWorkerPlayer } from "./player/heuristic-player";
 
 import { NnueWorkerPlayer } from "./player/nnue-player";
 import { NNUE_LEVELS } from "./player/nnue-config";
+import { storageKey } from './storage';
 import { guidedRoots, type RookRoute } from "./player/rook-guide";
 const guidedRoute = (history: string[], color: Color) => guidedRoots(history, color, 'ibisha').route;
 export type EngineKind = "abp" | "nnue";
@@ -120,7 +121,7 @@ export class GameController {
   retryCpu(): void { this.paused = false; void this.requestCpuMove(); }
   exportNnGame(): object {
     const player = this.player instanceof NnueWorkerPlayer ? this.player : null;
-    return { schemaVersion: 1, time: new Date().toISOString(), device: navigator.userAgent, level: this.nnLevel,
+    return { schemaVersion: 1, policyHash: NnueWorkerPlayer.policyHash, engineWasmSha256: NnueWorkerPlayer.engineSha, time: new Date().toISOString(), device: navigator.userAgent, level: this.nnLevel,
       model: player?.manifest, requestedRoute: this.rookTarget, actualRoute: this.state.humanColor === null ? null : guidedRoute(this.state.history, opposite(this.state.humanColor)),
       routeAudit: player?.routeAudit, moves: this.nnTrace, history: this.state.history, outcome: this.state.outcome,
       completed: !!this.state.outcome, traceComplete: this.nnTrace.length === this.state.history.filter((_, ply) => ply % 2 !== this.state.humanColor).length,
@@ -171,7 +172,7 @@ export class GameController {
 
   private persist(): void {
     if (this.state.mode === "online") return;
-    localStorage.setItem("alphasho.game", JSON.stringify({ schemaVersion: 1, mode: this.state.mode,
+    localStorage.setItem(storageKey("alphasho.game"), JSON.stringify({ schemaVersion: 1, mode: this.state.mode,
       sfen: this.state.position.sfen(), history: this.state.history, outcome: this.state.outcome,
       humanColor: this.state.humanColor, difficulty: this.difficulty, engineKind: this.engineKind, nnLevel: this.nnLevel, rookTarget: this.player instanceof NnueWorkerPlayer ? this.player.target : undefined }));
   }
