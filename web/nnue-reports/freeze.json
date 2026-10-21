@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "modelVersion": "alphasho-nn-v1",
+  "displayName": "AlphaSho NN 1",
+  "round": 7200,
+  "format": "yaneuraou-halfkp-256x2-32-32",
+  "bytes": 64216967,
+  "sha256": "8835e7a98c790a7e15b36f05384df645dacd806934151cfd9f8c9d73400fe466",
+  "modelUrl": "nnue/nn.bin",
+  "engineVersion": "YaneuraOu V9.00 + USI drop-case fix",
+  "fvScale": 16,
+  "frozenAt": 1792550986.5398924,
+  "sourceCommit": "commits\\best\\00007200-0708231be5914b398d55a5671a462bee"
+}

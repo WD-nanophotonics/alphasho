@@ -1,0 +1,12 @@
+{
+  "completed": true,
+  "searches": 246,
+  "error": "",
+  "wasmMemoryBytes": [
+    201326592
+  ],
+  "medianFirst24Nps": 805353.5645634178,
+  "medianLast24Nps": 784709.3826785566,
+  "medianMatchedThroughputRatio": 0.9785164069651051,
+  "note": "Desktop browser, ongoing training and one match search. Ratio is observed throughput, not a diagnosis of thermal throttling. Linear WASM memory is not browser RSS."
+}

@@ -1,4 +1,6 @@
-export interface BrowserModelManifest {
+import type { NnueManifest } from './nnue-config';
+
+export interface LegacyCnnModelManifest {
   schemaVersion: 1;
   modelUrl: string;
   sha256: string;
@@ -7,5 +9,6 @@ export interface BrowserModelManifest {
   modelVersion: string;
 }
 
-// Reserved for a future ONNX/WebGPU player. The first static release deliberately
-// ships no model and never exposes an unavailable neural-network menu item.
+// Distinct formats: a HalfKP evaluation network must never be interpreted as
+// the legacy 119-plane policy/value network reserved for ONNX/WebGPU.
+export type BrowserModelManifest = NnueManifest | LegacyCnnModelManifest;

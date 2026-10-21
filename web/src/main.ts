@@ -1,7 +1,10 @@
 import "./style.css";
 import { registerSW } from "virtual:pwa-register";
-import { GameController, Difficulty, Mode } from "./game-controller";
+import { GameController, Difficulty, Mode, EngineKind } from "./game-controller";
 import { BLACK, Color, HAND_TYPES, Move, PieceType, WHITE, colorOf, typeOf } from "./engine/types";
+import { NNUE_LEVELS } from "./player/nnue-config";
+import { storageKey } from './storage';
+import type { RookRoute } from "./player/rook-guide";
 import { Position, squareOf } from "./engine/position";
 import { Language, MessageKey, detectLanguage, t } from "./i18n";
 import { PeerSession, SessionSnapshot } from "./online/peer-session";
@@ -16,9 +19,10 @@ const app: HTMLDivElement = appElement;
 
 const controller = new GameController();
 let language = detectLanguage();
+let setupEngine: EngineKind = "abp";
 let screen: Screen = "home";
 let flipped = false;
-let sound = localStorage.getItem("alphasho.sound") !== "off";
+let sound = localStorage.getItem(storageKey("alphasho.sound")) !== "off";
 let selection: Selection = { square: null, hand: null };
 let promotionChoices: Move[] | null = null;
 let peer: PeerSession | null = null;
@@ -69,7 +73,9 @@ function cpuSetup(): string {
   return `${topBar()}<main class="setup-shell"><button class="back plain" data-action="home">← ${tr("home")}</button>
     <div class="setup-card"><div class="setup-glyph">☖</div><h2>${tr("vsCpu")}</h2>
       <label class="field-label">${tr("chooseSide")}</label>${segmented("side", [["0", tr("black")], ["1", tr("white")], ["random", tr("random")]], "0")}
-      <label class="field-label">${tr("chooseDifficulty")}</label>${segmented("difficulty", [["easy", tr("easy")], ["normal", tr("normal")], ["hard", tr("hard")]], "normal")}
+      <label class="field-label">${tr("engineLabel")}</label>${segmented("engine", [["abp", "ABP"], ["nnue", tr("nnueLabel")]], setupEngine)}
+      <label class="field-label">${tr("chooseDifficulty")}</label>${setupEngine === "nnue" ? `<select name="nn-level" aria-label="${tr("nnLevel")}">${NNUE_LEVELS.map((l, i) => `<option value="${i+1}" ${i === 4 ? "selected" : ""}>${tr("nnLevel")} ${i+1} · ${l.milliseconds/1000}s</option>`).join("")}</select><p>${tr("nnueVersion")}</p>` : segmented("difficulty", [["easy", tr("easy")], ["normal", tr("normal")], ["hard", tr("hard")]], "normal")}
+      <a href="${import.meta.env.BASE_URL}benchmark.html">${tr("benchmark")}</a>
       <button class="primary wide" data-action="start-cpu">${tr("start")}</button></div></main>`;
 }
 
@@ -149,6 +155,8 @@ function statusText(): string {
     if (peerStatus.status === "error") return peerStatus.error || tr("peerError");
     return tr("connecting");
   }
+  if (controller.state.mode === 'cpu' && controller.engineKind === 'nnue' && controller.error) return tr('nnueError');
+  if (controller.state.mode === 'cpu' && controller.paused) return tr('aiPaused');
   if (controller.state.position.inCheck(controller.state.position.turn)) return tr("check");
   if (controller.state.thinking) return tr("cpuThinking");
   if (controller.state.mode === "cpu") return controller.state.position.turn === controller.state.humanColor ? tr("yourTurn") : tr("cpuThinking");
@@ -189,13 +197,28 @@ function aboutView(): string {
     <h2>Software</h2><p>The Web application is open source under the MIT License. The desktop Python application remains a separate project.</p>
     <h2>Shogi pieces</h2><p>Piece artwork is from <a href="https://sunfish-shogi.github.io/shogi-images/" target="_blank" rel="noreferrer">Sunfish Shogi Images</a>, dedicated to the public domain under CC0 1.0.</p>
     <h2>Online play</h2><p>Online rooms use PeerJS and WebRTC. The public PeerServer helps peers discover each other; moves travel directly between the two browsers. Rooms are casual and are not stored.</p>
-    <p class="fine-print">No neural-network checkpoint is included in this release.</p></article></main>`;
+    <h2>AlphaSho NN 1</h2><p>${tr("nnueVersion")}</p><p>YaneuraOu V9.00 WebAssembly: GPLv3. <a href="${import.meta.env.BASE_URL}nnue/engine/COPYING.txt">License</a> · <a href="${import.meta.env.BASE_URL}nnue/engine/source.tar.gz">Corresponding patched source</a> · <a href="https://github.com/yaneurao/YaneuraOu/tree/V9.00">Upstream source</a>. Model weights trained by AlphaSho; no teacher weights imported.</p><p><a href="${import.meta.env.BASE_URL}benchmark.html">${tr("benchmark")}</a></p></article></main>`;
 }
 
 function render(): void {
   document.documentElement.lang = language === "zh" ? "zh-Hans" : language;
   app.innerHTML = screen === "home" ? homeView() : screen === "setup-cpu" ? cpuSetup() : screen === "setup-online" ? onlineSetup() : screen === "about" ? aboutView() : gameView();
+  if (import.meta.env.MODE === 'nn-preview') {
+    const notice = document.createElement('p'); notice.className = 'preview-notice';
+    notice.textContent = language === 'zh' ? 'NN独立预览 · 手机验收与难度筛选进行中 · 正式网站未更新' : language === 'ja' ? 'NNプレビュー · 実機検証中 · 正式サイトは未更新' : 'NN preview · Device acceptance and difficulty screening pending · Production unchanged';
+    app.querySelector('main')?.prepend(notice);
+  }
   if (toast) app.insertAdjacentHTML("beforeend", `<div class="toast">${escapeHtml(toast)}${updateAvailable ? `<button data-action="refresh-update">${tr("refresh")}</button>` : ""}</div>`);
+  if (screen === "game" && controller.engineKind === "nnue" && controller.state.mode === "cpu") {
+    const panel = document.createElement("aside"); panel.className = "nnue-status";
+    const label = document.createElement("p"); label.textContent = controller.error ? tr("nnueError") + ": " + controller.error : controller.loading !== null ? tr("loadingModel") + ` ${controller.loading}%` : tr("nnueLabel") + ` · ${tr("nnLevel")} ${controller.nnLevel}`;
+    panel.append(label);
+      const exportButton = document.createElement('button'); exportButton.dataset.action = 'export-nn-game'; exportButton.textContent = language === 'zh' ? '导出验收棋局' : language === 'ja' ? '対局記録を書き出す' : 'Export game record'; panel.append(exportButton);
+    if (controller.error || controller.paused) {
+      for (const [action, text] of [["retry-nnue", tr("retryAi")], ["use-abp", "ABP"]]) { const button = document.createElement("button"); button.dataset.action = action; button.textContent = text!; panel.append(button); }
+    }
+    app.querySelector("main")?.prepend(panel);
+  }
   const list = app.querySelector(".move-list .current"); list?.scrollIntoView({ block: "nearest" });
 }
 
@@ -248,7 +271,10 @@ app.addEventListener("click", (event) => {
     selection = selection.hand === hand ? { square: null, hand: null } : { square: null, hand }; render(); return;
   }
   const action = target.dataset.action;
-  if (action === "home") { peer?.close(); peer = null; peerStatus = null; screen = "home"; history.replaceState(null, "", location.pathname); render(); }
+  if (action === "home") { controller.pauseCpu(); peer?.close(); peer = null; peerStatus = null; screen = "home"; history.replaceState(null, "", location.pathname); render(); }
+  else if (action === "retry-nnue") { controller.retryCpu(); }
+  else if (action === 'export-nn-game') { const url = URL.createObjectURL(new Blob([JSON.stringify(controller.exportNnGame(), null, 2)], { type: 'application/json' })); const link = document.createElement('a'); link.href = url; link.download = 'alphasho-nn-game.json'; link.click(); setTimeout(() => URL.revokeObjectURL(url), 1000); }
+  else if (action === "use-abp") { controller.useAbp(); render(); }
   else if (action === "setup-cpu") { screen = "setup-cpu"; render(); }
   else if (action === "setup-online") { screen = "setup-online"; render(); }
   else if (action === "start-local") { controller.start("local"); screen = "game"; render(); }
@@ -256,6 +282,7 @@ app.addEventListener("click", (event) => {
     const side = app.querySelector<HTMLInputElement>('input[name="side"]:checked')?.value ?? "0";
     const difficulty = (app.querySelector<HTMLInputElement>('input[name="difficulty"]:checked')?.value ?? "normal") as Difficulty;
     const color = side === "random" ? (crypto.getRandomValues(new Uint8Array(1))[0]! & 1) as Color : Number(side) as Color;
+    controller.engineKind = setupEngine; controller.nnLevel = Number(app.querySelector<HTMLSelectElement>('select[name="nn-level"]')?.value ?? 5);
     controller.start("cpu", color, difficulty); screen = "game"; flipped = color === WHITE; render();
   } else if (action === "create-room") {
     const side = app.querySelector<HTMLInputElement>('input[name="host-side"]:checked')?.value ?? "random";
@@ -277,7 +304,7 @@ app.addEventListener("click", (event) => {
     else controller.declareEnteringKing();
   }
   else if (action === "restart") { if (peer) peer.rematch(true); else controller.start(controller.state.mode, controller.state.humanColor, controller.difficulty); }
-  else if (action === "sound") { sound = !sound; localStorage.setItem("alphasho.sound", sound ? "on" : "off"); render(); }
+  else if (action === "sound") { sound = !sound; localStorage.setItem(storageKey("alphasho.sound"), sound ? "on" : "off"); render(); }
   else if (action === "refresh-update" && activateUpdate) { void activateUpdate(true); }
   else if (action === "about") { screen = "about"; render(); }
   else if (action === "promotion-yes" && promotionChoices) submitMove(promotionChoices.find((move) => move.promote) ?? promotionChoices[0]!);
@@ -286,7 +313,7 @@ app.addEventListener("click", (event) => {
 
 app.addEventListener("change", (event) => {
   const select = event.target as HTMLSelectElement;
-  if (select.dataset.action === "language") { language = select.value as Language; localStorage.setItem("alphasho.language", language); render(); }
+  if (select.dataset.action === "language") { language = select.value as Language; localStorage.setItem(storageKey("alphasho.language"), language); render(); }
 });
 
 function playSound(): void {
@@ -304,6 +331,14 @@ function playSound(): void {
 
 function escapeHtml(value: string): string { const div = document.createElement("div"); div.textContent = value; return div.innerHTML; }
 
+app.addEventListener("change", event => { const el = event.target as HTMLInputElement; if (el.name === "engine") { setupEngine = el.value as EngineKind; render(); } });
+document.addEventListener("visibilitychange", () => { if (controller.state.mode !== "cpu") return; if (document.hidden) controller.pauseCpu(); else if (controller.engineKind === "abp") controller.retryCpu(); });
+if ("serviceWorker" in navigator) {
+  const isolationKey = 'alphasho.isolation-reloaded-v1:' + import.meta.env.BASE_URL;
+  const isolate = () => { if (!crossOriginIsolated && !sessionStorage.getItem(isolationKey)) { sessionStorage.setItem(isolationKey, "1"); location.reload(); } };
+  navigator.serviceWorker.addEventListener("controllerchange", isolate);
+  void navigator.serviceWorker.ready.then(() => { if (navigator.serviceWorker.controller) isolate(); });
+}
 activateUpdate = registerSW({
   onOfflineReady: () => setToast(tr("offlineReady")),
   onNeedRefresh: () => {
@@ -317,15 +352,15 @@ const invitation = new URLSearchParams(location.search).get("room");
 if (invitation) screen = "setup-online";
 else {
   try {
-    const saved = JSON.parse(localStorage.getItem("alphasho.game") ?? "null") as {
+    const saved = JSON.parse(localStorage.getItem(storageKey("alphasho.game")) ?? "null") as {
       schemaVersion?: number; mode?: Mode; sfen?: string; history?: string[]; humanColor?: Color | null;
-      outcome?: import("./engine/types").GameOutcome | null; difficulty?: Difficulty;
+      outcome?: import("./engine/types").GameOutcome | null; difficulty?: Difficulty; engineKind?: EngineKind; nnLevel?: number; rookTarget?: RookRoute;
     } | null;
     if (saved?.schemaVersion === 1 && saved.mode && saved.sfen && Array.isArray(saved.history)) {
-      controller.difficulty = saved.difficulty ?? "normal";
+      controller.difficulty = saved.difficulty ?? "normal"; controller.engineKind = saved.engineKind === "nnue" ? "nnue" : "abp"; controller.nnLevel = Math.max(1, Math.min(10, saved.nnLevel ?? 5)); controller.rookTarget = saved.rookTarget;
       screen = "game";
       controller.load(saved.sfen, saved.history, saved.mode, saved.humanColor ?? null, saved.outcome ?? null);
     }
-  } catch { localStorage.removeItem("alphasho.game"); }
+  } catch { localStorage.removeItem(storageKey("alphasho.game")); }
 }
 render();

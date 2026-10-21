@@ -1,5 +1,14 @@
 import { expect, test } from "@playwright/test";
 
+// First install deliberately reloads once to apply the service-worker COOP/COEP
+// headers. Wait for the real isolated document before clicking setup controls.
+test.beforeEach(async ({ page }) => {
+  await page.goto("./");
+  await expect.poll(async () => page.evaluate(() => crossOriginIsolated).catch(() => false), {
+    timeout: 20_000
+  }).toBe(true);
+});
+
 test("starts a local game and moves a pawn", async ({ page, isMobile }) => {
   await page.goto("./");
   await expect(page.getByRole("heading", { name: "AlphaSho" })).toBeVisible();

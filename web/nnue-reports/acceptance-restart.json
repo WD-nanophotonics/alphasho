@@ -1,0 +1,11 @@
+{
+  "time": 1792557677.5100965,
+  "reason": "Fix deeper mate falling through to older cp pool",
+  "originalCompleted": 177,
+  "originalResults": "difficulty: exploratory only",
+  "newAcceptance": "difficulty-acceptance",
+  "newOpeningsSeed": 2026102105,
+  "tableUnchanged": true,
+  "weightsUnchanged": true,
+  "searchBudgetsUnchanged": true
+}

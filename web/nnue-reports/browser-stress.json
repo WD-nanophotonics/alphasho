@@ -1,0 +1,4962 @@
+{
+  "schemaVersion": 1,
+  "startedAt": "2026-10-21T04:29:56.758Z",
+  "device": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36",
+  "entries": [
+    {
+      "kind": "stress/500ms",
+      "sfen": "lns1kg1nl/1r2g2b1/p2p1s1pp/1p2ppp2/P1p6/4P1P2/1P1P1P1PP/1B1K1S1R1/LNSG1G1NL w p 20",
+      "nodes": 405536,
+      "depth": 18,
+      "elapsedMs": 450.47499990463257,
+      "engineElapsedMs": 449,
+      "nps": 900240.8570638851,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/2000ms",
+      "sfen": "lns1kg1nl/1r2g2b1/p2p1s1pp/1p2ppp2/P1p6/4P1P2/1P1P1P1PP/1B1K1S1R1/LNSG1G1NL w p 20",
+      "nodes": 1765613,
+      "depth": 21,
+      "elapsedMs": 1949.2949999570847,
+      "engineElapsedMs": 1949,
+      "nps": 905770.0348273973,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/5000ms",
+      "sfen": "lns1kg1nl/1r2g2b1/p2p1s1pp/1p2ppp2/P1p6/4P1P2/1P1P1P1PP/1B1K1S1R1/LNSG1G1NL w p 20",
+      "nodes": 4509619,
+      "depth": 22,
+      "elapsedMs": 4949.774999976158,
+      "engineElapsedMs": 4949,
+      "nps": 911075.5539437089,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/500ms",
+      "sfen": "lns1g1snl/1rg1k2b1/p1pp1p1pp/1p2p1p2/9/P8/LPPPPPPPP/1B1S1G2R/1N1G1KSNL b - 17",
+      "nodes": 426483,
+      "depth": 18,
+      "elapsedMs": 449.72000002861023,
+      "engineElapsedMs": 449,
+      "nps": 948330.0719844971,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/2000ms",
+      "sfen": "lns1g1snl/1rg1k2b1/p1pp1p1pp/1p2p1p2/9/P8/LPPPPPPPP/1B1S1G2R/1N1G1KSNL b - 17",
+      "nodes": 1909446,
+      "depth": 21,
+      "elapsedMs": 1949.8899999856949,
+      "engineElapsedMs": 1949,
+      "nps": 979258.3171430227,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/5000ms",
+      "sfen": "lns1g1snl/1rg1k2b1/p1pp1p1pp/1p2p1p2/9/P8/LPPPPPPPP/1B1S1G2R/1N1G1KSNL b - 17",
+      "nodes": 4747767,
+      "depth": 23,
+      "elapsedMs": 4949.320000052452,
+      "engineElapsedMs": 4949,
+      "nps": 959276.6278902321,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/500ms",
+      "sfen": "8l/l1s1gkgs1/p1np1p3/1r2pbpPp/2p2nP2/1PGPPPSRP/P7N/LBK1G3L/1NS6 w 2Pp 62",
+      "nodes": 368093,
+      "depth": 16,
+      "elapsedMs": 449.6200000047684,
+      "engineElapsedMs": 449,
+      "nps": 818675.7706420894,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/2000ms",
+      "sfen": "8l/l1s1gkgs1/p1np1p3/1r2pbpPp/2p2nP2/1PGPPPSRP/P7N/LBK1G3L/1NS6 w 2Pp 62",
+      "nodes": 1528553,
+      "depth": 19,
+      "elapsedMs": 1950.0499999523163,
+      "engineElapsedMs": 1950,
+      "nps": 783853.2345516151,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/5000ms",
+      "sfen": "8l/l1s1gkgs1/p1np1p3/1r2pbpPp/2p2nP2/1PGPPPSRP/P7N/LBK1G3L/1NS6 w 2Pp 62",
+      "nodes": 3894313,
+      "depth": 20,
+      "elapsedMs": 4948.884999990463,
+      "engineElapsedMs": 4949,
+      "nps": 786907.1518145006,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/500ms",
+      "sfen": "ln3k1nl/1rs1g1gs1/p1ppppb1p/6pP1/9/1pPPPPP1P/PP5RN/LB1GK1S1L/1NS2G3 b P 35",
+      "nodes": 390643,
+      "depth": 15,
+      "elapsedMs": 449.97000002861023,
+      "engineElapsedMs": 449,
+      "nps": 868153.432395853,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/2000ms",
+      "sfen": "ln3k1nl/1rs1g1gs1/p1ppppb1p/6pP1/9/1pPPPPP1P/PP5RN/LB1GK1S1L/1NS2G3 b P 35",
+      "nodes": 1732018,
+      "depth": 19,
+      "elapsedMs": 1949.8650000095367,
+      "engineElapsedMs": 1949,
+      "nps": 888275.8549907448,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/5000ms",
+      "sfen": "ln3k1nl/1rs1g1gs1/p1ppppb1p/6pP1/9/1pPPPPP1P/PP5RN/LB1GK1S1L/1NS2G3 b P 35",
+      "nodes": 4314541,
+      "depth": 21,
+      "elapsedMs": 4949.549999952316,
+      "engineElapsedMs": 4949,
+      "nps": 871703.6902428636,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/500ms",
+      "sfen": "1ns2s3/1rk1g2s1/l1pbpp1g1/1p4p1p/pnPp1n1p+r/P2PP1PP1/LPG1G+l3/2K2B1N1/2S4+l1 b 2p 101",
+      "nodes": 354667,
+      "depth": 18,
+      "elapsedMs": 449.7349998950958,
+      "engineElapsedMs": 449,
+      "nps": 788613.2946795976,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/2000ms",
+      "sfen": "1ns2s3/1rk1g2s1/l1pbpp1g1/1p4p1p/pnPp1n1p+r/P2PP1PP1/LPG1G+l3/2K2B1N1/2S4+l1 b 2p 101",
+      "nodes": 1433330,
+      "depth": 19,
+      "elapsedMs": 1949.6599999666214,
+      "engineElapsedMs": 1949,
+      "nps": 735169.2090028718,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/5000ms",
+      "sfen": "1ns2s3/1rk1g2s1/l1pbpp1g1/1p4p1p/pnPp1n1p+r/P2PP1PP1/LPG1G+l3/2K2B1N1/2S4+l1 b 2p 101",
+      "nodes": 3930312,
+      "depth": 21,
+      "elapsedMs": 4949.1449999809265,
+      "engineElapsedMs": 4949,
+      "nps": 794139.593811688,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/500ms",
+      "sfen": "ln2B2nl/4gb3/5k2p/l3g2p1/S2P2s2/K1n2p2P/SrN2PPP1/2G1p1p2/4G2RL b 2Ps6p 107",
+      "nodes": 304152,
+      "depth": 17,
+      "elapsedMs": 450.210000038147,
+      "engineElapsedMs": 449,
+      "nps": 675578.0635130911,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/2000ms",
+      "sfen": "ln2B2nl/4gb3/5k2p/l3g2p1/S2P2s2/K1n2p2P/SrN2PPP1/2G1p1p2/4G2RL b 2Ps6p 107",
+      "nodes": 1333497,
+      "depth": 18,
+      "elapsedMs": 1949.2700001001358,
+      "engineElapsedMs": 1949,
+      "nps": 684100.7145913583,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/5000ms",
+      "sfen": "ln2B2nl/4gb3/5k2p/l3g2p1/S2P2s2/K1n2p2P/SrN2PPP1/2G1p1p2/4G2RL b 2Ps6p 107",
+      "nodes": 3325688,
+      "depth": 19,
+      "elapsedMs": 4950.039999961853,
+      "engineElapsedMs": 4949,
+      "nps": 671850.7325245107,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/500ms",
+      "sfen": "Grk2r1n1/2s5l/3pg2pp/2b1p1p1n/ln3p3/2PPLNPP1/2b1P1+s1P/+p2K4g/4S3L b G2Ps3p 137",
+      "nodes": 367929,
+      "depth": 18,
+      "elapsedMs": 450.57999992370605,
+      "engineElapsedMs": 450,
+      "nps": 816567.5353151475,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/2000ms",
+      "sfen": "Grk2r1n1/2s5l/3pg2pp/2b1p1p1n/ln3p3/2PPLNPP1/2b1P1+s1P/+p2K4g/4S3L b G2Ps3p 137",
+      "nodes": 1675014,
+      "depth": 17,
+      "elapsedMs": 1948.9249999523163,
+      "engineElapsedMs": 1949,
+      "nps": 859455.3407858085,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/5000ms",
+      "sfen": "Grk2r1n1/2s5l/3pg2pp/2b1p1p1n/ln3p3/2PPLNPP1/2b1P1+s1P/+p2K4g/4S3L b G2Ps3p 137",
+      "nodes": 780003,
+      "depth": 22,
+      "elapsedMs": 4950.159999966621,
+      "engineElapsedMs": 776,
+      "nps": 157571.27042464475,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/500ms",
+      "sfen": "1n2r2n1/2sk4l/3pg2pp/G1p1p1p2/l2b1p3/1KP3P2/+p2PPSGPP/L2SG3B/5R2L w 2Ps2n2p 86",
+      "nodes": 350941,
+      "depth": 18,
+      "elapsedMs": 450.5499999523163,
+      "engineElapsedMs": 449,
+      "nps": 778916.8794520956,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/2000ms",
+      "sfen": "1n2r2n1/2sk4l/3pg2pp/G1p1p1p2/l2b1p3/1KP3P2/+p2PPSGPP/L2SG3B/5R2L w 2Ps2n2p 86",
+      "nodes": 1539161,
+      "depth": 20,
+      "elapsedMs": 1950.6449999809265,
+      "engineElapsedMs": 1949,
+      "nps": 789052.3391058085,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/5000ms",
+      "sfen": "1n2r2n1/2sk4l/3pg2pp/G1p1p1p2/l2b1p3/1KP3P2/+p2PPSGPP/L2SG3B/5R2L w 2Ps2n2p 86",
+      "nodes": 3897345,
+      "depth": 21,
+      "elapsedMs": 4949.199999928474,
+      "engineElapsedMs": 4949,
+      "nps": 787469.6920828264,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/500ms",
+      "sfen": "lns1kg1nl/1r2g2b1/p2p1s1pp/1p2ppp2/P1p6/4P1P2/1P1P1P1PP/1B1K1S1R1/LNSG1G1NL w p 20",
+      "nodes": 397599,
+      "depth": 17,
+      "elapsedMs": 449.2450000047684,
+      "engineElapsedMs": 449,
+      "nps": 885038.2308000753,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/2000ms",
+      "sfen": "lns1kg1nl/1r2g2b1/p2p1s1pp/1p2ppp2/P1p6/4P1P2/1P1P1P1PP/1B1K1S1R1/LNSG1G1NL w p 20",
+      "nodes": 1786487,
+      "depth": 20,
+      "elapsedMs": 1948.9250000715256,
+      "engineElapsedMs": 1949,
+      "nps": 916652.5135315295,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/5000ms",
+      "sfen": "lns1kg1nl/1r2g2b1/p2p1s1pp/1p2ppp2/P1p6/4P1P2/1P1P1P1PP/1B1K1S1R1/LNSG1G1NL w p 20",
+      "nodes": 4500784,
+      "depth": 23,
+      "elapsedMs": 4949.115000009537,
+      "engineElapsedMs": 4949,
+      "nps": 909411.8847493598,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/500ms",
+      "sfen": "lns1g1snl/1rg1k2b1/p1pp1p1pp/1p2p1p2/9/P8/LPPPPPPPP/1B1S1G2R/1N1G1KSNL b - 17",
+      "nodes": 452845,
+      "depth": 18,
+      "elapsedMs": 449.68999993801117,
+      "engineElapsedMs": 449,
+      "nps": 1007015.9444560113,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/2000ms",
+      "sfen": "lns1g1snl/1rg1k2b1/p1pp1p1pp/1p2p1p2/9/P8/LPPPPPPPP/1B1S1G2R/1N1G1KSNL b - 17",
+      "nodes": 1919748,
+      "depth": 20,
+      "elapsedMs": 1949.9499999284744,
+      "engineElapsedMs": 1949,
+      "nps": 984511.3977642595,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/5000ms",
+      "sfen": "lns1g1snl/1rg1k2b1/p1pp1p1pp/1p2p1p2/9/P8/LPPPPPPPP/1B1S1G2R/1N1G1KSNL b - 17",
+      "nodes": 4612186,
+      "depth": 24,
+      "elapsedMs": 4949.52999997139,
+      "engineElapsedMs": 4949,
+      "nps": 931843.2255237689,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/500ms",
+      "sfen": "8l/l1s1gkgs1/p1np1p3/1r2pbpPp/2p2nP2/1PGPPPSRP/P7N/LBK1G3L/1NS6 w 2Pp 62",
+      "nodes": 349156,
+      "depth": 14,
+      "elapsedMs": 448.8949999809265,
+      "engineElapsedMs": 449,
+      "nps": 777812.1832830296,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/2000ms",
+      "sfen": "8l/l1s1gkgs1/p1np1p3/1r2pbpPp/2p2nP2/1PGPPPSRP/P7N/LBK1G3L/1NS6 w 2Pp 62",
+      "nodes": 1553230,
+      "depth": 18,
+      "elapsedMs": 1948.7749999761581,
+      "engineElapsedMs": 1949,
+      "nps": 797028.9027820055,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/5000ms",
+      "sfen": "8l/l1s1gkgs1/p1np1p3/1r2pbpPp/2p2nP2/1PGPPPSRP/P7N/LBK1G3L/1NS6 w 2Pp 62",
+      "nodes": 3950371,
+      "depth": 19,
+      "elapsedMs": 4949.050000071526,
+      "engineElapsedMs": 4949,
+      "nps": 798207.9388858281,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/500ms",
+      "sfen": "ln3k1nl/1rs1g1gs1/p1ppppb1p/6pP1/9/1pPPPPP1P/PP5RN/LB1GK1S1L/1NS2G3 b P 35",
+      "nodes": 403965,
+      "depth": 14,
+      "elapsedMs": 450.2850000858307,
+      "engineElapsedMs": 449,
+      "nps": 897131.8163452004,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/2000ms",
+      "sfen": "ln3k1nl/1rs1g1gs1/p1ppppb1p/6pP1/9/1pPPPPP1P/PP5RN/LB1GK1S1L/1NS2G3 b P 35",
+      "nodes": 1764643,
+      "depth": 19,
+      "elapsedMs": 1949.3250000476837,
+      "engineElapsedMs": 1949,
+      "nps": 905258.4868899921,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/5000ms",
+      "sfen": "ln3k1nl/1rs1g1gs1/p1ppppb1p/6pP1/9/1pPPPPP1P/PP5RN/LB1GK1S1L/1NS2G3 b P 35",
+      "nodes": 4370065,
+      "depth": 23,
+      "elapsedMs": 4950.1050000190735,
+      "engineElapsedMs": 4949,
+      "nps": 882822.6875961543,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/500ms",
+      "sfen": "1ns2s3/1rk1g2s1/l1pbpp1g1/1p4p1p/pnPp1n1p+r/P2PP1PP1/LPG1G+l3/2K2B1N1/2S4+l1 b 2p 101",
+      "nodes": 351661,
+      "depth": 17,
+      "elapsedMs": 450.3949999809265,
+      "engineElapsedMs": 450,
+      "nps": 780783.5344861561,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/2000ms",
+      "sfen": "1ns2s3/1rk1g2s1/l1pbpp1g1/1p4p1p/pnPp1n1p+r/P2PP1PP1/LPG1G+l3/2K2B1N1/2S4+l1 b 2p 101",
+      "nodes": 1599508,
+      "depth": 19,
+      "elapsedMs": 1949.664999961853,
+      "engineElapsedMs": 1950,
+      "nps": 820401.4535991034,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/5000ms",
+      "sfen": "1ns2s3/1rk1g2s1/l1pbpp1g1/1p4p1p/pnPp1n1p+r/P2PP1PP1/LPG1G+l3/2K2B1N1/2S4+l1 b 2p 101",
+      "nodes": 3870024,
+      "depth": 19,
+      "elapsedMs": 4949.474999904633,
+      "engineElapsedMs": 4949,
+      "nps": 781905.9597380669,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/500ms",
+      "sfen": "ln2B2nl/4gb3/5k2p/l3g2p1/S2P2s2/K1n2p2P/SrN2PPP1/2G1p1p2/4G2RL b 2Ps6p 107",
+      "nodes": 292021,
+      "depth": 17,
+      "elapsedMs": 449.9850000143051,
+      "engineElapsedMs": 449,
+      "nps": 648957.1874411738,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/2000ms",
+      "sfen": "ln2B2nl/4gb3/5k2p/l3g2p1/S2P2s2/K1n2p2P/SrN2PPP1/2G1p1p2/4G2RL b 2Ps6p 107",
+      "nodes": 1307944,
+      "depth": 18,
+      "elapsedMs": 1949.9100000858307,
+      "engineElapsedMs": 1950,
+      "nps": 670771.4714742871,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/5000ms",
+      "sfen": "ln2B2nl/4gb3/5k2p/l3g2p1/S2P2s2/K1n2p2P/SrN2PPP1/2G1p1p2/4G2RL b 2Ps6p 107",
+      "nodes": 3352794,
+      "depth": 20,
+      "elapsedMs": 4949.7300000190735,
+      "engineElapsedMs": 4949,
+      "nps": 677369.0686132538,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/500ms",
+      "sfen": "Grk2r1n1/2s5l/3pg2pp/2b1p1p1n/ln3p3/2PPLNPP1/2b1P1+s1P/+p2K4g/4S3L b G2Ps3p 137",
+      "nodes": 362279,
+      "depth": 17,
+      "elapsedMs": 449.085000038147,
+      "engineElapsedMs": 449,
+      "nps": 806704.7440222377,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/2000ms",
+      "sfen": "Grk2r1n1/2s5l/3pg2pp/2b1p1p1n/ln3p3/2PPLNPP1/2b1P1+s1P/+p2K4g/4S3L b G2Ps3p 137",
+      "nodes": 1573303,
+      "depth": 17,
+      "elapsedMs": 1949.3700000047684,
+      "engineElapsedMs": 1949,
+      "nps": 807082.801108128,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/5000ms",
+      "sfen": "Grk2r1n1/2s5l/3pg2pp/2b1p1p1n/ln3p3/2PPLNPP1/2b1P1+s1P/+p2K4g/4S3L b G2Ps3p 137",
+      "nodes": 3022563,
+      "depth": 32,
+      "elapsedMs": 4949.625,
+      "engineElapsedMs": 3700,
+      "nps": 610665.0503826047,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/500ms",
+      "sfen": "1n2r2n1/2sk4l/3pg2pp/G1p1p1p2/l2b1p3/1KP3P2/+p2PPSGPP/L2SG3B/5R2L w 2Ps2n2p 86",
+      "nodes": 358313,
+      "depth": 17,
+      "elapsedMs": 449.8250000476837,
+      "engineElapsedMs": 449,
+      "nps": 796560.8847040894,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/2000ms",
+      "sfen": "1n2r2n1/2sk4l/3pg2pp/G1p1p1p2/l2b1p3/1KP3P2/+p2PPSGPP/L2SG3B/5R2L w 2Ps2n2p 86",
+      "nodes": 1572559,
+      "depth": 19,
+      "elapsedMs": 1950.2949999570847,
+      "engineElapsedMs": 1949,
+      "nps": 806318.5313168538,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/5000ms",
+      "sfen": "1n2r2n1/2sk4l/3pg2pp/G1p1p1p2/l2b1p3/1KP3P2/+p2PPSGPP/L2SG3B/5R2L w 2Ps2n2p 86",
+      "nodes": 3891774,
+      "depth": 20,
+      "elapsedMs": 4949.534999966621,
+      "engineElapsedMs": 4949,
+      "nps": 786290.8333866203,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/500ms",
+      "sfen": "lns1kg1nl/1r2g2b1/p2p1s1pp/1p2ppp2/P1p6/4P1P2/1P1P1P1PP/1B1K1S1R1/LNSG1G1NL w p 20",
+      "nodes": 415287,
+      "depth": 18,
+      "elapsedMs": 449.4300000667572,
+      "engineElapsedMs": 449,
+      "nps": 924030.4384182504,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/2000ms",
+      "sfen": "lns1kg1nl/1r2g2b1/p2p1s1pp/1p2ppp2/P1p6/4P1P2/1P1P1P1PP/1B1K1S1R1/LNSG1G1NL w p 20",
+      "nodes": 1735015,
+      "depth": 21,
+      "elapsedMs": 1949.6800000667572,
+      "engineElapsedMs": 1949,
+      "nps": 889897.3164522348,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/5000ms",
+      "sfen": "lns1kg1nl/1r2g2b1/p2p1s1pp/1p2ppp2/P1p6/4P1P2/1P1P1P1PP/1B1K1S1R1/LNSG1G1NL w p 20",
+      "nodes": 4505380,
+      "depth": 22,
+      "elapsedMs": 4948.789999961853,
+      "engineElapsedMs": 4949,
+      "nps": 910400.3200852589,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/500ms",
+      "sfen": "lns1g1snl/1rg1k2b1/p1pp1p1pp/1p2p1p2/9/P8/LPPPPPPPP/1B1S1G2R/1N1G1KSNL b - 17",
+      "nodes": 427663,
+      "depth": 18,
+      "elapsedMs": 448.9500000476837,
+      "engineElapsedMs": 449,
+      "nps": 952584.920268576,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/2000ms",
+      "sfen": "lns1g1snl/1rg1k2b1/p1pp1p1pp/1p2p1p2/9/P8/LPPPPPPPP/1B1S1G2R/1N1G1KSNL b - 17",
+      "nodes": 1872186,
+      "depth": 20,
+      "elapsedMs": 1949.6599999666214,
+      "engineElapsedMs": 1949,
+      "nps": 960262.8150713725,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/5000ms",
+      "sfen": "lns1g1snl/1rg1k2b1/p1pp1p1pp/1p2p1p2/9/P8/LPPPPPPPP/1B1S1G2R/1N1G1KSNL b - 17",
+      "nodes": 4704624,
+      "depth": 23,
+      "elapsedMs": 4948.75,
+      "engineElapsedMs": 4949,
+      "nps": 950669.1588785046,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/500ms",
+      "sfen": "8l/l1s1gkgs1/p1np1p3/1r2pbpPp/2p2nP2/1PGPPPSRP/P7N/LBK1G3L/1NS6 w 2Pp 62",
+      "nodes": 337404,
+      "depth": 15,
+      "elapsedMs": 449.59999990463257,
+      "engineElapsedMs": 449,
+      "nps": 750453.7368139876,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/2000ms",
+      "sfen": "8l/l1s1gkgs1/p1np1p3/1r2pbpPp/2p2nP2/1PGPPPSRP/P7N/LBK1G3L/1NS6 w 2Pp 62",
+      "nodes": 1494552,
+      "depth": 19,
+      "elapsedMs": 1949.2949999570847,
+      "engineElapsedMs": 1949,
+      "nps": 766714.1197370865,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/5000ms",
+      "sfen": "8l/l1s1gkgs1/p1np1p3/1r2pbpPp/2p2nP2/1PGPPPSRP/P7N/LBK1G3L/1NS6 w 2Pp 62",
+      "nodes": 3860987,
+      "depth": 21,
+      "elapsedMs": 4950.299999952316,
+      "engineElapsedMs": 4949,
+      "nps": 779950.1040416119,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/500ms",
+      "sfen": "ln3k1nl/1rs1g1gs1/p1ppppb1p/6pP1/9/1pPPPPP1P/PP5RN/LB1GK1S1L/1NS2G3 b P 35",
+      "nodes": 390640,
+      "depth": 14,
+      "elapsedMs": 449.0199999809265,
+      "engineElapsedMs": 449,
+      "nps": 869983.5197020036,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/2000ms",
+      "sfen": "ln3k1nl/1rs1g1gs1/p1ppppb1p/6pP1/9/1pPPPPP1P/PP5RN/LB1GK1S1L/1NS2G3 b P 35",
+      "nodes": 1697212,
+      "depth": 18,
+      "elapsedMs": 1949.1699999570847,
+      "engineElapsedMs": 1949,
+      "nps": 870735.7490815927,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/5000ms",
+      "sfen": "ln3k1nl/1rs1g1gs1/p1ppppb1p/6pP1/9/1pPPPPP1P/PP5RN/LB1GK1S1L/1NS2G3 b P 35",
+      "nodes": 4266111,
+      "depth": 21,
+      "elapsedMs": 4949.890000104904,
+      "engineElapsedMs": 4949,
+      "nps": 861859.7584814182,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/500ms",
+      "sfen": "1ns2s3/1rk1g2s1/l1pbpp1g1/1p4p1p/pnPp1n1p+r/P2PP1PP1/LPG1G+l3/2K2B1N1/2S4+l1 b 2p 101",
+      "nodes": 358780,
+      "depth": 18,
+      "elapsedMs": 450.47500002384186,
+      "engineElapsedMs": 450,
+      "nps": 796448.1935312975,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/2000ms",
+      "sfen": "1ns2s3/1rk1g2s1/l1pbpp1g1/1p4p1p/pnPp1n1p+r/P2PP1PP1/LPG1G+l3/2K2B1N1/2S4+l1 b 2p 101",
+      "nodes": 1549050,
+      "depth": 18,
+      "elapsedMs": 1950.0099999904633,
+      "engineElapsedMs": 1950,
+      "nps": 794380.541642133,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/5000ms",
+      "sfen": "1ns2s3/1rk1g2s1/l1pbpp1g1/1p4p1p/pnPp1n1p+r/P2PP1PP1/LPG1G+l3/2K2B1N1/2S4+l1 b 2p 101",
+      "nodes": 3909241,
+      "depth": 20,
+      "elapsedMs": 4948.72000002861,
+      "engineElapsedMs": 4949,
+      "nps": 789949.9264410594,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/500ms",
+      "sfen": "ln2B2nl/4gb3/5k2p/l3g2p1/S2P2s2/K1n2p2P/SrN2PPP1/2G1p1p2/4G2RL b 2Ps6p 107",
+      "nodes": 302083,
+      "depth": 16,
+      "elapsedMs": 448.7350000143051,
+      "engineElapsedMs": 449,
+      "nps": 673187.9616931373,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/2000ms",
+      "sfen": "ln2B2nl/4gb3/5k2p/l3g2p1/S2P2s2/K1n2p2P/SrN2PPP1/2G1p1p2/4G2RL b 2Ps6p 107",
+      "nodes": 1288379,
+      "depth": 18,
+      "elapsedMs": 1949.625,
+      "engineElapsedMs": 1949,
+      "nps": 660834.2629992948,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/5000ms",
+      "sfen": "ln2B2nl/4gb3/5k2p/l3g2p1/S2P2s2/K1n2p2P/SrN2PPP1/2G1p1p2/4G2RL b 2Ps6p 107",
+      "nodes": 3358698,
+      "depth": 20,
+      "elapsedMs": 4949.409999966621,
+      "engineElapsedMs": 4949,
+      "nps": 678605.7328090925,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/500ms",
+      "sfen": "Grk2r1n1/2s5l/3pg2pp/2b1p1p1n/ln3p3/2PPLNPP1/2b1P1+s1P/+p2K4g/4S3L b G2Ps3p 137",
+      "nodes": 373396,
+      "depth": 17,
+      "elapsedMs": 450.21999990940094,
+      "engineElapsedMs": 449,
+      "nps": 829363.4224937577,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/2000ms",
+      "sfen": "Grk2r1n1/2s5l/3pg2pp/2b1p1p1n/ln3p3/2PPLNPP1/2b1P1+s1P/+p2K4g/4S3L b G2Ps3p 137",
+      "nodes": 1561542,
+      "depth": 26,
+      "elapsedMs": 1949.6050000190735,
+      "engineElapsedMs": 1591,
+      "nps": 800953.013551321,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/5000ms",
+      "sfen": "Grk2r1n1/2s5l/3pg2pp/2b1p1p1n/ln3p3/2PPLNPP1/2b1P1+s1P/+p2K4g/4S3L b G2Ps3p 137",
+      "nodes": 1257324,
+      "depth": 28,
+      "elapsedMs": 4949.909999966621,
+      "engineElapsedMs": 1441,
+      "nps": 254009.46684050385,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/500ms",
+      "sfen": "1n2r2n1/2sk4l/3pg2pp/G1p1p1p2/l2b1p3/1KP3P2/+p2PPSGPP/L2SG3B/5R2L w 2Ps2n2p 86",
+      "nodes": 354922,
+      "depth": 18,
+      "elapsedMs": 449.5749999284744,
+      "engineElapsedMs": 449,
+      "nps": 789461.1578857069,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/2000ms",
+      "sfen": "1n2r2n1/2sk4l/3pg2pp/G1p1p1p2/l2b1p3/1KP3P2/+p2PPSGPP/L2SG3B/5R2L w 2Ps2n2p 86",
+      "nodes": 1579722,
+      "depth": 19,
+      "elapsedMs": 1949.625,
+      "engineElapsedMs": 1949,
+      "nps": 810269.6672437007,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/5000ms",
+      "sfen": "1n2r2n1/2sk4l/3pg2pp/G1p1p1p2/l2b1p3/1KP3P2/+p2PPSGPP/L2SG3B/5R2L w 2Ps2n2p 86",
+      "nodes": 3935716,
+      "depth": 22,
+      "elapsedMs": 4950.764999985695,
+      "engineElapsedMs": 4949,
+      "nps": 794971.2822182778,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/500ms",
+      "sfen": "lns1kg1nl/1r2g2b1/p2p1s1pp/1p2ppp2/P1p6/4P1P2/1P1P1P1PP/1B1K1S1R1/LNSG1G1NL w p 20",
+      "nodes": 402939,
+      "depth": 19,
+      "elapsedMs": 449.85000002384186,
+      "engineElapsedMs": 449,
+      "nps": 895718.5728101465,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/2000ms",
+      "sfen": "lns1kg1nl/1r2g2b1/p2p1s1pp/1p2ppp2/P1p6/4P1P2/1P1P1P1PP/1B1K1S1R1/LNSG1G1NL w p 20",
+      "nodes": 1753446,
+      "depth": 22,
+      "elapsedMs": 1949.4950000047684,
+      "engineElapsedMs": 1949,
+      "nps": 899436.0077844319,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/5000ms",
+      "sfen": "lns1kg1nl/1r2g2b1/p2p1s1pp/1p2ppp2/P1p6/4P1P2/1P1P1P1PP/1B1K1S1R1/LNSG1G1NL w p 20",
+      "nodes": 4386360,
+      "depth": 23,
+      "elapsedMs": 4948.8099999427795,
+      "engineElapsedMs": 4949,
+      "nps": 886346.4146028473,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/500ms",
+      "sfen": "lns1g1snl/1rg1k2b1/p1pp1p1pp/1p2p1p2/9/P8/LPPPPPPPP/1B1S1G2R/1N1G1KSNL b - 17",
+      "nodes": 433428,
+      "depth": 16,
+      "elapsedMs": 449.2849999666214,
+      "engineElapsedMs": 449,
+      "nps": 964706.1442785772,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/2000ms",
+      "sfen": "lns1g1snl/1rg1k2b1/p1pp1p1pp/1p2p1p2/9/P8/LPPPPPPPP/1B1S1G2R/1N1G1KSNL b - 17",
+      "nodes": 1880616,
+      "depth": 22,
+      "elapsedMs": 1949.9800000190735,
+      "engineElapsedMs": 1949,
+      "nps": 964428.3531018805,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/5000ms",
+      "sfen": "lns1g1snl/1rg1k2b1/p1pp1p1pp/1p2p1p2/9/P8/LPPPPPPPP/1B1S1G2R/1N1G1KSNL b - 17",
+      "nodes": 4682469,
+      "depth": 22,
+      "elapsedMs": 4949.524999976158,
+      "engineElapsedMs": 4949,
+      "nps": 946044.1153489589,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/500ms",
+      "sfen": "8l/l1s1gkgs1/p1np1p3/1r2pbpPp/2p2nP2/1PGPPPSRP/P7N/LBK1G3L/1NS6 w 2Pp 62",
+      "nodes": 349818,
+      "depth": 17,
+      "elapsedMs": 449.8599998950958,
+      "engineElapsedMs": 449,
+      "nps": 777615.258261626,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/2000ms",
+      "sfen": "8l/l1s1gkgs1/p1np1p3/1r2pbpPp/2p2nP2/1PGPPPSRP/P7N/LBK1G3L/1NS6 w 2Pp 62",
+      "nodes": 1557557,
+      "depth": 18,
+      "elapsedMs": 1950.1150000095367,
+      "engineElapsedMs": 1949,
+      "nps": 798700.0766582397,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/5000ms",
+      "sfen": "8l/l1s1gkgs1/p1np1p3/1r2pbpPp/2p2nP2/1PGPPPSRP/P7N/LBK1G3L/1NS6 w 2Pp 62",
+      "nodes": 3787557,
+      "depth": 20,
+      "elapsedMs": 4949.545000076294,
+      "engineElapsedMs": 4949,
+      "nps": 765233.3699242289,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/500ms",
+      "sfen": "ln3k1nl/1rs1g1gs1/p1ppppb1p/6pP1/9/1pPPPPP1P/PP5RN/LB1GK1S1L/1NS2G3 b P 35",
+      "nodes": 397673,
+      "depth": 14,
+      "elapsedMs": 450.0700000524521,
+      "engineElapsedMs": 449,
+      "nps": 883580.3318453893,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/2000ms",
+      "sfen": "ln3k1nl/1rs1g1gs1/p1ppppb1p/6pP1/9/1pPPPPP1P/PP5RN/LB1GK1S1L/1NS2G3 b P 35",
+      "nodes": 1719189,
+      "depth": 18,
+      "elapsedMs": 1949.8300000429153,
+      "engineElapsedMs": 1949,
+      "nps": 881712.2518179333,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/5000ms",
+      "sfen": "ln3k1nl/1rs1g1gs1/p1ppppb1p/6pP1/9/1pPPPPP1P/PP5RN/LB1GK1S1L/1NS2G3 b P 35",
+      "nodes": 4349198,
+      "depth": 21,
+      "elapsedMs": 4949.784999966621,
+      "engineElapsedMs": 4949,
+      "nps": 878664.0227867126,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/500ms",
+      "sfen": "1ns2s3/1rk1g2s1/l1pbpp1g1/1p4p1p/pnPp1n1p+r/P2PP1PP1/LPG1G+l3/2K2B1N1/2S4+l1 b 2p 101",
+      "nodes": 357682,
+      "depth": 16,
+      "elapsedMs": 449.9850000143051,
+      "engineElapsedMs": 449,
+      "nps": 794875.3847097774,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/2000ms",
+      "sfen": "1ns2s3/1rk1g2s1/l1pbpp1g1/1p4p1p/pnPp1n1p+r/P2PP1PP1/LPG1G+l3/2K2B1N1/2S4+l1 b 2p 101",
+      "nodes": 1522812,
+      "depth": 19,
+      "elapsedMs": 1950.4300000667572,
+      "engineElapsedMs": 1950,
+      "nps": 780757.0638002281,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/5000ms",
+      "sfen": "1ns2s3/1rk1g2s1/l1pbpp1g1/1p4p1p/pnPp1n1p+r/P2PP1PP1/LPG1G+l3/2K2B1N1/2S4+l1 b 2p 101",
+      "nodes": 3806929,
+      "depth": 19,
+      "elapsedMs": 4950.110000014305,
+      "engineElapsedMs": 4949,
+      "nps": 769059.4754437776,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/500ms",
+      "sfen": "ln2B2nl/4gb3/5k2p/l3g2p1/S2P2s2/K1n2p2P/SrN2PPP1/2G1p1p2/4G2RL b 2Ps6p 107",
+      "nodes": 293595,
+      "depth": 16,
+      "elapsedMs": 449.8949999809265,
+      "engineElapsedMs": 449,
+      "nps": 652585.603335105,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/2000ms",
+      "sfen": "ln2B2nl/4gb3/5k2p/l3g2p1/S2P2s2/K1n2p2P/SrN2PPP1/2G1p1p2/4G2RL b 2Ps6p 107",
+      "nodes": 1279663,
+      "depth": 18,
+      "elapsedMs": 1949.3099999427795,
+      "engineElapsedMs": 1949,
+      "nps": 656469.7252040791,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/5000ms",
+      "sfen": "ln2B2nl/4gb3/5k2p/l3g2p1/S2P2s2/K1n2p2P/SrN2PPP1/2G1p1p2/4G2RL b 2Ps6p 107",
+      "nodes": 3354065,
+      "depth": 20,
+      "elapsedMs": 4949.914999961853,
+      "engineElapsedMs": 4949,
+      "nps": 677600.5244586722,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/500ms",
+      "sfen": "Grk2r1n1/2s5l/3pg2pp/2b1p1p1n/ln3p3/2PPLNPP1/2b1P1+s1P/+p2K4g/4S3L b G2Ps3p 137",
+      "nodes": 359906,
+      "depth": 17,
+      "elapsedMs": 449.875,
+      "engineElapsedMs": 449,
+      "nps": 800013.3370380661,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/2000ms",
+      "sfen": "Grk2r1n1/2s5l/3pg2pp/2b1p1p1n/ln3p3/2PPLNPP1/2b1P1+s1P/+p2K4g/4S3L b G2Ps3p 137",
+      "nodes": 1910952,
+      "depth": 22,
+      "elapsedMs": 1949.9950000047684,
+      "engineElapsedMs": 1946,
+      "nps": 979977.8973768277,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/5000ms",
+      "sfen": "Grk2r1n1/2s5l/3pg2pp/2b1p1p1n/ln3p3/2PPLNPP1/2b1P1+s1P/+p2K4g/4S3L b G2Ps3p 137",
+      "nodes": 3340433,
+      "depth": 30,
+      "elapsedMs": 4949.715000033379,
+      "engineElapsedMs": 4054,
+      "nps": 674873.8058610392,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/500ms",
+      "sfen": "1n2r2n1/2sk4l/3pg2pp/G1p1p1p2/l2b1p3/1KP3P2/+p2PPSGPP/L2SG3B/5R2L w 2Ps2n2p 86",
+      "nodes": 355500,
+      "depth": 17,
+      "elapsedMs": 449.68499994277954,
+      "engineElapsedMs": 449,
+      "nps": 790553.3874717542,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/2000ms",
+      "sfen": "1n2r2n1/2sk4l/3pg2pp/G1p1p1p2/l2b1p3/1KP3P2/+p2PPSGPP/L2SG3B/5R2L w 2Ps2n2p 86",
+      "nodes": 1580150,
+      "depth": 20,
+      "elapsedMs": 1950.5,
+      "engineElapsedMs": 1949,
+      "nps": 810125.6088182518,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/5000ms",
+      "sfen": "1n2r2n1/2sk4l/3pg2pp/G1p1p1p2/l2b1p3/1KP3P2/+p2PPSGPP/L2SG3B/5R2L w 2Ps2n2p 86",
+      "nodes": 3959211,
+      "depth": 21,
+      "elapsedMs": 4949.324999928474,
+      "engineElapsedMs": 4949,
+      "nps": 799949.6901208179,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/500ms",
+      "sfen": "lns1kg1nl/1r2g2b1/p2p1s1pp/1p2ppp2/P1p6/4P1P2/1P1P1P1PP/1B1K1S1R1/LNSG1G1NL w p 20",
+      "nodes": 396203,
+      "depth": 17,
+      "elapsedMs": 450.0199999809265,
+      "engineElapsedMs": 449,
+      "nps": 880411.9817270178,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/2000ms",
+      "sfen": "lns1kg1nl/1r2g2b1/p2p1s1pp/1p2ppp2/P1p6/4P1P2/1P1P1P1PP/1B1K1S1R1/LNSG1G1NL w p 20",
+      "nodes": 1714835,
+      "depth": 20,
+      "elapsedMs": 1949.2849999666214,
+      "engineElapsedMs": 1949,
+      "nps": 879725.1299986221,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/5000ms",
+      "sfen": "lns1kg1nl/1r2g2b1/p2p1s1pp/1p2ppp2/P1p6/4P1P2/1P1P1P1PP/1B1K1S1R1/LNSG1G1NL w p 20",
+      "nodes": 4453740,
+      "depth": 23,
+      "elapsedMs": 4949.0599999427795,
+      "engineElapsedMs": 4949,
+      "nps": 899916.3477612908,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/500ms",
+      "sfen": "lns1g1snl/1rg1k2b1/p1pp1p1pp/1p2p1p2/9/P8/LPPPPPPPP/1B1S1G2R/1N1G1KSNL b - 17",
+      "nodes": 457552,
+      "depth": 18,
+      "elapsedMs": 449.34500002861023,
+      "engineElapsedMs": 449,
+      "nps": 1018264.3625073546,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/2000ms",
+      "sfen": "lns1g1snl/1rg1k2b1/p1pp1p1pp/1p2p1p2/9/P8/LPPPPPPPP/1B1S1G2R/1N1G1KSNL b - 17",
+      "nodes": 1882705,
+      "depth": 19,
+      "elapsedMs": 1949.1399999856949,
+      "engineElapsedMs": 1949,
+      "nps": 965915.7372040066,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/5000ms",
+      "sfen": "lns1g1snl/1rg1k2b1/p1pp1p1pp/1p2p1p2/9/P8/LPPPPPPPP/1B1S1G2R/1N1G1KSNL b - 17",
+      "nodes": 4650281,
+      "depth": 23,
+      "elapsedMs": 4949.965000033379,
+      "engineElapsedMs": 4949,
+      "nps": 939457.3496920973,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/500ms",
+      "sfen": "8l/l1s1gkgs1/p1np1p3/1r2pbpPp/2p2nP2/1PGPPPSRP/P7N/LBK1G3L/1NS6 w 2Pp 62",
+      "nodes": 350354,
+      "depth": 16,
+      "elapsedMs": 449.69000005722046,
+      "engineElapsedMs": 449,
+      "nps": 779101.1584767717,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/2000ms",
+      "sfen": "8l/l1s1gkgs1/p1np1p3/1r2pbpPp/2p2nP2/1PGPPPSRP/P7N/LBK1G3L/1NS6 w 2Pp 62",
+      "nodes": 1533636,
+      "depth": 18,
+      "elapsedMs": 1949.8349999189377,
+      "engineElapsedMs": 1949,
+      "nps": 786546.5539718793,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/5000ms",
+      "sfen": "8l/l1s1gkgs1/p1np1p3/1r2pbpPp/2p2nP2/1PGPPPSRP/P7N/LBK1G3L/1NS6 w 2Pp 62",
+      "nodes": 3712193,
+      "depth": 19,
+      "elapsedMs": 4949.949999928474,
+      "engineElapsedMs": 4949,
+      "nps": 749945.5550164427,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/500ms",
+      "sfen": "ln3k1nl/1rs1g1gs1/p1ppppb1p/6pP1/9/1pPPPPP1P/PP5RN/LB1GK1S1L/1NS2G3 b P 35",
+      "nodes": 360448,
+      "depth": 14,
+      "elapsedMs": 449.5349999666214,
+      "engineElapsedMs": 449,
+      "nps": 801824.1071924628,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/2000ms",
+      "sfen": "ln3k1nl/1rs1g1gs1/p1ppppb1p/6pP1/9/1pPPPPP1P/PP5RN/LB1GK1S1L/1NS2G3 b P 35",
+      "nodes": 1662662,
+      "depth": 19,
+      "elapsedMs": 1948.6849999427795,
+      "engineElapsedMs": 1949,
+      "nps": 853222.5578011951,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/5000ms",
+      "sfen": "ln3k1nl/1rs1g1gs1/p1ppppb1p/6pP1/9/1pPPPPP1P/PP5RN/LB1GK1S1L/1NS2G3 b P 35",
+      "nodes": 4287354,
+      "depth": 21,
+      "elapsedMs": 4948.804999947548,
+      "engineElapsedMs": 4949,
+      "nps": 866341.2682547487,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/500ms",
+      "sfen": "1ns2s3/1rk1g2s1/l1pbpp1g1/1p4p1p/pnPp1n1p+r/P2PP1PP1/LPG1G+l3/2K2B1N1/2S4+l1 b 2p 101",
+      "nodes": 355276,
+      "depth": 17,
+      "elapsedMs": 449.00999999046326,
+      "engineElapsedMs": 449,
+      "nps": 791242.9567438272,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/2000ms",
+      "sfen": "1ns2s3/1rk1g2s1/l1pbpp1g1/1p4p1p/pnPp1n1p+r/P2PP1PP1/LPG1G+l3/2K2B1N1/2S4+l1 b 2p 101",
+      "nodes": 1536117,
+      "depth": 18,
+      "elapsedMs": 1950.320000052452,
+      "engineElapsedMs": 1949,
+      "nps": 787623.0567079698,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/5000ms",
+      "sfen": "1ns2s3/1rk1g2s1/l1pbpp1g1/1p4p1p/pnPp1n1p+r/P2PP1PP1/LPG1G+l3/2K2B1N1/2S4+l1 b 2p 101",
+      "nodes": 3924311,
+      "depth": 20,
+      "elapsedMs": 4950.160000085831,
+      "engineElapsedMs": 4950,
+      "nps": 792764.4762860104,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/500ms",
+      "sfen": "ln2B2nl/4gb3/5k2p/l3g2p1/S2P2s2/K1n2p2P/SrN2PPP1/2G1p1p2/4G2RL b 2Ps6p 107",
+      "nodes": 294876,
+      "depth": 16,
+      "elapsedMs": 449.63499999046326,
+      "engineElapsedMs": 449,
+      "nps": 655811.9363622812,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/2000ms",
+      "sfen": "ln2B2nl/4gb3/5k2p/l3g2p1/S2P2s2/K1n2p2P/SrN2PPP1/2G1p1p2/4G2RL b 2Ps6p 107",
+      "nodes": 1292092,
+      "depth": 18,
+      "elapsedMs": 1949.4800000190735,
+      "engineElapsedMs": 1949,
+      "nps": 662788.0255182707,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/5000ms",
+      "sfen": "ln2B2nl/4gb3/5k2p/l3g2p1/S2P2s2/K1n2p2P/SrN2PPP1/2G1p1p2/4G2RL b 2Ps6p 107",
+      "nodes": 3248212,
+      "depth": 19,
+      "elapsedMs": 4950.375,
+      "engineElapsedMs": 4950,
+      "nps": 656154.7357523419,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/500ms",
+      "sfen": "Grk2r1n1/2s5l/3pg2pp/2b1p1p1n/ln3p3/2PPLNPP1/2b1P1+s1P/+p2K4g/4S3L b G2Ps3p 137",
+      "nodes": 414905,
+      "depth": 16,
+      "elapsedMs": 449,
+      "engineElapsedMs": 449,
+      "nps": 924064.5879732739,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/2000ms",
+      "sfen": "Grk2r1n1/2s5l/3pg2pp/2b1p1p1n/ln3p3/2PPLNPP1/2b1P1+s1P/+p2K4g/4S3L b G2Ps3p 137",
+      "nodes": 1889453,
+      "depth": 24,
+      "elapsedMs": 1949.5149999856949,
+      "engineElapsedMs": 1949,
+      "nps": 969191.3116923257,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/5000ms",
+      "sfen": "Grk2r1n1/2s5l/3pg2pp/2b1p1p1n/ln3p3/2PPLNPP1/2b1P1+s1P/+p2K4g/4S3L b G2Ps3p 137",
+      "nodes": 2547993,
+      "depth": 29,
+      "elapsedMs": 4949.010000109673,
+      "engineElapsedMs": 3047,
+      "nps": 514849.0304007337,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/500ms",
+      "sfen": "1n2r2n1/2sk4l/3pg2pp/G1p1p1p2/l2b1p3/1KP3P2/+p2PPSGPP/L2SG3B/5R2L w 2Ps2n2p 86",
+      "nodes": 334150,
+      "depth": 17,
+      "elapsedMs": 450.06500005722046,
+      "engineElapsedMs": 449,
+      "nps": 742448.3129270589,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/2000ms",
+      "sfen": "1n2r2n1/2sk4l/3pg2pp/G1p1p1p2/l2b1p3/1KP3P2/+p2PPSGPP/L2SG3B/5R2L w 2Ps2n2p 86",
+      "nodes": 1583086,
+      "depth": 19,
+      "elapsedMs": 1950.3250000476837,
+      "engineElapsedMs": 1949,
+      "nps": 811703.6903907271,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/5000ms",
+      "sfen": "1n2r2n1/2sk4l/3pg2pp/G1p1p1p2/l2b1p3/1KP3P2/+p2PPSGPP/L2SG3B/5R2L w 2Ps2n2p 86",
+      "nodes": 3941806,
+      "depth": 21,
+      "elapsedMs": 4949.9400000572205,
+      "engineElapsedMs": 4949,
+      "nps": 796334.0969697478,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/500ms",
+      "sfen": "lns1kg1nl/1r2g2b1/p2p1s1pp/1p2ppp2/P1p6/4P1P2/1P1P1P1PP/1B1K1S1R1/LNSG1G1NL w p 20",
+      "nodes": 410536,
+      "depth": 18,
+      "elapsedMs": 448.93499994277954,
+      "engineElapsedMs": 449,
+      "nps": 914466.4596262849,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/2000ms",
+      "sfen": "lns1kg1nl/1r2g2b1/p2p1s1pp/1p2ppp2/P1p6/4P1P2/1P1P1P1PP/1B1K1S1R1/LNSG1G1NL w p 20",
+      "nodes": 1780991,
+      "depth": 20,
+      "elapsedMs": 1948.7200000286102,
+      "engineElapsedMs": 1949,
+      "nps": 913928.6300617084,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/5000ms",
+      "sfen": "lns1kg1nl/1r2g2b1/p2p1s1pp/1p2ppp2/P1p6/4P1P2/1P1P1P1PP/1B1K1S1R1/LNSG1G1NL w p 20",
+      "nodes": 4602086,
+      "depth": 24,
+      "elapsedMs": 4948.694999933243,
+      "engineElapsedMs": 4949,
+      "nps": 929959.5145916411,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/500ms",
+      "sfen": "lns1g1snl/1rg1k2b1/p1pp1p1pp/1p2p1p2/9/P8/LPPPPPPPP/1B1S1G2R/1N1G1KSNL b - 17",
+      "nodes": 428671,
+      "depth": 17,
+      "elapsedMs": 449.289999961853,
+      "engineElapsedMs": 449,
+      "nps": 954107.5920594634,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/2000ms",
+      "sfen": "lns1g1snl/1rg1k2b1/p1pp1p1pp/1p2p1p2/9/P8/LPPPPPPPP/1B1S1G2R/1N1G1KSNL b - 17",
+      "nodes": 1894365,
+      "depth": 23,
+      "elapsedMs": 1949.6699999570847,
+      "engineElapsedMs": 1949,
+      "nps": 971633.6611024933,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/5000ms",
+      "sfen": "lns1g1snl/1rg1k2b1/p1pp1p1pp/1p2p1p2/9/P8/LPPPPPPPP/1B1S1G2R/1N1G1KSNL b - 17",
+      "nodes": 4661884,
+      "depth": 23,
+      "elapsedMs": 4949.5650000572205,
+      "engineElapsedMs": 4949,
+      "nps": 941877.5185185173,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/500ms",
+      "sfen": "8l/l1s1gkgs1/p1np1p3/1r2pbpPp/2p2nP2/1PGPPPSRP/P7N/LBK1G3L/1NS6 w 2Pp 62",
+      "nodes": 354520,
+      "depth": 17,
+      "elapsedMs": 449.50999999046326,
+      "engineElapsedMs": 449,
+      "nps": 788681.0082256711,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/2000ms",
+      "sfen": "8l/l1s1gkgs1/p1np1p3/1r2pbpPp/2p2nP2/1PGPPPSRP/P7N/LBK1G3L/1NS6 w 2Pp 62",
+      "nodes": 1530529,
+      "depth": 19,
+      "elapsedMs": 1949.2799999713898,
+      "engineElapsedMs": 1949,
+      "nps": 785176.5780300748,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/5000ms",
+      "sfen": "8l/l1s1gkgs1/p1np1p3/1r2pbpPp/2p2nP2/1PGPPPSRP/P7N/LBK1G3L/1NS6 w 2Pp 62",
+      "nodes": 3748471,
+      "depth": 20,
+      "elapsedMs": 4949.0650000572205,
+      "engineElapsedMs": 4949,
+      "nps": 757409.9349991687,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/500ms",
+      "sfen": "ln3k1nl/1rs1g1gs1/p1ppppb1p/6pP1/9/1pPPPPP1P/PP5RN/LB1GK1S1L/1NS2G3 b P 35",
+      "nodes": 385014,
+      "depth": 14,
+      "elapsedMs": 449.3700000047684,
+      "engineElapsedMs": 449,
+      "nps": 856786.1672917964,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/2000ms",
+      "sfen": "ln3k1nl/1rs1g1gs1/p1ppppb1p/6pP1/9/1pPPPPP1P/PP5RN/LB1GK1S1L/1NS2G3 b P 35",
+      "nodes": 1726403,
+      "depth": 17,
+      "elapsedMs": 1949.594999909401,
+      "engineElapsedMs": 1949,
+      "nps": 885518.7872764483,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/5000ms",
+      "sfen": "ln3k1nl/1rs1g1gs1/p1ppppb1p/6pP1/9/1pPPPPP1P/PP5RN/LB1GK1S1L/1NS2G3 b P 35",
+      "nodes": 4306209,
+      "depth": 21,
+      "elapsedMs": 4949.194999933243,
+      "engineElapsedMs": 4949,
+      "nps": 870082.7104323196,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/500ms",
+      "sfen": "1ns2s3/1rk1g2s1/l1pbpp1g1/1p4p1p/pnPp1n1p+r/P2PP1PP1/LPG1G+l3/2K2B1N1/2S4+l1 b 2p 101",
+      "nodes": 366181,
+      "depth": 15,
+      "elapsedMs": 449.61500000953674,
+      "engineElapsedMs": 450,
+      "nps": 814432.3476579584,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/2000ms",
+      "sfen": "1ns2s3/1rk1g2s1/l1pbpp1g1/1p4p1p/pnPp1n1p+r/P2PP1PP1/LPG1G+l3/2K2B1N1/2S4+l1 b 2p 101",
+      "nodes": 1520113,
+      "depth": 18,
+      "elapsedMs": 1949.1599999666214,
+      "engineElapsedMs": 1949,
+      "nps": 779881.0769901042,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/5000ms",
+      "sfen": "1ns2s3/1rk1g2s1/l1pbpp1g1/1p4p1p/pnPp1n1p+r/P2PP1PP1/LPG1G+l3/2K2B1N1/2S4+l1 b 2p 101",
+      "nodes": 3936789,
+      "depth": 19,
+      "elapsedMs": 4950.490000009537,
+      "engineElapsedMs": 4950,
+      "nps": 795232.1891353009,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/500ms",
+      "sfen": "ln2B2nl/4gb3/5k2p/l3g2p1/S2P2s2/K1n2p2P/SrN2PPP1/2G1p1p2/4G2RL b 2Ps6p 107",
+      "nodes": 301175,
+      "depth": 16,
+      "elapsedMs": 449.93999993801117,
+      "engineElapsedMs": 450,
+      "nps": 669367.0268068927,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/2000ms",
+      "sfen": "ln2B2nl/4gb3/5k2p/l3g2p1/S2P2s2/K1n2p2P/SrN2PPP1/2G1p1p2/4G2RL b 2Ps6p 107",
+      "nodes": 1251129,
+      "depth": 19,
+      "elapsedMs": 1949.9700000286102,
+      "engineElapsedMs": 1950,
+      "nps": 641614.4863672997,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/5000ms",
+      "sfen": "ln2B2nl/4gb3/5k2p/l3g2p1/S2P2s2/K1n2p2P/SrN2PPP1/2G1p1p2/4G2RL b 2Ps6p 107",
+      "nodes": 3291661,
+      "depth": 20,
+      "elapsedMs": 4949.715000033379,
+      "engineElapsedMs": 4950,
+      "nps": 665020.3092456439,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/500ms",
+      "sfen": "Grk2r1n1/2s5l/3pg2pp/2b1p1p1n/ln3p3/2PPLNPP1/2b1P1+s1P/+p2K4g/4S3L b G2Ps3p 137",
+      "nodes": 378837,
+      "depth": 16,
+      "elapsedMs": 449.18999993801117,
+      "engineElapsedMs": 449,
+      "nps": 843378.0806613683,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/2000ms",
+      "sfen": "Grk2r1n1/2s5l/3pg2pp/2b1p1p1n/ln3p3/2PPLNPP1/2b1P1+s1P/+p2K4g/4S3L b G2Ps3p 137",
+      "nodes": 1949668,
+      "depth": 26,
+      "elapsedMs": 1949.7250000238419,
+      "engineElapsedMs": 1925,
+      "nps": 999970.7650956719,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/5000ms",
+      "sfen": "Grk2r1n1/2s5l/3pg2pp/2b1p1p1n/ln3p3/2PPLNPP1/2b1P1+s1P/+p2K4g/4S3L b G2Ps3p 137",
+      "nodes": 1343479,
+      "depth": 27,
+      "elapsedMs": 4949.735000014305,
+      "engineElapsedMs": 1568,
+      "nps": 271424.42979192163,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/500ms",
+      "sfen": "1n2r2n1/2sk4l/3pg2pp/G1p1p1p2/l2b1p3/1KP3P2/+p2PPSGPP/L2SG3B/5R2L w 2Ps2n2p 86",
+      "nodes": 360259,
+      "depth": 18,
+      "elapsedMs": 449.3400000333786,
+      "engineElapsedMs": 449,
+      "nps": 801751.457633949,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/2000ms",
+      "sfen": "1n2r2n1/2sk4l/3pg2pp/G1p1p1p2/l2b1p3/1KP3P2/+p2PPSGPP/L2SG3B/5R2L w 2Ps2n2p 86",
+      "nodes": 1583491,
+      "depth": 19,
+      "elapsedMs": 1949.929999947548,
+      "engineElapsedMs": 1949,
+      "nps": 812075.8181281354,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/5000ms",
+      "sfen": "1n2r2n1/2sk4l/3pg2pp/G1p1p1p2/l2b1p3/1KP3P2/+p2PPSGPP/L2SG3B/5R2L w 2Ps2n2p 86",
+      "nodes": 4004935,
+      "depth": 22,
+      "elapsedMs": 4949.544999957085,
+      "engineElapsedMs": 4949,
+      "nps": 809152.1543969648,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/500ms",
+      "sfen": "lns1kg1nl/1r2g2b1/p2p1s1pp/1p2ppp2/P1p6/4P1P2/1P1P1P1PP/1B1K1S1R1/LNSG1G1NL w p 20",
+      "nodes": 407640,
+      "depth": 16,
+      "elapsedMs": 449.14999997615814,
+      "engineElapsedMs": 449,
+      "nps": 907580.986355646,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/2000ms",
+      "sfen": "lns1kg1nl/1r2g2b1/p2p1s1pp/1p2ppp2/P1p6/4P1P2/1P1P1P1PP/1B1K1S1R1/LNSG1G1NL w p 20",
+      "nodes": 1786152,
+      "depth": 20,
+      "elapsedMs": 1949.1549999713898,
+      "engineElapsedMs": 1949,
+      "nps": 916372.4793698898,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/5000ms",
+      "sfen": "lns1kg1nl/1r2g2b1/p2p1s1pp/1p2ppp2/P1p6/4P1P2/1P1P1P1PP/1B1K1S1R1/LNSG1G1NL w p 20",
+      "nodes": 4544900,
+      "depth": 25,
+      "elapsedMs": 4948.784999966621,
+      "engineElapsedMs": 4949,
+      "nps": 918387.0384408808,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/500ms",
+      "sfen": "lns1g1snl/1rg1k2b1/p1pp1p1pp/1p2p1p2/9/P8/LPPPPPPPP/1B1S1G2R/1N1G1KSNL b - 17",
+      "nodes": 441400,
+      "depth": 17,
+      "elapsedMs": 448.6299999952316,
+      "engineElapsedMs": 449,
+      "nps": 983884.2698987841,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/2000ms",
+      "sfen": "lns1g1snl/1rg1k2b1/p1pp1p1pp/1p2p1p2/9/P8/LPPPPPPPP/1B1S1G2R/1N1G1KSNL b - 17",
+      "nodes": 1901304,
+      "depth": 18,
+      "elapsedMs": 1949.2200000286102,
+      "engineElapsedMs": 1949,
+      "nps": 975417.859437156,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/5000ms",
+      "sfen": "lns1g1snl/1rg1k2b1/p1pp1p1pp/1p2p1p2/9/P8/LPPPPPPPP/1B1S1G2R/1N1G1KSNL b - 17",
+      "nodes": 4735605,
+      "depth": 24,
+      "elapsedMs": 4949.685000061989,
+      "engineElapsedMs": 4949,
+      "nps": 956748.7627880748,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/500ms",
+      "sfen": "8l/l1s1gkgs1/p1np1p3/1r2pbpPp/2p2nP2/1PGPPPSRP/P7N/LBK1G3L/1NS6 w 2Pp 62",
+      "nodes": 322715,
+      "depth": 16,
+      "elapsedMs": 450.1399999856949,
+      "engineElapsedMs": 449,
+      "nps": 716921.4022532004,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/2000ms",
+      "sfen": "8l/l1s1gkgs1/p1np1p3/1r2pbpPp/2p2nP2/1PGPPPSRP/P7N/LBK1G3L/1NS6 w 2Pp 62",
+      "nodes": 1506840,
+      "depth": 19,
+      "elapsedMs": 1949.344999909401,
+      "engineElapsedMs": 1949,
+      "nps": 772998.1096573633,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/5000ms",
+      "sfen": "8l/l1s1gkgs1/p1np1p3/1r2pbpPp/2p2nP2/1PGPPPSRP/P7N/LBK1G3L/1NS6 w 2Pp 62",
+      "nodes": 3874676,
+      "depth": 21,
+      "elapsedMs": 4949.34500002861,
+      "engineElapsedMs": 4949,
+      "nps": 782866.4196934346,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/500ms",
+      "sfen": "ln3k1nl/1rs1g1gs1/p1ppppb1p/6pP1/9/1pPPPPP1P/PP5RN/LB1GK1S1L/1NS2G3 b P 35",
+      "nodes": 406135,
+      "depth": 14,
+      "elapsedMs": 449.77999997138977,
+      "engineElapsedMs": 449,
+      "nps": 902963.671185544,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/2000ms",
+      "sfen": "ln3k1nl/1rs1g1gs1/p1ppppb1p/6pP1/9/1pPPPPP1P/PP5RN/LB1GK1S1L/1NS2G3 b P 35",
+      "nodes": 1722901,
+      "depth": 18,
+      "elapsedMs": 1949.2549999952316,
+      "engineElapsedMs": 1949,
+      "nps": 883876.6605724826,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/5000ms",
+      "sfen": "ln3k1nl/1rs1g1gs1/p1ppppb1p/6pP1/9/1pPPPPP1P/PP5RN/LB1GK1S1L/1NS2G3 b P 35",
+      "nodes": 4435262,
+      "depth": 22,
+      "elapsedMs": 4949.305000066757,
+      "engineElapsedMs": 4949,
+      "nps": 896138.3466850752,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/500ms",
+      "sfen": "1ns2s3/1rk1g2s1/l1pbpp1g1/1p4p1p/pnPp1n1p+r/P2PP1PP1/LPG1G+l3/2K2B1N1/2S4+l1 b 2p 101",
+      "nodes": 359401,
+      "depth": 17,
+      "elapsedMs": 449.8550000190735,
+      "engineElapsedMs": 449,
+      "nps": 798926.320669464,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/2000ms",
+      "sfen": "1ns2s3/1rk1g2s1/l1pbpp1g1/1p4p1p/pnPp1n1p+r/P2PP1PP1/LPG1G+l3/2K2B1N1/2S4+l1 b 2p 101",
+      "nodes": 1576982,
+      "depth": 18,
+      "elapsedMs": 1950.1150000095367,
+      "engineElapsedMs": 1949,
+      "nps": 808661.0276790282,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/5000ms",
+      "sfen": "1ns2s3/1rk1g2s1/l1pbpp1g1/1p4p1p/pnPp1n1p+r/P2PP1PP1/LPG1G+l3/2K2B1N1/2S4+l1 b 2p 101",
+      "nodes": 3982615,
+      "depth": 20,
+      "elapsedMs": 4950.914999961853,
+      "engineElapsedMs": 4951,
+      "nps": 804419.9910583572,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/500ms",
+      "sfen": "ln2B2nl/4gb3/5k2p/l3g2p1/S2P2s2/K1n2p2P/SrN2PPP1/2G1p1p2/4G2RL b 2Ps6p 107",
+      "nodes": 308079,
+      "depth": 16,
+      "elapsedMs": 449.44000005722046,
+      "engineElapsedMs": 449,
+      "nps": 685473.0330205966,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/2000ms",
+      "sfen": "ln2B2nl/4gb3/5k2p/l3g2p1/S2P2s2/K1n2p2P/SrN2PPP1/2G1p1p2/4G2RL b 2Ps6p 107",
+      "nodes": 1286035,
+      "depth": 17,
+      "elapsedMs": 1949.8849999904633,
+      "engineElapsedMs": 1949,
+      "nps": 659544.0243944079,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/5000ms",
+      "sfen": "ln2B2nl/4gb3/5k2p/l3g2p1/S2P2s2/K1n2p2P/SrN2PPP1/2G1p1p2/4G2RL b 2Ps6p 107",
+      "nodes": 3349665,
+      "depth": 21,
+      "elapsedMs": 4949.9800000190735,
+      "engineElapsedMs": 4949,
+      "nps": 676702.7341498537,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/500ms",
+      "sfen": "Grk2r1n1/2s5l/3pg2pp/2b1p1p1n/ln3p3/2PPLNPP1/2b1P1+s1P/+p2K4g/4S3L b G2Ps3p 137",
+      "nodes": 364117,
+      "depth": 15,
+      "elapsedMs": 449.7000000476837,
+      "engineElapsedMs": 449,
+      "nps": 809688.6812572627,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/2000ms",
+      "sfen": "Grk2r1n1/2s5l/3pg2pp/2b1p1p1n/ln3p3/2PPLNPP1/2b1P1+s1P/+p2K4g/4S3L b G2Ps3p 137",
+      "nodes": 1894884,
+      "depth": 26,
+      "elapsedMs": 1949.75,
+      "engineElapsedMs": 1872,
+      "nps": 971859.9820489805,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/5000ms",
+      "sfen": "Grk2r1n1/2s5l/3pg2pp/2b1p1p1n/ln3p3/2PPLNPP1/2b1P1+s1P/+p2K4g/4S3L b G2Ps3p 137",
+      "nodes": 2540926,
+      "depth": 29,
+      "elapsedMs": 4949.464999914169,
+      "engineElapsedMs": 2860,
+      "nps": 513373.86970997136,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/500ms",
+      "sfen": "1n2r2n1/2sk4l/3pg2pp/G1p1p1p2/l2b1p3/1KP3P2/+p2PPSGPP/L2SG3B/5R2L w 2Ps2n2p 86",
+      "nodes": 363561,
+      "depth": 17,
+      "elapsedMs": 449.68499994277954,
+      "engineElapsedMs": 449,
+      "nps": 808479.2689243838,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/2000ms",
+      "sfen": "1n2r2n1/2sk4l/3pg2pp/G1p1p1p2/l2b1p3/1KP3P2/+p2PPSGPP/L2SG3B/5R2L w 2Ps2n2p 86",
+      "nodes": 1577787,
+      "depth": 17,
+      "elapsedMs": 1949.719999909401,
+      "engineElapsedMs": 1949,
+      "nps": 809237.7367382578,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/5000ms",
+      "sfen": "1n2r2n1/2sk4l/3pg2pp/G1p1p1p2/l2b1p3/1KP3P2/+p2PPSGPP/L2SG3B/5R2L w 2Ps2n2p 86",
+      "nodes": 3936623,
+      "depth": 20,
+      "elapsedMs": 4949.574999928474,
+      "engineElapsedMs": 4949,
+      "nps": 795345.6610025886,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/500ms",
+      "sfen": "lns1kg1nl/1r2g2b1/p2p1s1pp/1p2ppp2/P1p6/4P1P2/1P1P1P1PP/1B1K1S1R1/LNSG1G1NL w p 20",
+      "nodes": 415203,
+      "depth": 16,
+      "elapsedMs": 449.68499994277954,
+      "engineElapsedMs": 449,
+      "nps": 923319.6572107871,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/2000ms",
+      "sfen": "lns1kg1nl/1r2g2b1/p2p1s1pp/1p2ppp2/P1p6/4P1P2/1P1P1P1PP/1B1K1S1R1/LNSG1G1NL w p 20",
+      "nodes": 1759577,
+      "depth": 20,
+      "elapsedMs": 1949.3600000143051,
+      "engineElapsedMs": 1949,
+      "nps": 902643.431683777,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/5000ms",
+      "sfen": "lns1kg1nl/1r2g2b1/p2p1s1pp/1p2ppp2/P1p6/4P1P2/1P1P1P1PP/1B1K1S1R1/LNSG1G1NL w p 20",
+      "nodes": 4424083,
+      "depth": 21,
+      "elapsedMs": 4948.919999957085,
+      "engineElapsedMs": 4949,
+      "nps": 893949.1848804111,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/500ms",
+      "sfen": "lns1g1snl/1rg1k2b1/p1pp1p1pp/1p2p1p2/9/P8/LPPPPPPPP/1B1S1G2R/1N1G1KSNL b - 17",
+      "nodes": 436369,
+      "depth": 17,
+      "elapsedMs": 448.6749999523163,
+      "engineElapsedMs": 449,
+      "nps": 972572.5749069501,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/2000ms",
+      "sfen": "lns1g1snl/1rg1k2b1/p1pp1p1pp/1p2p1p2/9/P8/LPPPPPPPP/1B1S1G2R/1N1G1KSNL b - 17",
+      "nodes": 1821480,
+      "depth": 21,
+      "elapsedMs": 1948.8999999761581,
+      "engineElapsedMs": 1949,
+      "nps": 934619.528976491,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/5000ms",
+      "sfen": "lns1g1snl/1rg1k2b1/p1pp1p1pp/1p2p1p2/9/P8/LPPPPPPPP/1B1S1G2R/1N1G1KSNL b - 17",
+      "nodes": 4596446,
+      "depth": 24,
+      "elapsedMs": 4948.875,
+      "engineElapsedMs": 4949,
+      "nps": 928786.0372306837,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/500ms",
+      "sfen": "8l/l1s1gkgs1/p1np1p3/1r2pbpPp/2p2nP2/1PGPPPSRP/P7N/LBK1G3L/1NS6 w 2Pp 62",
+      "nodes": 348482,
+      "depth": 15,
+      "elapsedMs": 449.1399999856949,
+      "engineElapsedMs": 449,
+      "nps": 775887.2512158774,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/2000ms",
+      "sfen": "8l/l1s1gkgs1/p1np1p3/1r2pbpPp/2p2nP2/1PGPPPSRP/P7N/LBK1G3L/1NS6 w 2Pp 62",
+      "nodes": 1534344,
+      "depth": 19,
+      "elapsedMs": 1949.9350000619888,
+      "engineElapsedMs": 1949,
+      "nps": 786869.3058749256,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/5000ms",
+      "sfen": "8l/l1s1gkgs1/p1np1p3/1r2pbpPp/2p2nP2/1PGPPPSRP/P7N/LBK1G3L/1NS6 w 2Pp 62",
+      "nodes": 3893938,
+      "depth": 22,
+      "elapsedMs": 4949.875,
+      "engineElapsedMs": 4949,
+      "nps": 786674.0069193668,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/500ms",
+      "sfen": "ln3k1nl/1rs1g1gs1/p1ppppb1p/6pP1/9/1pPPPPP1P/PP5RN/LB1GK1S1L/1NS2G3 b P 35",
+      "nodes": 399396,
+      "depth": 15,
+      "elapsedMs": 449.1399999856949,
+      "engineElapsedMs": 449,
+      "nps": 889246.1148254904,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/2000ms",
+      "sfen": "ln3k1nl/1rs1g1gs1/p1ppppb1p/6pP1/9/1pPPPPP1P/PP5RN/LB1GK1S1L/1NS2G3 b P 35",
+      "nodes": 1682767,
+      "depth": 19,
+      "elapsedMs": 1948.8899999856949,
+      "engineElapsedMs": 1949,
+      "nps": 863448.9376067155,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/5000ms",
+      "sfen": "ln3k1nl/1rs1g1gs1/p1ppppb1p/6pP1/9/1pPPPPP1P/PP5RN/LB1GK1S1L/1NS2G3 b P 35",
+      "nodes": 4367482,
+      "depth": 22,
+      "elapsedMs": 4948.974999904633,
+      "engineElapsedMs": 4949,
+      "nps": 882502.3363593798,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/500ms",
+      "sfen": "1ns2s3/1rk1g2s1/l1pbpp1g1/1p4p1p/pnPp1n1p+r/P2PP1PP1/LPG1G+l3/2K2B1N1/2S4+l1 b 2p 101",
+      "nodes": 356629,
+      "depth": 15,
+      "elapsedMs": 449.7150000333786,
+      "engineElapsedMs": 449,
+      "nps": 793011.1292119017,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/2000ms",
+      "sfen": "1ns2s3/1rk1g2s1/l1pbpp1g1/1p4p1p/pnPp1n1p+r/P2PP1PP1/LPG1G+l3/2K2B1N1/2S4+l1 b 2p 101",
+      "nodes": 1532449,
+      "depth": 18,
+      "elapsedMs": 1949.7549999952316,
+      "engineElapsedMs": 1950,
+      "nps": 785970.0321341644,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/5000ms",
+      "sfen": "1ns2s3/1rk1g2s1/l1pbpp1g1/1p4p1p/pnPp1n1p+r/P2PP1PP1/LPG1G+l3/2K2B1N1/2S4+l1 b 2p 101",
+      "nodes": 3860979,
+      "depth": 20,
+      "elapsedMs": 4949.070000052452,
+      "engineElapsedMs": 4949,
+      "nps": 780142.3297627796,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/500ms",
+      "sfen": "ln2B2nl/4gb3/5k2p/l3g2p1/S2P2s2/K1n2p2P/SrN2PPP1/2G1p1p2/4G2RL b 2Ps6p 107",
+      "nodes": 295845,
+      "depth": 16,
+      "elapsedMs": 449.97000002861023,
+      "engineElapsedMs": 449,
+      "nps": 657477.1651025389,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/2000ms",
+      "sfen": "ln2B2nl/4gb3/5k2p/l3g2p1/S2P2s2/K1n2p2P/SrN2PPP1/2G1p1p2/4G2RL b 2Ps6p 107",
+      "nodes": 1259130,
+      "depth": 18,
+      "elapsedMs": 1950.344999909401,
+      "engineElapsedMs": 1950,
+      "nps": 645593.4719541877,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/5000ms",
+      "sfen": "ln2B2nl/4gb3/5k2p/l3g2p1/S2P2s2/K1n2p2P/SrN2PPP1/2G1p1p2/4G2RL b 2Ps6p 107",
+      "nodes": 3188848,
+      "depth": 20,
+      "elapsedMs": 4949.844999909401,
+      "engineElapsedMs": 4949,
+      "nps": 644231.8901012792,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/500ms",
+      "sfen": "Grk2r1n1/2s5l/3pg2pp/2b1p1p1n/ln3p3/2PPLNPP1/2b1P1+s1P/+p2K4g/4S3L b G2Ps3p 137",
+      "nodes": 357166,
+      "depth": 15,
+      "elapsedMs": 449.38499999046326,
+      "engineElapsedMs": 449,
+      "nps": 794788.4330976327,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/2000ms",
+      "sfen": "Grk2r1n1/2s5l/3pg2pp/2b1p1p1n/ln3p3/2PPLNPP1/2b1P1+s1P/+p2K4g/4S3L b G2Ps3p 137",
+      "nodes": 1968794,
+      "depth": 23,
+      "elapsedMs": 1949.820000052452,
+      "engineElapsedMs": 1949,
+      "nps": 1009731.1546435248,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/5000ms",
+      "sfen": "Grk2r1n1/2s5l/3pg2pp/2b1p1p1n/ln3p3/2PPLNPP1/2b1P1+s1P/+p2K4g/4S3L b G2Ps3p 137",
+      "nodes": 3574648,
+      "depth": 28,
+      "elapsedMs": 4950,
+      "engineElapsedMs": 3858,
+      "nps": 722151.1111111111,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/500ms",
+      "sfen": "1n2r2n1/2sk4l/3pg2pp/G1p1p1p2/l2b1p3/1KP3P2/+p2PPSGPP/L2SG3B/5R2L w 2Ps2n2p 86",
+      "nodes": 346253,
+      "depth": 16,
+      "elapsedMs": 449.35000002384186,
+      "engineElapsedMs": 449,
+      "nps": 770564.1481732021,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/2000ms",
+      "sfen": "1n2r2n1/2sk4l/3pg2pp/G1p1p1p2/l2b1p3/1KP3P2/+p2PPSGPP/L2SG3B/5R2L w 2Ps2n2p 86",
+      "nodes": 1577319,
+      "depth": 18,
+      "elapsedMs": 1949.789999961853,
+      "engineElapsedMs": 1949,
+      "nps": 808968.658179014,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/5000ms",
+      "sfen": "1n2r2n1/2sk4l/3pg2pp/G1p1p1p2/l2b1p3/1KP3P2/+p2PPSGPP/L2SG3B/5R2L w 2Ps2n2p 86",
+      "nodes": 3957796,
+      "depth": 19,
+      "elapsedMs": 4949.745000004768,
+      "engineElapsedMs": 4949,
+      "nps": 799595.9387799143,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/500ms",
+      "sfen": "lns1kg1nl/1r2g2b1/p2p1s1pp/1p2ppp2/P1p6/4P1P2/1P1P1P1PP/1B1K1S1R1/LNSG1G1NL w p 20",
+      "nodes": 401165,
+      "depth": 18,
+      "elapsedMs": 449.22500002384186,
+      "engineElapsedMs": 449,
+      "nps": 893015.7492987007,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/2000ms",
+      "sfen": "lns1kg1nl/1r2g2b1/p2p1s1pp/1p2ppp2/P1p6/4P1P2/1P1P1P1PP/1B1K1S1R1/LNSG1G1NL w p 20",
+      "nodes": 1733915,
+      "depth": 21,
+      "elapsedMs": 1949.8600000143051,
+      "engineElapsedMs": 1949,
+      "nps": 889251.0231438561,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/5000ms",
+      "sfen": "lns1kg1nl/1r2g2b1/p2p1s1pp/1p2ppp2/P1p6/4P1P2/1P1P1P1PP/1B1K1S1R1/LNSG1G1NL w p 20",
+      "nodes": 4498421,
+      "depth": 24,
+      "elapsedMs": 4949.179999947548,
+      "engineElapsedMs": 4949,
+      "nps": 908922.4881793903,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/500ms",
+      "sfen": "lns1g1snl/1rg1k2b1/p1pp1p1pp/1p2p1p2/9/P8/LPPPPPPPP/1B1S1G2R/1N1G1KSNL b - 17",
+      "nodes": 440554,
+      "depth": 17,
+      "elapsedMs": 449.3349999189377,
+      "engineElapsedMs": 449,
+      "nps": 980457.7877963617,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/2000ms",
+      "sfen": "lns1g1snl/1rg1k2b1/p1pp1p1pp/1p2p1p2/9/P8/LPPPPPPPP/1B1S1G2R/1N1G1KSNL b - 17",
+      "nodes": 1859762,
+      "depth": 20,
+      "elapsedMs": 1949.7299998998642,
+      "engineElapsedMs": 1949,
+      "nps": 953856.1750065471,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/5000ms",
+      "sfen": "lns1g1snl/1rg1k2b1/p1pp1p1pp/1p2p1p2/9/P8/LPPPPPPPP/1B1S1G2R/1N1G1KSNL b - 17",
+      "nodes": 4587425,
+      "depth": 24,
+      "elapsedMs": 4950.370000004768,
+      "engineElapsedMs": 4950,
+      "nps": 926683.258018205,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/500ms",
+      "sfen": "8l/l1s1gkgs1/p1np1p3/1r2pbpPp/2p2nP2/1PGPPPSRP/P7N/LBK1G3L/1NS6 w 2Pp 62",
+      "nodes": 340951,
+      "depth": 15,
+      "elapsedMs": 449.13499999046326,
+      "engineElapsedMs": 449,
+      "nps": 759128.1018117929,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/2000ms",
+      "sfen": "8l/l1s1gkgs1/p1np1p3/1r2pbpPp/2p2nP2/1PGPPPSRP/P7N/LBK1G3L/1NS6 w 2Pp 62",
+      "nodes": 1543874,
+      "depth": 19,
+      "elapsedMs": 1949.7850000858307,
+      "engineElapsedMs": 1949,
+      "nps": 791817.5593370744,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/5000ms",
+      "sfen": "8l/l1s1gkgs1/p1np1p3/1r2pbpPp/2p2nP2/1PGPPPSRP/P7N/LBK1G3L/1NS6 w 2Pp 62",
+      "nodes": 3798704,
+      "depth": 20,
+      "elapsedMs": 4949.9349999427795,
+      "engineElapsedMs": 4949,
+      "nps": 767425.0268021524,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/500ms",
+      "sfen": "ln3k1nl/1rs1g1gs1/p1ppppb1p/6pP1/9/1pPPPPP1P/PP5RN/LB1GK1S1L/1NS2G3 b P 35",
+      "nodes": 381867,
+      "depth": 13,
+      "elapsedMs": 449.45499992370605,
+      "engineElapsedMs": 449,
+      "nps": 849622.3205099977,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/2000ms",
+      "sfen": "ln3k1nl/1rs1g1gs1/p1ppppb1p/6pP1/9/1pPPPPP1P/PP5RN/LB1GK1S1L/1NS2G3 b P 35",
+      "nodes": 1696608,
+      "depth": 17,
+      "elapsedMs": 1948.9900000095367,
+      "engineElapsedMs": 1949,
+      "nps": 870506.2622136071,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/5000ms",
+      "sfen": "ln3k1nl/1rs1g1gs1/p1ppppb1p/6pP1/9/1pPPPPP1P/PP5RN/LB1GK1S1L/1NS2G3 b P 35",
+      "nodes": 4430768,
+      "depth": 24,
+      "elapsedMs": 4948.659999966621,
+      "engineElapsedMs": 4949,
+      "nps": 895347.0232406117,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/500ms",
+      "sfen": "1ns2s3/1rk1g2s1/l1pbpp1g1/1p4p1p/pnPp1n1p+r/P2PP1PP1/LPG1G+l3/2K2B1N1/2S4+l1 b 2p 101",
+      "nodes": 358623,
+      "depth": 17,
+      "elapsedMs": 449.43499994277954,
+      "engineElapsedMs": 449,
+      "nps": 797941.860437346,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/2000ms",
+      "sfen": "1ns2s3/1rk1g2s1/l1pbpp1g1/1p4p1p/pnPp1n1p+r/P2PP1PP1/LPG1G+l3/2K2B1N1/2S4+l1 b 2p 101",
+      "nodes": 1564424,
+      "depth": 18,
+      "elapsedMs": 1949.9550000429153,
+      "engineElapsedMs": 1949,
+      "nps": 802287.2322518056,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/5000ms",
+      "sfen": "1ns2s3/1rk1g2s1/l1pbpp1g1/1p4p1p/pnPp1n1p+r/P2PP1PP1/LPG1G+l3/2K2B1N1/2S4+l1 b 2p 101",
+      "nodes": 4026134,
+      "depth": 20,
+      "elapsedMs": 4949.570000052452,
+      "engineElapsedMs": 4949,
+      "nps": 813431.065720322,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/500ms",
+      "sfen": "ln2B2nl/4gb3/5k2p/l3g2p1/S2P2s2/K1n2p2P/SrN2PPP1/2G1p1p2/4G2RL b 2Ps6p 107",
+      "nodes": 296027,
+      "depth": 15,
+      "elapsedMs": 450.1449999809265,
+      "engineElapsedMs": 449,
+      "nps": 657625.8761344528,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/2000ms",
+      "sfen": "ln2B2nl/4gb3/5k2p/l3g2p1/S2P2s2/K1n2p2P/SrN2PPP1/2G1p1p2/4G2RL b 2Ps6p 107",
+      "nodes": 1319133,
+      "depth": 17,
+      "elapsedMs": 1949.4550000429153,
+      "engineElapsedMs": 1949,
+      "nps": 676667.5814373558,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/5000ms",
+      "sfen": "ln2B2nl/4gb3/5k2p/l3g2p1/S2P2s2/K1n2p2P/SrN2PPP1/2G1p1p2/4G2RL b 2Ps6p 107",
+      "nodes": 3213430,
+      "depth": 18,
+      "elapsedMs": 4949.664999961853,
+      "engineElapsedMs": 4949,
+      "nps": 649221.7150099584,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/500ms",
+      "sfen": "Grk2r1n1/2s5l/3pg2pp/2b1p1p1n/ln3p3/2PPLNPP1/2b1P1+s1P/+p2K4g/4S3L b G2Ps3p 137",
+      "nodes": 366623,
+      "depth": 16,
+      "elapsedMs": 450.9849998950958,
+      "engineElapsedMs": 450,
+      "nps": 812938.3462538236,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/2000ms",
+      "sfen": "Grk2r1n1/2s5l/3pg2pp/2b1p1p1n/ln3p3/2PPLNPP1/2b1P1+s1P/+p2K4g/4S3L b G2Ps3p 137",
+      "nodes": 1554303,
+      "depth": 24,
+      "elapsedMs": 1949.7350000143051,
+      "engineElapsedMs": 1503,
+      "nps": 797186.7971742806,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/5000ms",
+      "sfen": "Grk2r1n1/2s5l/3pg2pp/2b1p1p1n/ln3p3/2PPLNPP1/2b1P1+s1P/+p2K4g/4S3L b G2Ps3p 137",
+      "nodes": 3044301,
+      "depth": 28,
+      "elapsedMs": 4950.070000052452,
+      "engineElapsedMs": 3963,
+      "nps": 615001.6060313777,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/500ms",
+      "sfen": "1n2r2n1/2sk4l/3pg2pp/G1p1p1p2/l2b1p3/1KP3P2/+p2PPSGPP/L2SG3B/5R2L w 2Ps2n2p 86",
+      "nodes": 355394,
+      "depth": 17,
+      "elapsedMs": 449.58000004291534,
+      "engineElapsedMs": 449,
+      "nps": 790502.2464657577,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/2000ms",
+      "sfen": "1n2r2n1/2sk4l/3pg2pp/G1p1p1p2/l2b1p3/1KP3P2/+p2PPSGPP/L2SG3B/5R2L w 2Ps2n2p 86",
+      "nodes": 1576294,
+      "depth": 19,
+      "elapsedMs": 1950.320000052452,
+      "engineElapsedMs": 1949,
+      "nps": 808223.2659038552,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/5000ms",
+      "sfen": "1n2r2n1/2sk4l/3pg2pp/G1p1p1p2/l2b1p3/1KP3P2/+p2PPSGPP/L2SG3B/5R2L w 2Ps2n2p 86",
+      "nodes": 3833281,
+      "depth": 21,
+      "elapsedMs": 4949.314999938011,
+      "engineElapsedMs": 4949,
+      "nps": 774507.3813341869,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/500ms",
+      "sfen": "lns1kg1nl/1r2g2b1/p2p1s1pp/1p2ppp2/P1p6/4P1P2/1P1P1P1PP/1B1K1S1R1/LNSG1G1NL w p 20",
+      "nodes": 395758,
+      "depth": 17,
+      "elapsedMs": 449.8400000333786,
+      "engineElapsedMs": 449,
+      "nps": 879775.0310568966,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/2000ms",
+      "sfen": "lns1kg1nl/1r2g2b1/p2p1s1pp/1p2ppp2/P1p6/4P1P2/1P1P1P1PP/1B1K1S1R1/LNSG1G1NL w p 20",
+      "nodes": 1734889,
+      "depth": 20,
+      "elapsedMs": 1949.6350001096725,
+      "engineElapsedMs": 1949,
+      "nps": 889853.2288876674,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/5000ms",
+      "sfen": "lns1kg1nl/1r2g2b1/p2p1s1pp/1p2ppp2/P1p6/4P1P2/1P1P1P1PP/1B1K1S1R1/LNSG1G1NL w p 20",
+      "nodes": 4444243,
+      "depth": 23,
+      "elapsedMs": 4949.179999947548,
+      "engineElapsedMs": 4949,
+      "nps": 897975.6242543412,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/500ms",
+      "sfen": "lns1g1snl/1rg1k2b1/p1pp1p1pp/1p2p1p2/9/P8/LPPPPPPPP/1B1S1G2R/1N1G1KSNL b - 17",
+      "nodes": 443047,
+      "depth": 17,
+      "elapsedMs": 449.27499997615814,
+      "engineElapsedMs": 449,
+      "nps": 986137.6662923852,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/2000ms",
+      "sfen": "lns1g1snl/1rg1k2b1/p1pp1p1pp/1p2p1p2/9/P8/LPPPPPPPP/1B1S1G2R/1N1G1KSNL b - 17",
+      "nodes": 1824999,
+      "depth": 20,
+      "elapsedMs": 1948.7050000429153,
+      "engineElapsedMs": 1949,
+      "nps": 936518.8676376409,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/5000ms",
+      "sfen": "lns1g1snl/1rg1k2b1/p1pp1p1pp/1p2p1p2/9/P8/LPPPPPPPP/1B1S1G2R/1N1G1KSNL b - 17",
+      "nodes": 4633818,
+      "depth": 23,
+      "elapsedMs": 4949.330000042915,
+      "engineElapsedMs": 4949,
+      "nps": 936251.5734371764,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/500ms",
+      "sfen": "8l/l1s1gkgs1/p1np1p3/1r2pbpPp/2p2nP2/1PGPPPSRP/P7N/LBK1G3L/1NS6 w 2Pp 62",
+      "nodes": 333805,
+      "depth": 15,
+      "elapsedMs": 450.52999997138977,
+      "engineElapsedMs": 450,
+      "nps": 740916.2542365609,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/2000ms",
+      "sfen": "8l/l1s1gkgs1/p1np1p3/1r2pbpPp/2p2nP2/1PGPPPSRP/P7N/LBK1G3L/1NS6 w 2Pp 62",
+      "nodes": 1442898,
+      "depth": 18,
+      "elapsedMs": 1948.8700000047684,
+      "engineElapsedMs": 1949,
+      "nps": 740376.7311295621,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/5000ms",
+      "sfen": "8l/l1s1gkgs1/p1np1p3/1r2pbpPp/2p2nP2/1PGPPPSRP/P7N/LBK1G3L/1NS6 w 2Pp 62",
+      "nodes": 3815265,
+      "depth": 20,
+      "elapsedMs": 4949.004999995232,
+      "engineElapsedMs": 4949,
+      "nps": 770915.567877518,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/500ms",
+      "sfen": "ln3k1nl/1rs1g1gs1/p1ppppb1p/6pP1/9/1pPPPPP1P/PP5RN/LB1GK1S1L/1NS2G3 b P 35",
+      "nodes": 392908,
+      "depth": 13,
+      "elapsedMs": 449.7650001049042,
+      "engineElapsedMs": 449,
+      "nps": 873585.0942344498,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/2000ms",
+      "sfen": "ln3k1nl/1rs1g1gs1/p1ppppb1p/6pP1/9/1pPPPPP1P/PP5RN/LB1GK1S1L/1NS2G3 b P 35",
+      "nodes": 1647752,
+      "depth": 18,
+      "elapsedMs": 1949.7599999904633,
+      "engineElapsedMs": 1949,
+      "nps": 845105.0385729831,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/5000ms",
+      "sfen": "ln3k1nl/1rs1g1gs1/p1ppppb1p/6pP1/9/1pPPPPP1P/PP5RN/LB1GK1S1L/1NS2G3 b P 35",
+      "nodes": 4281340,
+      "depth": 21,
+      "elapsedMs": 4949.664999961853,
+      "engineElapsedMs": 4949,
+      "nps": 864975.7104840421,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/500ms",
+      "sfen": "1ns2s3/1rk1g2s1/l1pbpp1g1/1p4p1p/pnPp1n1p+r/P2PP1PP1/LPG1G+l3/2K2B1N1/2S4+l1 b 2p 101",
+      "nodes": 354787,
+      "depth": 16,
+      "elapsedMs": 449.2450000047684,
+      "engineElapsedMs": 449,
+      "nps": 789740.5647168788,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/2000ms",
+      "sfen": "1ns2s3/1rk1g2s1/l1pbpp1g1/1p4p1p/pnPp1n1p+r/P2PP1PP1/LPG1G+l3/2K2B1N1/2S4+l1 b 2p 101",
+      "nodes": 1521220,
+      "depth": 18,
+      "elapsedMs": 1950.1499999761581,
+      "engineElapsedMs": 1950,
+      "nps": 780052.8164595533,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/5000ms",
+      "sfen": "1ns2s3/1rk1g2s1/l1pbpp1g1/1p4p1p/pnPp1n1p+r/P2PP1PP1/LPG1G+l3/2K2B1N1/2S4+l1 b 2p 101",
+      "nodes": 3893061,
+      "depth": 20,
+      "elapsedMs": 4949.370000004768,
+      "engineElapsedMs": 4949,
+      "nps": 786577.0795063309,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/500ms",
+      "sfen": "ln2B2nl/4gb3/5k2p/l3g2p1/S2P2s2/K1n2p2P/SrN2PPP1/2G1p1p2/4G2RL b 2Ps6p 107",
+      "nodes": 295409,
+      "depth": 15,
+      "elapsedMs": 449.50999999046326,
+      "engineElapsedMs": 449,
+      "nps": 657180.0405024746,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/2000ms",
+      "sfen": "ln2B2nl/4gb3/5k2p/l3g2p1/S2P2s2/K1n2p2P/SrN2PPP1/2G1p1p2/4G2RL b 2Ps6p 107",
+      "nodes": 1276973,
+      "depth": 17,
+      "elapsedMs": 1948.9199999570847,
+      "engineElapsedMs": 1949,
+      "nps": 655220.8402746747,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/5000ms",
+      "sfen": "ln2B2nl/4gb3/5k2p/l3g2p1/S2P2s2/K1n2p2P/SrN2PPP1/2G1p1p2/4G2RL b 2Ps6p 107",
+      "nodes": 3209721,
+      "depth": 19,
+      "elapsedMs": 4950.715000033379,
+      "engineElapsedMs": 4950,
+      "nps": 648334.8364788439,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/500ms",
+      "sfen": "Grk2r1n1/2s5l/3pg2pp/2b1p1p1n/ln3p3/2PPLNPP1/2b1P1+s1P/+p2K4g/4S3L b G2Ps3p 137",
+      "nodes": 351629,
+      "depth": 16,
+      "elapsedMs": 449.16999995708466,
+      "engineElapsedMs": 449,
+      "nps": 782841.6858507823,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/2000ms",
+      "sfen": "Grk2r1n1/2s5l/3pg2pp/2b1p1p1n/ln3p3/2PPLNPP1/2b1P1+s1P/+p2K4g/4S3L b G2Ps3p 137",
+      "nodes": 1720726,
+      "depth": 23,
+      "elapsedMs": 1949.3450000286102,
+      "engineElapsedMs": 1949,
+      "nps": 882720.0931465416,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/5000ms",
+      "sfen": "Grk2r1n1/2s5l/3pg2pp/2b1p1p1n/ln3p3/2PPLNPP1/2b1P1+s1P/+p2K4g/4S3L b G2Ps3p 137",
+      "nodes": 3633246,
+      "depth": 25,
+      "elapsedMs": 4949.365000009537,
+      "engineElapsedMs": 4303,
+      "nps": 734083.2611846165,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/500ms",
+      "sfen": "1n2r2n1/2sk4l/3pg2pp/G1p1p1p2/l2b1p3/1KP3P2/+p2PPSGPP/L2SG3B/5R2L w 2Ps2n2p 86",
+      "nodes": 332779,
+      "depth": 17,
+      "elapsedMs": 449.54500007629395,
+      "engineElapsedMs": 449,
+      "nps": 740257.371216503,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/2000ms",
+      "sfen": "1n2r2n1/2sk4l/3pg2pp/G1p1p1p2/l2b1p3/1KP3P2/+p2PPSGPP/L2SG3B/5R2L w 2Ps2n2p 86",
+      "nodes": 1518247,
+      "depth": 18,
+      "elapsedMs": 1950.6899999380112,
+      "engineElapsedMs": 1950,
+      "nps": 778312.802161413,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/5000ms",
+      "sfen": "1n2r2n1/2sk4l/3pg2pp/G1p1p1p2/l2b1p3/1KP3P2/+p2PPSGPP/L2SG3B/5R2L w 2Ps2n2p 86",
+      "nodes": 3743229,
+      "depth": 22,
+      "elapsedMs": 4949.110000014305,
+      "engineElapsedMs": 4949,
+      "nps": 756343.8678851713,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/500ms",
+      "sfen": "lns1kg1nl/1r2g2b1/p2p1s1pp/1p2ppp2/P1p6/4P1P2/1P1P1P1PP/1B1K1S1R1/LNSG1G1NL w p 20",
+      "nodes": 402123,
+      "depth": 17,
+      "elapsedMs": 449.3949999809265,
+      "engineElapsedMs": 449,
+      "nps": 894809.6886192929,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/2000ms",
+      "sfen": "lns1kg1nl/1r2g2b1/p2p1s1pp/1p2ppp2/P1p6/4P1P2/1P1P1P1PP/1B1K1S1R1/LNSG1G1NL w p 20",
+      "nodes": 1731371,
+      "depth": 19,
+      "elapsedMs": 1948.7299998998642,
+      "engineElapsedMs": 1949,
+      "nps": 888461.2029829513,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/5000ms",
+      "sfen": "lns1kg1nl/1r2g2b1/p2p1s1pp/1p2ppp2/P1p6/4P1P2/1P1P1P1PP/1B1K1S1R1/LNSG1G1NL w p 20",
+      "nodes": 4406768,
+      "depth": 22,
+      "elapsedMs": 4948.955000042915,
+      "engineElapsedMs": 4949,
+      "nps": 890444.144261119,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/500ms",
+      "sfen": "lns1g1snl/1rg1k2b1/p1pp1p1pp/1p2p1p2/9/P8/LPPPPPPPP/1B1S1G2R/1N1G1KSNL b - 17",
+      "nodes": 424796,
+      "depth": 18,
+      "elapsedMs": 449.0700000524521,
+      "engineElapsedMs": 449,
+      "nps": 945946.0662043404,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/2000ms",
+      "sfen": "lns1g1snl/1rg1k2b1/p1pp1p1pp/1p2p1p2/9/P8/LPPPPPPPP/1B1S1G2R/1N1G1KSNL b - 17",
+      "nodes": 1806569,
+      "depth": 20,
+      "elapsedMs": 1949.789999961853,
+      "engineElapsedMs": 1949,
+      "nps": 926545.422858536,
+      "memoryBytes": 201326592
+    },
+    {
+      "kind": "stress/5000ms",
+      "sfen": "lns1g1snl/1rg1k2b1/p1pp1p1pp/1p2p1p2/9/P8/LPPPPPPPP/1B1S1G2R/1N1G1KSNL b - 17",
+      "nodes": 4638977,
+      "depth": 22,
+      "elapsedMs": 4949.639999985695,
+      "engineElapsedMs": 4949,
+      "nps": 937235.233272199,
+      "memoryBytes": 201326592
+    }
+  ],
+  "error": "",
+  "finished": true,
+  "runs": [
+    {
+      "kind": "stress",
+      "startedAt": "2026-10-21T04:29:56.758Z",
+      "finished": true,
+      "error": "",
+      "entries": [
+        {
+          "kind": "stress/500ms",
+          "sfen": "lns1kg1nl/1r2g2b1/p2p1s1pp/1p2ppp2/P1p6/4P1P2/1P1P1P1PP/1B1K1S1R1/LNSG1G1NL w p 20",
+          "nodes": 405536,
+          "depth": 18,
+          "elapsedMs": 450.47499990463257,
+          "engineElapsedMs": 449,
+          "nps": 900240.8570638851,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/2000ms",
+          "sfen": "lns1kg1nl/1r2g2b1/p2p1s1pp/1p2ppp2/P1p6/4P1P2/1P1P1P1PP/1B1K1S1R1/LNSG1G1NL w p 20",
+          "nodes": 1765613,
+          "depth": 21,
+          "elapsedMs": 1949.2949999570847,
+          "engineElapsedMs": 1949,
+          "nps": 905770.0348273973,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/5000ms",
+          "sfen": "lns1kg1nl/1r2g2b1/p2p1s1pp/1p2ppp2/P1p6/4P1P2/1P1P1P1PP/1B1K1S1R1/LNSG1G1NL w p 20",
+          "nodes": 4509619,
+          "depth": 22,
+          "elapsedMs": 4949.774999976158,
+          "engineElapsedMs": 4949,
+          "nps": 911075.5539437089,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/500ms",
+          "sfen": "lns1g1snl/1rg1k2b1/p1pp1p1pp/1p2p1p2/9/P8/LPPPPPPPP/1B1S1G2R/1N1G1KSNL b - 17",
+          "nodes": 426483,
+          "depth": 18,
+          "elapsedMs": 449.72000002861023,
+          "engineElapsedMs": 449,
+          "nps": 948330.0719844971,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/2000ms",
+          "sfen": "lns1g1snl/1rg1k2b1/p1pp1p1pp/1p2p1p2/9/P8/LPPPPPPPP/1B1S1G2R/1N1G1KSNL b - 17",
+          "nodes": 1909446,
+          "depth": 21,
+          "elapsedMs": 1949.8899999856949,
+          "engineElapsedMs": 1949,
+          "nps": 979258.3171430227,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/5000ms",
+          "sfen": "lns1g1snl/1rg1k2b1/p1pp1p1pp/1p2p1p2/9/P8/LPPPPPPPP/1B1S1G2R/1N1G1KSNL b - 17",
+          "nodes": 4747767,
+          "depth": 23,
+          "elapsedMs": 4949.320000052452,
+          "engineElapsedMs": 4949,
+          "nps": 959276.6278902321,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/500ms",
+          "sfen": "8l/l1s1gkgs1/p1np1p3/1r2pbpPp/2p2nP2/1PGPPPSRP/P7N/LBK1G3L/1NS6 w 2Pp 62",
+          "nodes": 368093,
+          "depth": 16,
+          "elapsedMs": 449.6200000047684,
+          "engineElapsedMs": 449,
+          "nps": 818675.7706420894,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/2000ms",
+          "sfen": "8l/l1s1gkgs1/p1np1p3/1r2pbpPp/2p2nP2/1PGPPPSRP/P7N/LBK1G3L/1NS6 w 2Pp 62",
+          "nodes": 1528553,
+          "depth": 19,
+          "elapsedMs": 1950.0499999523163,
+          "engineElapsedMs": 1950,
+          "nps": 783853.2345516151,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/5000ms",
+          "sfen": "8l/l1s1gkgs1/p1np1p3/1r2pbpPp/2p2nP2/1PGPPPSRP/P7N/LBK1G3L/1NS6 w 2Pp 62",
+          "nodes": 3894313,
+          "depth": 20,
+          "elapsedMs": 4948.884999990463,
+          "engineElapsedMs": 4949,
+          "nps": 786907.1518145006,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/500ms",
+          "sfen": "ln3k1nl/1rs1g1gs1/p1ppppb1p/6pP1/9/1pPPPPP1P/PP5RN/LB1GK1S1L/1NS2G3 b P 35",
+          "nodes": 390643,
+          "depth": 15,
+          "elapsedMs": 449.97000002861023,
+          "engineElapsedMs": 449,
+          "nps": 868153.432395853,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/2000ms",
+          "sfen": "ln3k1nl/1rs1g1gs1/p1ppppb1p/6pP1/9/1pPPPPP1P/PP5RN/LB1GK1S1L/1NS2G3 b P 35",
+          "nodes": 1732018,
+          "depth": 19,
+          "elapsedMs": 1949.8650000095367,
+          "engineElapsedMs": 1949,
+          "nps": 888275.8549907448,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/5000ms",
+          "sfen": "ln3k1nl/1rs1g1gs1/p1ppppb1p/6pP1/9/1pPPPPP1P/PP5RN/LB1GK1S1L/1NS2G3 b P 35",
+          "nodes": 4314541,
+          "depth": 21,
+          "elapsedMs": 4949.549999952316,
+          "engineElapsedMs": 4949,
+          "nps": 871703.6902428636,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/500ms",
+          "sfen": "1ns2s3/1rk1g2s1/l1pbpp1g1/1p4p1p/pnPp1n1p+r/P2PP1PP1/LPG1G+l3/2K2B1N1/2S4+l1 b 2p 101",
+          "nodes": 354667,
+          "depth": 18,
+          "elapsedMs": 449.7349998950958,
+          "engineElapsedMs": 449,
+          "nps": 788613.2946795976,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/2000ms",
+          "sfen": "1ns2s3/1rk1g2s1/l1pbpp1g1/1p4p1p/pnPp1n1p+r/P2PP1PP1/LPG1G+l3/2K2B1N1/2S4+l1 b 2p 101",
+          "nodes": 1433330,
+          "depth": 19,
+          "elapsedMs": 1949.6599999666214,
+          "engineElapsedMs": 1949,
+          "nps": 735169.2090028718,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/5000ms",
+          "sfen": "1ns2s3/1rk1g2s1/l1pbpp1g1/1p4p1p/pnPp1n1p+r/P2PP1PP1/LPG1G+l3/2K2B1N1/2S4+l1 b 2p 101",
+          "nodes": 3930312,
+          "depth": 21,
+          "elapsedMs": 4949.1449999809265,
+          "engineElapsedMs": 4949,
+          "nps": 794139.593811688,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/500ms",
+          "sfen": "ln2B2nl/4gb3/5k2p/l3g2p1/S2P2s2/K1n2p2P/SrN2PPP1/2G1p1p2/4G2RL b 2Ps6p 107",
+          "nodes": 304152,
+          "depth": 17,
+          "elapsedMs": 450.210000038147,
+          "engineElapsedMs": 449,
+          "nps": 675578.0635130911,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/2000ms",
+          "sfen": "ln2B2nl/4gb3/5k2p/l3g2p1/S2P2s2/K1n2p2P/SrN2PPP1/2G1p1p2/4G2RL b 2Ps6p 107",
+          "nodes": 1333497,
+          "depth": 18,
+          "elapsedMs": 1949.2700001001358,
+          "engineElapsedMs": 1949,
+          "nps": 684100.7145913583,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/5000ms",
+          "sfen": "ln2B2nl/4gb3/5k2p/l3g2p1/S2P2s2/K1n2p2P/SrN2PPP1/2G1p1p2/4G2RL b 2Ps6p 107",
+          "nodes": 3325688,
+          "depth": 19,
+          "elapsedMs": 4950.039999961853,
+          "engineElapsedMs": 4949,
+          "nps": 671850.7325245107,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/500ms",
+          "sfen": "Grk2r1n1/2s5l/3pg2pp/2b1p1p1n/ln3p3/2PPLNPP1/2b1P1+s1P/+p2K4g/4S3L b G2Ps3p 137",
+          "nodes": 367929,
+          "depth": 18,
+          "elapsedMs": 450.57999992370605,
+          "engineElapsedMs": 450,
+          "nps": 816567.5353151475,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/2000ms",
+          "sfen": "Grk2r1n1/2s5l/3pg2pp/2b1p1p1n/ln3p3/2PPLNPP1/2b1P1+s1P/+p2K4g/4S3L b G2Ps3p 137",
+          "nodes": 1675014,
+          "depth": 17,
+          "elapsedMs": 1948.9249999523163,
+          "engineElapsedMs": 1949,
+          "nps": 859455.3407858085,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/5000ms",
+          "sfen": "Grk2r1n1/2s5l/3pg2pp/2b1p1p1n/ln3p3/2PPLNPP1/2b1P1+s1P/+p2K4g/4S3L b G2Ps3p 137",
+          "nodes": 780003,
+          "depth": 22,
+          "elapsedMs": 4950.159999966621,
+          "engineElapsedMs": 776,
+          "nps": 157571.27042464475,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/500ms",
+          "sfen": "1n2r2n1/2sk4l/3pg2pp/G1p1p1p2/l2b1p3/1KP3P2/+p2PPSGPP/L2SG3B/5R2L w 2Ps2n2p 86",
+          "nodes": 350941,
+          "depth": 18,
+          "elapsedMs": 450.5499999523163,
+          "engineElapsedMs": 449,
+          "nps": 778916.8794520956,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/2000ms",
+          "sfen": "1n2r2n1/2sk4l/3pg2pp/G1p1p1p2/l2b1p3/1KP3P2/+p2PPSGPP/L2SG3B/5R2L w 2Ps2n2p 86",
+          "nodes": 1539161,
+          "depth": 20,
+          "elapsedMs": 1950.6449999809265,
+          "engineElapsedMs": 1949,
+          "nps": 789052.3391058085,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/5000ms",
+          "sfen": "1n2r2n1/2sk4l/3pg2pp/G1p1p1p2/l2b1p3/1KP3P2/+p2PPSGPP/L2SG3B/5R2L w 2Ps2n2p 86",
+          "nodes": 3897345,
+          "depth": 21,
+          "elapsedMs": 4949.199999928474,
+          "engineElapsedMs": 4949,
+          "nps": 787469.6920828264,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/500ms",
+          "sfen": "lns1kg1nl/1r2g2b1/p2p1s1pp/1p2ppp2/P1p6/4P1P2/1P1P1P1PP/1B1K1S1R1/LNSG1G1NL w p 20",
+          "nodes": 397599,
+          "depth": 17,
+          "elapsedMs": 449.2450000047684,
+          "engineElapsedMs": 449,
+          "nps": 885038.2308000753,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/2000ms",
+          "sfen": "lns1kg1nl/1r2g2b1/p2p1s1pp/1p2ppp2/P1p6/4P1P2/1P1P1P1PP/1B1K1S1R1/LNSG1G1NL w p 20",
+          "nodes": 1786487,
+          "depth": 20,
+          "elapsedMs": 1948.9250000715256,
+          "engineElapsedMs": 1949,
+          "nps": 916652.5135315295,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/5000ms",
+          "sfen": "lns1kg1nl/1r2g2b1/p2p1s1pp/1p2ppp2/P1p6/4P1P2/1P1P1P1PP/1B1K1S1R1/LNSG1G1NL w p 20",
+          "nodes": 4500784,
+          "depth": 23,
+          "elapsedMs": 4949.115000009537,
+          "engineElapsedMs": 4949,
+          "nps": 909411.8847493598,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/500ms",
+          "sfen": "lns1g1snl/1rg1k2b1/p1pp1p1pp/1p2p1p2/9/P8/LPPPPPPPP/1B1S1G2R/1N1G1KSNL b - 17",
+          "nodes": 452845,
+          "depth": 18,
+          "elapsedMs": 449.68999993801117,
+          "engineElapsedMs": 449,
+          "nps": 1007015.9444560113,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/2000ms",
+          "sfen": "lns1g1snl/1rg1k2b1/p1pp1p1pp/1p2p1p2/9/P8/LPPPPPPPP/1B1S1G2R/1N1G1KSNL b - 17",
+          "nodes": 1919748,
+          "depth": 20,
+          "elapsedMs": 1949.9499999284744,
+          "engineElapsedMs": 1949,
+          "nps": 984511.3977642595,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/5000ms",
+          "sfen": "lns1g1snl/1rg1k2b1/p1pp1p1pp/1p2p1p2/9/P8/LPPPPPPPP/1B1S1G2R/1N1G1KSNL b - 17",
+          "nodes": 4612186,
+          "depth": 24,
+          "elapsedMs": 4949.52999997139,
+          "engineElapsedMs": 4949,
+          "nps": 931843.2255237689,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/500ms",
+          "sfen": "8l/l1s1gkgs1/p1np1p3/1r2pbpPp/2p2nP2/1PGPPPSRP/P7N/LBK1G3L/1NS6 w 2Pp 62",
+          "nodes": 349156,
+          "depth": 14,
+          "elapsedMs": 448.8949999809265,
+          "engineElapsedMs": 449,
+          "nps": 777812.1832830296,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/2000ms",
+          "sfen": "8l/l1s1gkgs1/p1np1p3/1r2pbpPp/2p2nP2/1PGPPPSRP/P7N/LBK1G3L/1NS6 w 2Pp 62",
+          "nodes": 1553230,
+          "depth": 18,
+          "elapsedMs": 1948.7749999761581,
+          "engineElapsedMs": 1949,
+          "nps": 797028.9027820055,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/5000ms",
+          "sfen": "8l/l1s1gkgs1/p1np1p3/1r2pbpPp/2p2nP2/1PGPPPSRP/P7N/LBK1G3L/1NS6 w 2Pp 62",
+          "nodes": 3950371,
+          "depth": 19,
+          "elapsedMs": 4949.050000071526,
+          "engineElapsedMs": 4949,
+          "nps": 798207.9388858281,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/500ms",
+          "sfen": "ln3k1nl/1rs1g1gs1/p1ppppb1p/6pP1/9/1pPPPPP1P/PP5RN/LB1GK1S1L/1NS2G3 b P 35",
+          "nodes": 403965,
+          "depth": 14,
+          "elapsedMs": 450.2850000858307,
+          "engineElapsedMs": 449,
+          "nps": 897131.8163452004,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/2000ms",
+          "sfen": "ln3k1nl/1rs1g1gs1/p1ppppb1p/6pP1/9/1pPPPPP1P/PP5RN/LB1GK1S1L/1NS2G3 b P 35",
+          "nodes": 1764643,
+          "depth": 19,
+          "elapsedMs": 1949.3250000476837,
+          "engineElapsedMs": 1949,
+          "nps": 905258.4868899921,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/5000ms",
+          "sfen": "ln3k1nl/1rs1g1gs1/p1ppppb1p/6pP1/9/1pPPPPP1P/PP5RN/LB1GK1S1L/1NS2G3 b P 35",
+          "nodes": 4370065,
+          "depth": 23,
+          "elapsedMs": 4950.1050000190735,
+          "engineElapsedMs": 4949,
+          "nps": 882822.6875961543,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/500ms",
+          "sfen": "1ns2s3/1rk1g2s1/l1pbpp1g1/1p4p1p/pnPp1n1p+r/P2PP1PP1/LPG1G+l3/2K2B1N1/2S4+l1 b 2p 101",
+          "nodes": 351661,
+          "depth": 17,
+          "elapsedMs": 450.3949999809265,
+          "engineElapsedMs": 450,
+          "nps": 780783.5344861561,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/2000ms",
+          "sfen": "1ns2s3/1rk1g2s1/l1pbpp1g1/1p4p1p/pnPp1n1p+r/P2PP1PP1/LPG1G+l3/2K2B1N1/2S4+l1 b 2p 101",
+          "nodes": 1599508,
+          "depth": 19,
+          "elapsedMs": 1949.664999961853,
+          "engineElapsedMs": 1950,
+          "nps": 820401.4535991034,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/5000ms",
+          "sfen": "1ns2s3/1rk1g2s1/l1pbpp1g1/1p4p1p/pnPp1n1p+r/P2PP1PP1/LPG1G+l3/2K2B1N1/2S4+l1 b 2p 101",
+          "nodes": 3870024,
+          "depth": 19,
+          "elapsedMs": 4949.474999904633,
+          "engineElapsedMs": 4949,
+          "nps": 781905.9597380669,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/500ms",
+          "sfen": "ln2B2nl/4gb3/5k2p/l3g2p1/S2P2s2/K1n2p2P/SrN2PPP1/2G1p1p2/4G2RL b 2Ps6p 107",
+          "nodes": 292021,
+          "depth": 17,
+          "elapsedMs": 449.9850000143051,
+          "engineElapsedMs": 449,
+          "nps": 648957.1874411738,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/2000ms",
+          "sfen": "ln2B2nl/4gb3/5k2p/l3g2p1/S2P2s2/K1n2p2P/SrN2PPP1/2G1p1p2/4G2RL b 2Ps6p 107",
+          "nodes": 1307944,
+          "depth": 18,
+          "elapsedMs": 1949.9100000858307,
+          "engineElapsedMs": 1950,
+          "nps": 670771.4714742871,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/5000ms",
+          "sfen": "ln2B2nl/4gb3/5k2p/l3g2p1/S2P2s2/K1n2p2P/SrN2PPP1/2G1p1p2/4G2RL b 2Ps6p 107",
+          "nodes": 3352794,
+          "depth": 20,
+          "elapsedMs": 4949.7300000190735,
+          "engineElapsedMs": 4949,
+          "nps": 677369.0686132538,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/500ms",
+          "sfen": "Grk2r1n1/2s5l/3pg2pp/2b1p1p1n/ln3p3/2PPLNPP1/2b1P1+s1P/+p2K4g/4S3L b G2Ps3p 137",
+          "nodes": 362279,
+          "depth": 17,
+          "elapsedMs": 449.085000038147,
+          "engineElapsedMs": 449,
+          "nps": 806704.7440222377,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/2000ms",
+          "sfen": "Grk2r1n1/2s5l/3pg2pp/2b1p1p1n/ln3p3/2PPLNPP1/2b1P1+s1P/+p2K4g/4S3L b G2Ps3p 137",
+          "nodes": 1573303,
+          "depth": 17,
+          "elapsedMs": 1949.3700000047684,
+          "engineElapsedMs": 1949,
+          "nps": 807082.801108128,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/5000ms",
+          "sfen": "Grk2r1n1/2s5l/3pg2pp/2b1p1p1n/ln3p3/2PPLNPP1/2b1P1+s1P/+p2K4g/4S3L b G2Ps3p 137",
+          "nodes": 3022563,
+          "depth": 32,
+          "elapsedMs": 4949.625,
+          "engineElapsedMs": 3700,
+          "nps": 610665.0503826047,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/500ms",
+          "sfen": "1n2r2n1/2sk4l/3pg2pp/G1p1p1p2/l2b1p3/1KP3P2/+p2PPSGPP/L2SG3B/5R2L w 2Ps2n2p 86",
+          "nodes": 358313,
+          "depth": 17,
+          "elapsedMs": 449.8250000476837,
+          "engineElapsedMs": 449,
+          "nps": 796560.8847040894,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/2000ms",
+          "sfen": "1n2r2n1/2sk4l/3pg2pp/G1p1p1p2/l2b1p3/1KP3P2/+p2PPSGPP/L2SG3B/5R2L w 2Ps2n2p 86",
+          "nodes": 1572559,
+          "depth": 19,
+          "elapsedMs": 1950.2949999570847,
+          "engineElapsedMs": 1949,
+          "nps": 806318.5313168538,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/5000ms",
+          "sfen": "1n2r2n1/2sk4l/3pg2pp/G1p1p1p2/l2b1p3/1KP3P2/+p2PPSGPP/L2SG3B/5R2L w 2Ps2n2p 86",
+          "nodes": 3891774,
+          "depth": 20,
+          "elapsedMs": 4949.534999966621,
+          "engineElapsedMs": 4949,
+          "nps": 786290.8333866203,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/500ms",
+          "sfen": "lns1kg1nl/1r2g2b1/p2p1s1pp/1p2ppp2/P1p6/4P1P2/1P1P1P1PP/1B1K1S1R1/LNSG1G1NL w p 20",
+          "nodes": 415287,
+          "depth": 18,
+          "elapsedMs": 449.4300000667572,
+          "engineElapsedMs": 449,
+          "nps": 924030.4384182504,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/2000ms",
+          "sfen": "lns1kg1nl/1r2g2b1/p2p1s1pp/1p2ppp2/P1p6/4P1P2/1P1P1P1PP/1B1K1S1R1/LNSG1G1NL w p 20",
+          "nodes": 1735015,
+          "depth": 21,
+          "elapsedMs": 1949.6800000667572,
+          "engineElapsedMs": 1949,
+          "nps": 889897.3164522348,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/5000ms",
+          "sfen": "lns1kg1nl/1r2g2b1/p2p1s1pp/1p2ppp2/P1p6/4P1P2/1P1P1P1PP/1B1K1S1R1/LNSG1G1NL w p 20",
+          "nodes": 4505380,
+          "depth": 22,
+          "elapsedMs": 4948.789999961853,
+          "engineElapsedMs": 4949,
+          "nps": 910400.3200852589,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/500ms",
+          "sfen": "lns1g1snl/1rg1k2b1/p1pp1p1pp/1p2p1p2/9/P8/LPPPPPPPP/1B1S1G2R/1N1G1KSNL b - 17",
+          "nodes": 427663,
+          "depth": 18,
+          "elapsedMs": 448.9500000476837,
+          "engineElapsedMs": 449,
+          "nps": 952584.920268576,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/2000ms",
+          "sfen": "lns1g1snl/1rg1k2b1/p1pp1p1pp/1p2p1p2/9/P8/LPPPPPPPP/1B1S1G2R/1N1G1KSNL b - 17",
+          "nodes": 1872186,
+          "depth": 20,
+          "elapsedMs": 1949.6599999666214,
+          "engineElapsedMs": 1949,
+          "nps": 960262.8150713725,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/5000ms",
+          "sfen": "lns1g1snl/1rg1k2b1/p1pp1p1pp/1p2p1p2/9/P8/LPPPPPPPP/1B1S1G2R/1N1G1KSNL b - 17",
+          "nodes": 4704624,
+          "depth": 23,
+          "elapsedMs": 4948.75,
+          "engineElapsedMs": 4949,
+          "nps": 950669.1588785046,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/500ms",
+          "sfen": "8l/l1s1gkgs1/p1np1p3/1r2pbpPp/2p2nP2/1PGPPPSRP/P7N/LBK1G3L/1NS6 w 2Pp 62",
+          "nodes": 337404,
+          "depth": 15,
+          "elapsedMs": 449.59999990463257,
+          "engineElapsedMs": 449,
+          "nps": 750453.7368139876,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/2000ms",
+          "sfen": "8l/l1s1gkgs1/p1np1p3/1r2pbpPp/2p2nP2/1PGPPPSRP/P7N/LBK1G3L/1NS6 w 2Pp 62",
+          "nodes": 1494552,
+          "depth": 19,
+          "elapsedMs": 1949.2949999570847,
+          "engineElapsedMs": 1949,
+          "nps": 766714.1197370865,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/5000ms",
+          "sfen": "8l/l1s1gkgs1/p1np1p3/1r2pbpPp/2p2nP2/1PGPPPSRP/P7N/LBK1G3L/1NS6 w 2Pp 62",
+          "nodes": 3860987,
+          "depth": 21,
+          "elapsedMs": 4950.299999952316,
+          "engineElapsedMs": 4949,
+          "nps": 779950.1040416119,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/500ms",
+          "sfen": "ln3k1nl/1rs1g1gs1/p1ppppb1p/6pP1/9/1pPPPPP1P/PP5RN/LB1GK1S1L/1NS2G3 b P 35",
+          "nodes": 390640,
+          "depth": 14,
+          "elapsedMs": 449.0199999809265,
+          "engineElapsedMs": 449,
+          "nps": 869983.5197020036,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/2000ms",
+          "sfen": "ln3k1nl/1rs1g1gs1/p1ppppb1p/6pP1/9/1pPPPPP1P/PP5RN/LB1GK1S1L/1NS2G3 b P 35",
+          "nodes": 1697212,
+          "depth": 18,
+          "elapsedMs": 1949.1699999570847,
+          "engineElapsedMs": 1949,
+          "nps": 870735.7490815927,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/5000ms",
+          "sfen": "ln3k1nl/1rs1g1gs1/p1ppppb1p/6pP1/9/1pPPPPP1P/PP5RN/LB1GK1S1L/1NS2G3 b P 35",
+          "nodes": 4266111,
+          "depth": 21,
+          "elapsedMs": 4949.890000104904,
+          "engineElapsedMs": 4949,
+          "nps": 861859.7584814182,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/500ms",
+          "sfen": "1ns2s3/1rk1g2s1/l1pbpp1g1/1p4p1p/pnPp1n1p+r/P2PP1PP1/LPG1G+l3/2K2B1N1/2S4+l1 b 2p 101",
+          "nodes": 358780,
+          "depth": 18,
+          "elapsedMs": 450.47500002384186,
+          "engineElapsedMs": 450,
+          "nps": 796448.1935312975,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/2000ms",
+          "sfen": "1ns2s3/1rk1g2s1/l1pbpp1g1/1p4p1p/pnPp1n1p+r/P2PP1PP1/LPG1G+l3/2K2B1N1/2S4+l1 b 2p 101",
+          "nodes": 1549050,
+          "depth": 18,
+          "elapsedMs": 1950.0099999904633,
+          "engineElapsedMs": 1950,
+          "nps": 794380.541642133,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/5000ms",
+          "sfen": "1ns2s3/1rk1g2s1/l1pbpp1g1/1p4p1p/pnPp1n1p+r/P2PP1PP1/LPG1G+l3/2K2B1N1/2S4+l1 b 2p 101",
+          "nodes": 3909241,
+          "depth": 20,
+          "elapsedMs": 4948.72000002861,
+          "engineElapsedMs": 4949,
+          "nps": 789949.9264410594,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/500ms",
+          "sfen": "ln2B2nl/4gb3/5k2p/l3g2p1/S2P2s2/K1n2p2P/SrN2PPP1/2G1p1p2/4G2RL b 2Ps6p 107",
+          "nodes": 302083,
+          "depth": 16,
+          "elapsedMs": 448.7350000143051,
+          "engineElapsedMs": 449,
+          "nps": 673187.9616931373,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/2000ms",
+          "sfen": "ln2B2nl/4gb3/5k2p/l3g2p1/S2P2s2/K1n2p2P/SrN2PPP1/2G1p1p2/4G2RL b 2Ps6p 107",
+          "nodes": 1288379,
+          "depth": 18,
+          "elapsedMs": 1949.625,
+          "engineElapsedMs": 1949,
+          "nps": 660834.2629992948,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/5000ms",
+          "sfen": "ln2B2nl/4gb3/5k2p/l3g2p1/S2P2s2/K1n2p2P/SrN2PPP1/2G1p1p2/4G2RL b 2Ps6p 107",
+          "nodes": 3358698,
+          "depth": 20,
+          "elapsedMs": 4949.409999966621,
+          "engineElapsedMs": 4949,
+          "nps": 678605.7328090925,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/500ms",
+          "sfen": "Grk2r1n1/2s5l/3pg2pp/2b1p1p1n/ln3p3/2PPLNPP1/2b1P1+s1P/+p2K4g/4S3L b G2Ps3p 137",
+          "nodes": 373396,
+          "depth": 17,
+          "elapsedMs": 450.21999990940094,
+          "engineElapsedMs": 449,
+          "nps": 829363.4224937577,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/2000ms",
+          "sfen": "Grk2r1n1/2s5l/3pg2pp/2b1p1p1n/ln3p3/2PPLNPP1/2b1P1+s1P/+p2K4g/4S3L b G2Ps3p 137",
+          "nodes": 1561542,
+          "depth": 26,
+          "elapsedMs": 1949.6050000190735,
+          "engineElapsedMs": 1591,
+          "nps": 800953.013551321,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/5000ms",
+          "sfen": "Grk2r1n1/2s5l/3pg2pp/2b1p1p1n/ln3p3/2PPLNPP1/2b1P1+s1P/+p2K4g/4S3L b G2Ps3p 137",
+          "nodes": 1257324,
+          "depth": 28,
+          "elapsedMs": 4949.909999966621,
+          "engineElapsedMs": 1441,
+          "nps": 254009.46684050385,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/500ms",
+          "sfen": "1n2r2n1/2sk4l/3pg2pp/G1p1p1p2/l2b1p3/1KP3P2/+p2PPSGPP/L2SG3B/5R2L w 2Ps2n2p 86",
+          "nodes": 354922,
+          "depth": 18,
+          "elapsedMs": 449.5749999284744,
+          "engineElapsedMs": 449,
+          "nps": 789461.1578857069,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/2000ms",
+          "sfen": "1n2r2n1/2sk4l/3pg2pp/G1p1p1p2/l2b1p3/1KP3P2/+p2PPSGPP/L2SG3B/5R2L w 2Ps2n2p 86",
+          "nodes": 1579722,
+          "depth": 19,
+          "elapsedMs": 1949.625,
+          "engineElapsedMs": 1949,
+          "nps": 810269.6672437007,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/5000ms",
+          "sfen": "1n2r2n1/2sk4l/3pg2pp/G1p1p1p2/l2b1p3/1KP3P2/+p2PPSGPP/L2SG3B/5R2L w 2Ps2n2p 86",
+          "nodes": 3935716,
+          "depth": 22,
+          "elapsedMs": 4950.764999985695,
+          "engineElapsedMs": 4949,
+          "nps": 794971.2822182778,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/500ms",
+          "sfen": "lns1kg1nl/1r2g2b1/p2p1s1pp/1p2ppp2/P1p6/4P1P2/1P1P1P1PP/1B1K1S1R1/LNSG1G1NL w p 20",
+          "nodes": 402939,
+          "depth": 19,
+          "elapsedMs": 449.85000002384186,
+          "engineElapsedMs": 449,
+          "nps": 895718.5728101465,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/2000ms",
+          "sfen": "lns1kg1nl/1r2g2b1/p2p1s1pp/1p2ppp2/P1p6/4P1P2/1P1P1P1PP/1B1K1S1R1/LNSG1G1NL w p 20",
+          "nodes": 1753446,
+          "depth": 22,
+          "elapsedMs": 1949.4950000047684,
+          "engineElapsedMs": 1949,
+          "nps": 899436.0077844319,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/5000ms",
+          "sfen": "lns1kg1nl/1r2g2b1/p2p1s1pp/1p2ppp2/P1p6/4P1P2/1P1P1P1PP/1B1K1S1R1/LNSG1G1NL w p 20",
+          "nodes": 4386360,
+          "depth": 23,
+          "elapsedMs": 4948.8099999427795,
+          "engineElapsedMs": 4949,
+          "nps": 886346.4146028473,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/500ms",
+          "sfen": "lns1g1snl/1rg1k2b1/p1pp1p1pp/1p2p1p2/9/P8/LPPPPPPPP/1B1S1G2R/1N1G1KSNL b - 17",
+          "nodes": 433428,
+          "depth": 16,
+          "elapsedMs": 449.2849999666214,
+          "engineElapsedMs": 449,
+          "nps": 964706.1442785772,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/2000ms",
+          "sfen": "lns1g1snl/1rg1k2b1/p1pp1p1pp/1p2p1p2/9/P8/LPPPPPPPP/1B1S1G2R/1N1G1KSNL b - 17",
+          "nodes": 1880616,
+          "depth": 22,
+          "elapsedMs": 1949.9800000190735,
+          "engineElapsedMs": 1949,
+          "nps": 964428.3531018805,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/5000ms",
+          "sfen": "lns1g1snl/1rg1k2b1/p1pp1p1pp/1p2p1p2/9/P8/LPPPPPPPP/1B1S1G2R/1N1G1KSNL b - 17",
+          "nodes": 4682469,
+          "depth": 22,
+          "elapsedMs": 4949.524999976158,
+          "engineElapsedMs": 4949,
+          "nps": 946044.1153489589,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/500ms",
+          "sfen": "8l/l1s1gkgs1/p1np1p3/1r2pbpPp/2p2nP2/1PGPPPSRP/P7N/LBK1G3L/1NS6 w 2Pp 62",
+          "nodes": 349818,
+          "depth": 17,
+          "elapsedMs": 449.8599998950958,
+          "engineElapsedMs": 449,
+          "nps": 777615.258261626,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/2000ms",
+          "sfen": "8l/l1s1gkgs1/p1np1p3/1r2pbpPp/2p2nP2/1PGPPPSRP/P7N/LBK1G3L/1NS6 w 2Pp 62",
+          "nodes": 1557557,
+          "depth": 18,
+          "elapsedMs": 1950.1150000095367,
+          "engineElapsedMs": 1949,
+          "nps": 798700.0766582397,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/5000ms",
+          "sfen": "8l/l1s1gkgs1/p1np1p3/1r2pbpPp/2p2nP2/1PGPPPSRP/P7N/LBK1G3L/1NS6 w 2Pp 62",
+          "nodes": 3787557,
+          "depth": 20,
+          "elapsedMs": 4949.545000076294,
+          "engineElapsedMs": 4949,
+          "nps": 765233.3699242289,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/500ms",
+          "sfen": "ln3k1nl/1rs1g1gs1/p1ppppb1p/6pP1/9/1pPPPPP1P/PP5RN/LB1GK1S1L/1NS2G3 b P 35",
+          "nodes": 397673,
+          "depth": 14,
+          "elapsedMs": 450.0700000524521,
+          "engineElapsedMs": 449,
+          "nps": 883580.3318453893,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/2000ms",
+          "sfen": "ln3k1nl/1rs1g1gs1/p1ppppb1p/6pP1/9/1pPPPPP1P/PP5RN/LB1GK1S1L/1NS2G3 b P 35",
+          "nodes": 1719189,
+          "depth": 18,
+          "elapsedMs": 1949.8300000429153,
+          "engineElapsedMs": 1949,
+          "nps": 881712.2518179333,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/5000ms",
+          "sfen": "ln3k1nl/1rs1g1gs1/p1ppppb1p/6pP1/9/1pPPPPP1P/PP5RN/LB1GK1S1L/1NS2G3 b P 35",
+          "nodes": 4349198,
+          "depth": 21,
+          "elapsedMs": 4949.784999966621,
+          "engineElapsedMs": 4949,
+          "nps": 878664.0227867126,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/500ms",
+          "sfen": "1ns2s3/1rk1g2s1/l1pbpp1g1/1p4p1p/pnPp1n1p+r/P2PP1PP1/LPG1G+l3/2K2B1N1/2S4+l1 b 2p 101",
+          "nodes": 357682,
+          "depth": 16,
+          "elapsedMs": 449.9850000143051,
+          "engineElapsedMs": 449,
+          "nps": 794875.3847097774,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/2000ms",
+          "sfen": "1ns2s3/1rk1g2s1/l1pbpp1g1/1p4p1p/pnPp1n1p+r/P2PP1PP1/LPG1G+l3/2K2B1N1/2S4+l1 b 2p 101",
+          "nodes": 1522812,
+          "depth": 19,
+          "elapsedMs": 1950.4300000667572,
+          "engineElapsedMs": 1950,
+          "nps": 780757.0638002281,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/5000ms",
+          "sfen": "1ns2s3/1rk1g2s1/l1pbpp1g1/1p4p1p/pnPp1n1p+r/P2PP1PP1/LPG1G+l3/2K2B1N1/2S4+l1 b 2p 101",
+          "nodes": 3806929,
+          "depth": 19,
+          "elapsedMs": 4950.110000014305,
+          "engineElapsedMs": 4949,
+          "nps": 769059.4754437776,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/500ms",
+          "sfen": "ln2B2nl/4gb3/5k2p/l3g2p1/S2P2s2/K1n2p2P/SrN2PPP1/2G1p1p2/4G2RL b 2Ps6p 107",
+          "nodes": 293595,
+          "depth": 16,
+          "elapsedMs": 449.8949999809265,
+          "engineElapsedMs": 449,
+          "nps": 652585.603335105,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/2000ms",
+          "sfen": "ln2B2nl/4gb3/5k2p/l3g2p1/S2P2s2/K1n2p2P/SrN2PPP1/2G1p1p2/4G2RL b 2Ps6p 107",
+          "nodes": 1279663,
+          "depth": 18,
+          "elapsedMs": 1949.3099999427795,
+          "engineElapsedMs": 1949,
+          "nps": 656469.7252040791,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/5000ms",
+          "sfen": "ln2B2nl/4gb3/5k2p/l3g2p1/S2P2s2/K1n2p2P/SrN2PPP1/2G1p1p2/4G2RL b 2Ps6p 107",
+          "nodes": 3354065,
+          "depth": 20,
+          "elapsedMs": 4949.914999961853,
+          "engineElapsedMs": 4949,
+          "nps": 677600.5244586722,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/500ms",
+          "sfen": "Grk2r1n1/2s5l/3pg2pp/2b1p1p1n/ln3p3/2PPLNPP1/2b1P1+s1P/+p2K4g/4S3L b G2Ps3p 137",
+          "nodes": 359906,
+          "depth": 17,
+          "elapsedMs": 449.875,
+          "engineElapsedMs": 449,
+          "nps": 800013.3370380661,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/2000ms",
+          "sfen": "Grk2r1n1/2s5l/3pg2pp/2b1p1p1n/ln3p3/2PPLNPP1/2b1P1+s1P/+p2K4g/4S3L b G2Ps3p 137",
+          "nodes": 1910952,
+          "depth": 22,
+          "elapsedMs": 1949.9950000047684,
+          "engineElapsedMs": 1946,
+          "nps": 979977.8973768277,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/5000ms",
+          "sfen": "Grk2r1n1/2s5l/3pg2pp/2b1p1p1n/ln3p3/2PPLNPP1/2b1P1+s1P/+p2K4g/4S3L b G2Ps3p 137",
+          "nodes": 3340433,
+          "depth": 30,
+          "elapsedMs": 4949.715000033379,
+          "engineElapsedMs": 4054,
+          "nps": 674873.8058610392,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/500ms",
+          "sfen": "1n2r2n1/2sk4l/3pg2pp/G1p1p1p2/l2b1p3/1KP3P2/+p2PPSGPP/L2SG3B/5R2L w 2Ps2n2p 86",
+          "nodes": 355500,
+          "depth": 17,
+          "elapsedMs": 449.68499994277954,
+          "engineElapsedMs": 449,
+          "nps": 790553.3874717542,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/2000ms",
+          "sfen": "1n2r2n1/2sk4l/3pg2pp/G1p1p1p2/l2b1p3/1KP3P2/+p2PPSGPP/L2SG3B/5R2L w 2Ps2n2p 86",
+          "nodes": 1580150,
+          "depth": 20,
+          "elapsedMs": 1950.5,
+          "engineElapsedMs": 1949,
+          "nps": 810125.6088182518,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/5000ms",
+          "sfen": "1n2r2n1/2sk4l/3pg2pp/G1p1p1p2/l2b1p3/1KP3P2/+p2PPSGPP/L2SG3B/5R2L w 2Ps2n2p 86",
+          "nodes": 3959211,
+          "depth": 21,
+          "elapsedMs": 4949.324999928474,
+          "engineElapsedMs": 4949,
+          "nps": 799949.6901208179,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/500ms",
+          "sfen": "lns1kg1nl/1r2g2b1/p2p1s1pp/1p2ppp2/P1p6/4P1P2/1P1P1P1PP/1B1K1S1R1/LNSG1G1NL w p 20",
+          "nodes": 396203,
+          "depth": 17,
+          "elapsedMs": 450.0199999809265,
+          "engineElapsedMs": 449,
+          "nps": 880411.9817270178,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/2000ms",
+          "sfen": "lns1kg1nl/1r2g2b1/p2p1s1pp/1p2ppp2/P1p6/4P1P2/1P1P1P1PP/1B1K1S1R1/LNSG1G1NL w p 20",
+          "nodes": 1714835,
+          "depth": 20,
+          "elapsedMs": 1949.2849999666214,
+          "engineElapsedMs": 1949,
+          "nps": 879725.1299986221,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/5000ms",
+          "sfen": "lns1kg1nl/1r2g2b1/p2p1s1pp/1p2ppp2/P1p6/4P1P2/1P1P1P1PP/1B1K1S1R1/LNSG1G1NL w p 20",
+          "nodes": 4453740,
+          "depth": 23,
+          "elapsedMs": 4949.0599999427795,
+          "engineElapsedMs": 4949,
+          "nps": 899916.3477612908,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/500ms",
+          "sfen": "lns1g1snl/1rg1k2b1/p1pp1p1pp/1p2p1p2/9/P8/LPPPPPPPP/1B1S1G2R/1N1G1KSNL b - 17",
+          "nodes": 457552,
+          "depth": 18,
+          "elapsedMs": 449.34500002861023,
+          "engineElapsedMs": 449,
+          "nps": 1018264.3625073546,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/2000ms",
+          "sfen": "lns1g1snl/1rg1k2b1/p1pp1p1pp/1p2p1p2/9/P8/LPPPPPPPP/1B1S1G2R/1N1G1KSNL b - 17",
+          "nodes": 1882705,
+          "depth": 19,
+          "elapsedMs": 1949.1399999856949,
+          "engineElapsedMs": 1949,
+          "nps": 965915.7372040066,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/5000ms",
+          "sfen": "lns1g1snl/1rg1k2b1/p1pp1p1pp/1p2p1p2/9/P8/LPPPPPPPP/1B1S1G2R/1N1G1KSNL b - 17",
+          "nodes": 4650281,
+          "depth": 23,
+          "elapsedMs": 4949.965000033379,
+          "engineElapsedMs": 4949,
+          "nps": 939457.3496920973,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/500ms",
+          "sfen": "8l/l1s1gkgs1/p1np1p3/1r2pbpPp/2p2nP2/1PGPPPSRP/P7N/LBK1G3L/1NS6 w 2Pp 62",
+          "nodes": 350354,
+          "depth": 16,
+          "elapsedMs": 449.69000005722046,
+          "engineElapsedMs": 449,
+          "nps": 779101.1584767717,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/2000ms",
+          "sfen": "8l/l1s1gkgs1/p1np1p3/1r2pbpPp/2p2nP2/1PGPPPSRP/P7N/LBK1G3L/1NS6 w 2Pp 62",
+          "nodes": 1533636,
+          "depth": 18,
+          "elapsedMs": 1949.8349999189377,
+          "engineElapsedMs": 1949,
+          "nps": 786546.5539718793,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/5000ms",
+          "sfen": "8l/l1s1gkgs1/p1np1p3/1r2pbpPp/2p2nP2/1PGPPPSRP/P7N/LBK1G3L/1NS6 w 2Pp 62",
+          "nodes": 3712193,
+          "depth": 19,
+          "elapsedMs": 4949.949999928474,
+          "engineElapsedMs": 4949,
+          "nps": 749945.5550164427,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/500ms",
+          "sfen": "ln3k1nl/1rs1g1gs1/p1ppppb1p/6pP1/9/1pPPPPP1P/PP5RN/LB1GK1S1L/1NS2G3 b P 35",
+          "nodes": 360448,
+          "depth": 14,
+          "elapsedMs": 449.5349999666214,
+          "engineElapsedMs": 449,
+          "nps": 801824.1071924628,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/2000ms",
+          "sfen": "ln3k1nl/1rs1g1gs1/p1ppppb1p/6pP1/9/1pPPPPP1P/PP5RN/LB1GK1S1L/1NS2G3 b P 35",
+          "nodes": 1662662,
+          "depth": 19,
+          "elapsedMs": 1948.6849999427795,
+          "engineElapsedMs": 1949,
+          "nps": 853222.5578011951,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/5000ms",
+          "sfen": "ln3k1nl/1rs1g1gs1/p1ppppb1p/6pP1/9/1pPPPPP1P/PP5RN/LB1GK1S1L/1NS2G3 b P 35",
+          "nodes": 4287354,
+          "depth": 21,
+          "elapsedMs": 4948.804999947548,
+          "engineElapsedMs": 4949,
+          "nps": 866341.2682547487,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/500ms",
+          "sfen": "1ns2s3/1rk1g2s1/l1pbpp1g1/1p4p1p/pnPp1n1p+r/P2PP1PP1/LPG1G+l3/2K2B1N1/2S4+l1 b 2p 101",
+          "nodes": 355276,
+          "depth": 17,
+          "elapsedMs": 449.00999999046326,
+          "engineElapsedMs": 449,
+          "nps": 791242.9567438272,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/2000ms",
+          "sfen": "1ns2s3/1rk1g2s1/l1pbpp1g1/1p4p1p/pnPp1n1p+r/P2PP1PP1/LPG1G+l3/2K2B1N1/2S4+l1 b 2p 101",
+          "nodes": 1536117,
+          "depth": 18,
+          "elapsedMs": 1950.320000052452,
+          "engineElapsedMs": 1949,
+          "nps": 787623.0567079698,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/5000ms",
+          "sfen": "1ns2s3/1rk1g2s1/l1pbpp1g1/1p4p1p/pnPp1n1p+r/P2PP1PP1/LPG1G+l3/2K2B1N1/2S4+l1 b 2p 101",
+          "nodes": 3924311,
+          "depth": 20,
+          "elapsedMs": 4950.160000085831,
+          "engineElapsedMs": 4950,
+          "nps": 792764.4762860104,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/500ms",
+          "sfen": "ln2B2nl/4gb3/5k2p/l3g2p1/S2P2s2/K1n2p2P/SrN2PPP1/2G1p1p2/4G2RL b 2Ps6p 107",
+          "nodes": 294876,
+          "depth": 16,
+          "elapsedMs": 449.63499999046326,
+          "engineElapsedMs": 449,
+          "nps": 655811.9363622812,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/2000ms",
+          "sfen": "ln2B2nl/4gb3/5k2p/l3g2p1/S2P2s2/K1n2p2P/SrN2PPP1/2G1p1p2/4G2RL b 2Ps6p 107",
+          "nodes": 1292092,
+          "depth": 18,
+          "elapsedMs": 1949.4800000190735,
+          "engineElapsedMs": 1949,
+          "nps": 662788.0255182707,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/5000ms",
+          "sfen": "ln2B2nl/4gb3/5k2p/l3g2p1/S2P2s2/K1n2p2P/SrN2PPP1/2G1p1p2/4G2RL b 2Ps6p 107",
+          "nodes": 3248212,
+          "depth": 19,
+          "elapsedMs": 4950.375,
+          "engineElapsedMs": 4950,
+          "nps": 656154.7357523419,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/500ms",
+          "sfen": "Grk2r1n1/2s5l/3pg2pp/2b1p1p1n/ln3p3/2PPLNPP1/2b1P1+s1P/+p2K4g/4S3L b G2Ps3p 137",
+          "nodes": 414905,
+          "depth": 16,
+          "elapsedMs": 449,
+          "engineElapsedMs": 449,
+          "nps": 924064.5879732739,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/2000ms",
+          "sfen": "Grk2r1n1/2s5l/3pg2pp/2b1p1p1n/ln3p3/2PPLNPP1/2b1P1+s1P/+p2K4g/4S3L b G2Ps3p 137",
+          "nodes": 1889453,
+          "depth": 24,
+          "elapsedMs": 1949.5149999856949,
+          "engineElapsedMs": 1949,
+          "nps": 969191.3116923257,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/5000ms",
+          "sfen": "Grk2r1n1/2s5l/3pg2pp/2b1p1p1n/ln3p3/2PPLNPP1/2b1P1+s1P/+p2K4g/4S3L b G2Ps3p 137",
+          "nodes": 2547993,
+          "depth": 29,
+          "elapsedMs": 4949.010000109673,
+          "engineElapsedMs": 3047,
+          "nps": 514849.0304007337,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/500ms",
+          "sfen": "1n2r2n1/2sk4l/3pg2pp/G1p1p1p2/l2b1p3/1KP3P2/+p2PPSGPP/L2SG3B/5R2L w 2Ps2n2p 86",
+          "nodes": 334150,
+          "depth": 17,
+          "elapsedMs": 450.06500005722046,
+          "engineElapsedMs": 449,
+          "nps": 742448.3129270589,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/2000ms",
+          "sfen": "1n2r2n1/2sk4l/3pg2pp/G1p1p1p2/l2b1p3/1KP3P2/+p2PPSGPP/L2SG3B/5R2L w 2Ps2n2p 86",
+          "nodes": 1583086,
+          "depth": 19,
+          "elapsedMs": 1950.3250000476837,
+          "engineElapsedMs": 1949,
+          "nps": 811703.6903907271,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/5000ms",
+          "sfen": "1n2r2n1/2sk4l/3pg2pp/G1p1p1p2/l2b1p3/1KP3P2/+p2PPSGPP/L2SG3B/5R2L w 2Ps2n2p 86",
+          "nodes": 3941806,
+          "depth": 21,
+          "elapsedMs": 4949.9400000572205,
+          "engineElapsedMs": 4949,
+          "nps": 796334.0969697478,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/500ms",
+          "sfen": "lns1kg1nl/1r2g2b1/p2p1s1pp/1p2ppp2/P1p6/4P1P2/1P1P1P1PP/1B1K1S1R1/LNSG1G1NL w p 20",
+          "nodes": 410536,
+          "depth": 18,
+          "elapsedMs": 448.93499994277954,
+          "engineElapsedMs": 449,
+          "nps": 914466.4596262849,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/2000ms",
+          "sfen": "lns1kg1nl/1r2g2b1/p2p1s1pp/1p2ppp2/P1p6/4P1P2/1P1P1P1PP/1B1K1S1R1/LNSG1G1NL w p 20",
+          "nodes": 1780991,
+          "depth": 20,
+          "elapsedMs": 1948.7200000286102,
+          "engineElapsedMs": 1949,
+          "nps": 913928.6300617084,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/5000ms",
+          "sfen": "lns1kg1nl/1r2g2b1/p2p1s1pp/1p2ppp2/P1p6/4P1P2/1P1P1P1PP/1B1K1S1R1/LNSG1G1NL w p 20",
+          "nodes": 4602086,
+          "depth": 24,
+          "elapsedMs": 4948.694999933243,
+          "engineElapsedMs": 4949,
+          "nps": 929959.5145916411,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/500ms",
+          "sfen": "lns1g1snl/1rg1k2b1/p1pp1p1pp/1p2p1p2/9/P8/LPPPPPPPP/1B1S1G2R/1N1G1KSNL b - 17",
+          "nodes": 428671,
+          "depth": 17,
+          "elapsedMs": 449.289999961853,
+          "engineElapsedMs": 449,
+          "nps": 954107.5920594634,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/2000ms",
+          "sfen": "lns1g1snl/1rg1k2b1/p1pp1p1pp/1p2p1p2/9/P8/LPPPPPPPP/1B1S1G2R/1N1G1KSNL b - 17",
+          "nodes": 1894365,
+          "depth": 23,
+          "elapsedMs": 1949.6699999570847,
+          "engineElapsedMs": 1949,
+          "nps": 971633.6611024933,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/5000ms",
+          "sfen": "lns1g1snl/1rg1k2b1/p1pp1p1pp/1p2p1p2/9/P8/LPPPPPPPP/1B1S1G2R/1N1G1KSNL b - 17",
+          "nodes": 4661884,
+          "depth": 23,
+          "elapsedMs": 4949.5650000572205,
+          "engineElapsedMs": 4949,
+          "nps": 941877.5185185173,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/500ms",
+          "sfen": "8l/l1s1gkgs1/p1np1p3/1r2pbpPp/2p2nP2/1PGPPPSRP/P7N/LBK1G3L/1NS6 w 2Pp 62",
+          "nodes": 354520,
+          "depth": 17,
+          "elapsedMs": 449.50999999046326,
+          "engineElapsedMs": 449,
+          "nps": 788681.0082256711,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/2000ms",
+          "sfen": "8l/l1s1gkgs1/p1np1p3/1r2pbpPp/2p2nP2/1PGPPPSRP/P7N/LBK1G3L/1NS6 w 2Pp 62",
+          "nodes": 1530529,
+          "depth": 19,
+          "elapsedMs": 1949.2799999713898,
+          "engineElapsedMs": 1949,
+          "nps": 785176.5780300748,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/5000ms",
+          "sfen": "8l/l1s1gkgs1/p1np1p3/1r2pbpPp/2p2nP2/1PGPPPSRP/P7N/LBK1G3L/1NS6 w 2Pp 62",
+          "nodes": 3748471,
+          "depth": 20,
+          "elapsedMs": 4949.0650000572205,
+          "engineElapsedMs": 4949,
+          "nps": 757409.9349991687,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/500ms",
+          "sfen": "ln3k1nl/1rs1g1gs1/p1ppppb1p/6pP1/9/1pPPPPP1P/PP5RN/LB1GK1S1L/1NS2G3 b P 35",
+          "nodes": 385014,
+          "depth": 14,
+          "elapsedMs": 449.3700000047684,
+          "engineElapsedMs": 449,
+          "nps": 856786.1672917964,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/2000ms",
+          "sfen": "ln3k1nl/1rs1g1gs1/p1ppppb1p/6pP1/9/1pPPPPP1P/PP5RN/LB1GK1S1L/1NS2G3 b P 35",
+          "nodes": 1726403,
+          "depth": 17,
+          "elapsedMs": 1949.594999909401,
+          "engineElapsedMs": 1949,
+          "nps": 885518.7872764483,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/5000ms",
+          "sfen": "ln3k1nl/1rs1g1gs1/p1ppppb1p/6pP1/9/1pPPPPP1P/PP5RN/LB1GK1S1L/1NS2G3 b P 35",
+          "nodes": 4306209,
+          "depth": 21,
+          "elapsedMs": 4949.194999933243,
+          "engineElapsedMs": 4949,
+          "nps": 870082.7104323196,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/500ms",
+          "sfen": "1ns2s3/1rk1g2s1/l1pbpp1g1/1p4p1p/pnPp1n1p+r/P2PP1PP1/LPG1G+l3/2K2B1N1/2S4+l1 b 2p 101",
+          "nodes": 366181,
+          "depth": 15,
+          "elapsedMs": 449.61500000953674,
+          "engineElapsedMs": 450,
+          "nps": 814432.3476579584,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/2000ms",
+          "sfen": "1ns2s3/1rk1g2s1/l1pbpp1g1/1p4p1p/pnPp1n1p+r/P2PP1PP1/LPG1G+l3/2K2B1N1/2S4+l1 b 2p 101",
+          "nodes": 1520113,
+          "depth": 18,
+          "elapsedMs": 1949.1599999666214,
+          "engineElapsedMs": 1949,
+          "nps": 779881.0769901042,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/5000ms",
+          "sfen": "1ns2s3/1rk1g2s1/l1pbpp1g1/1p4p1p/pnPp1n1p+r/P2PP1PP1/LPG1G+l3/2K2B1N1/2S4+l1 b 2p 101",
+          "nodes": 3936789,
+          "depth": 19,
+          "elapsedMs": 4950.490000009537,
+          "engineElapsedMs": 4950,
+          "nps": 795232.1891353009,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/500ms",
+          "sfen": "ln2B2nl/4gb3/5k2p/l3g2p1/S2P2s2/K1n2p2P/SrN2PPP1/2G1p1p2/4G2RL b 2Ps6p 107",
+          "nodes": 301175,
+          "depth": 16,
+          "elapsedMs": 449.93999993801117,
+          "engineElapsedMs": 450,
+          "nps": 669367.0268068927,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/2000ms",
+          "sfen": "ln2B2nl/4gb3/5k2p/l3g2p1/S2P2s2/K1n2p2P/SrN2PPP1/2G1p1p2/4G2RL b 2Ps6p 107",
+          "nodes": 1251129,
+          "depth": 19,
+          "elapsedMs": 1949.9700000286102,
+          "engineElapsedMs": 1950,
+          "nps": 641614.4863672997,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/5000ms",
+          "sfen": "ln2B2nl/4gb3/5k2p/l3g2p1/S2P2s2/K1n2p2P/SrN2PPP1/2G1p1p2/4G2RL b 2Ps6p 107",
+          "nodes": 3291661,
+          "depth": 20,
+          "elapsedMs": 4949.715000033379,
+          "engineElapsedMs": 4950,
+          "nps": 665020.3092456439,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/500ms",
+          "sfen": "Grk2r1n1/2s5l/3pg2pp/2b1p1p1n/ln3p3/2PPLNPP1/2b1P1+s1P/+p2K4g/4S3L b G2Ps3p 137",
+          "nodes": 378837,
+          "depth": 16,
+          "elapsedMs": 449.18999993801117,
+          "engineElapsedMs": 449,
+          "nps": 843378.0806613683,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/2000ms",
+          "sfen": "Grk2r1n1/2s5l/3pg2pp/2b1p1p1n/ln3p3/2PPLNPP1/2b1P1+s1P/+p2K4g/4S3L b G2Ps3p 137",
+          "nodes": 1949668,
+          "depth": 26,
+          "elapsedMs": 1949.7250000238419,
+          "engineElapsedMs": 1925,
+          "nps": 999970.7650956719,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/5000ms",
+          "sfen": "Grk2r1n1/2s5l/3pg2pp/2b1p1p1n/ln3p3/2PPLNPP1/2b1P1+s1P/+p2K4g/4S3L b G2Ps3p 137",
+          "nodes": 1343479,
+          "depth": 27,
+          "elapsedMs": 4949.735000014305,
+          "engineElapsedMs": 1568,
+          "nps": 271424.42979192163,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/500ms",
+          "sfen": "1n2r2n1/2sk4l/3pg2pp/G1p1p1p2/l2b1p3/1KP3P2/+p2PPSGPP/L2SG3B/5R2L w 2Ps2n2p 86",
+          "nodes": 360259,
+          "depth": 18,
+          "elapsedMs": 449.3400000333786,
+          "engineElapsedMs": 449,
+          "nps": 801751.457633949,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/2000ms",
+          "sfen": "1n2r2n1/2sk4l/3pg2pp/G1p1p1p2/l2b1p3/1KP3P2/+p2PPSGPP/L2SG3B/5R2L w 2Ps2n2p 86",
+          "nodes": 1583491,
+          "depth": 19,
+          "elapsedMs": 1949.929999947548,
+          "engineElapsedMs": 1949,
+          "nps": 812075.8181281354,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/5000ms",
+          "sfen": "1n2r2n1/2sk4l/3pg2pp/G1p1p1p2/l2b1p3/1KP3P2/+p2PPSGPP/L2SG3B/5R2L w 2Ps2n2p 86",
+          "nodes": 4004935,
+          "depth": 22,
+          "elapsedMs": 4949.544999957085,
+          "engineElapsedMs": 4949,
+          "nps": 809152.1543969648,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/500ms",
+          "sfen": "lns1kg1nl/1r2g2b1/p2p1s1pp/1p2ppp2/P1p6/4P1P2/1P1P1P1PP/1B1K1S1R1/LNSG1G1NL w p 20",
+          "nodes": 407640,
+          "depth": 16,
+          "elapsedMs": 449.14999997615814,
+          "engineElapsedMs": 449,
+          "nps": 907580.986355646,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/2000ms",
+          "sfen": "lns1kg1nl/1r2g2b1/p2p1s1pp/1p2ppp2/P1p6/4P1P2/1P1P1P1PP/1B1K1S1R1/LNSG1G1NL w p 20",
+          "nodes": 1786152,
+          "depth": 20,
+          "elapsedMs": 1949.1549999713898,
+          "engineElapsedMs": 1949,
+          "nps": 916372.4793698898,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/5000ms",
+          "sfen": "lns1kg1nl/1r2g2b1/p2p1s1pp/1p2ppp2/P1p6/4P1P2/1P1P1P1PP/1B1K1S1R1/LNSG1G1NL w p 20",
+          "nodes": 4544900,
+          "depth": 25,
+          "elapsedMs": 4948.784999966621,
+          "engineElapsedMs": 4949,
+          "nps": 918387.0384408808,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/500ms",
+          "sfen": "lns1g1snl/1rg1k2b1/p1pp1p1pp/1p2p1p2/9/P8/LPPPPPPPP/1B1S1G2R/1N1G1KSNL b - 17",
+          "nodes": 441400,
+          "depth": 17,
+          "elapsedMs": 448.6299999952316,
+          "engineElapsedMs": 449,
+          "nps": 983884.2698987841,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/2000ms",
+          "sfen": "lns1g1snl/1rg1k2b1/p1pp1p1pp/1p2p1p2/9/P8/LPPPPPPPP/1B1S1G2R/1N1G1KSNL b - 17",
+          "nodes": 1901304,
+          "depth": 18,
+          "elapsedMs": 1949.2200000286102,
+          "engineElapsedMs": 1949,
+          "nps": 975417.859437156,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/5000ms",
+          "sfen": "lns1g1snl/1rg1k2b1/p1pp1p1pp/1p2p1p2/9/P8/LPPPPPPPP/1B1S1G2R/1N1G1KSNL b - 17",
+          "nodes": 4735605,
+          "depth": 24,
+          "elapsedMs": 4949.685000061989,
+          "engineElapsedMs": 4949,
+          "nps": 956748.7627880748,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/500ms",
+          "sfen": "8l/l1s1gkgs1/p1np1p3/1r2pbpPp/2p2nP2/1PGPPPSRP/P7N/LBK1G3L/1NS6 w 2Pp 62",
+          "nodes": 322715,
+          "depth": 16,
+          "elapsedMs": 450.1399999856949,
+          "engineElapsedMs": 449,
+          "nps": 716921.4022532004,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/2000ms",
+          "sfen": "8l/l1s1gkgs1/p1np1p3/1r2pbpPp/2p2nP2/1PGPPPSRP/P7N/LBK1G3L/1NS6 w 2Pp 62",
+          "nodes": 1506840,
+          "depth": 19,
+          "elapsedMs": 1949.344999909401,
+          "engineElapsedMs": 1949,
+          "nps": 772998.1096573633,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/5000ms",
+          "sfen": "8l/l1s1gkgs1/p1np1p3/1r2pbpPp/2p2nP2/1PGPPPSRP/P7N/LBK1G3L/1NS6 w 2Pp 62",
+          "nodes": 3874676,
+          "depth": 21,
+          "elapsedMs": 4949.34500002861,
+          "engineElapsedMs": 4949,
+          "nps": 782866.4196934346,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/500ms",
+          "sfen": "ln3k1nl/1rs1g1gs1/p1ppppb1p/6pP1/9/1pPPPPP1P/PP5RN/LB1GK1S1L/1NS2G3 b P 35",
+          "nodes": 406135,
+          "depth": 14,
+          "elapsedMs": 449.77999997138977,
+          "engineElapsedMs": 449,
+          "nps": 902963.671185544,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/2000ms",
+          "sfen": "ln3k1nl/1rs1g1gs1/p1ppppb1p/6pP1/9/1pPPPPP1P/PP5RN/LB1GK1S1L/1NS2G3 b P 35",
+          "nodes": 1722901,
+          "depth": 18,
+          "elapsedMs": 1949.2549999952316,
+          "engineElapsedMs": 1949,
+          "nps": 883876.6605724826,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/5000ms",
+          "sfen": "ln3k1nl/1rs1g1gs1/p1ppppb1p/6pP1/9/1pPPPPP1P/PP5RN/LB1GK1S1L/1NS2G3 b P 35",
+          "nodes": 4435262,
+          "depth": 22,
+          "elapsedMs": 4949.305000066757,
+          "engineElapsedMs": 4949,
+          "nps": 896138.3466850752,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/500ms",
+          "sfen": "1ns2s3/1rk1g2s1/l1pbpp1g1/1p4p1p/pnPp1n1p+r/P2PP1PP1/LPG1G+l3/2K2B1N1/2S4+l1 b 2p 101",
+          "nodes": 359401,
+          "depth": 17,
+          "elapsedMs": 449.8550000190735,
+          "engineElapsedMs": 449,
+          "nps": 798926.320669464,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/2000ms",
+          "sfen": "1ns2s3/1rk1g2s1/l1pbpp1g1/1p4p1p/pnPp1n1p+r/P2PP1PP1/LPG1G+l3/2K2B1N1/2S4+l1 b 2p 101",
+          "nodes": 1576982,
+          "depth": 18,
+          "elapsedMs": 1950.1150000095367,
+          "engineElapsedMs": 1949,
+          "nps": 808661.0276790282,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/5000ms",
+          "sfen": "1ns2s3/1rk1g2s1/l1pbpp1g1/1p4p1p/pnPp1n1p+r/P2PP1PP1/LPG1G+l3/2K2B1N1/2S4+l1 b 2p 101",
+          "nodes": 3982615,
+          "depth": 20,
+          "elapsedMs": 4950.914999961853,
+          "engineElapsedMs": 4951,
+          "nps": 804419.9910583572,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/500ms",
+          "sfen": "ln2B2nl/4gb3/5k2p/l3g2p1/S2P2s2/K1n2p2P/SrN2PPP1/2G1p1p2/4G2RL b 2Ps6p 107",
+          "nodes": 308079,
+          "depth": 16,
+          "elapsedMs": 449.44000005722046,
+          "engineElapsedMs": 449,
+          "nps": 685473.0330205966,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/2000ms",
+          "sfen": "ln2B2nl/4gb3/5k2p/l3g2p1/S2P2s2/K1n2p2P/SrN2PPP1/2G1p1p2/4G2RL b 2Ps6p 107",
+          "nodes": 1286035,
+          "depth": 17,
+          "elapsedMs": 1949.8849999904633,
+          "engineElapsedMs": 1949,
+          "nps": 659544.0243944079,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/5000ms",
+          "sfen": "ln2B2nl/4gb3/5k2p/l3g2p1/S2P2s2/K1n2p2P/SrN2PPP1/2G1p1p2/4G2RL b 2Ps6p 107",
+          "nodes": 3349665,
+          "depth": 21,
+          "elapsedMs": 4949.9800000190735,
+          "engineElapsedMs": 4949,
+          "nps": 676702.7341498537,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/500ms",
+          "sfen": "Grk2r1n1/2s5l/3pg2pp/2b1p1p1n/ln3p3/2PPLNPP1/2b1P1+s1P/+p2K4g/4S3L b G2Ps3p 137",
+          "nodes": 364117,
+          "depth": 15,
+          "elapsedMs": 449.7000000476837,
+          "engineElapsedMs": 449,
+          "nps": 809688.6812572627,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/2000ms",
+          "sfen": "Grk2r1n1/2s5l/3pg2pp/2b1p1p1n/ln3p3/2PPLNPP1/2b1P1+s1P/+p2K4g/4S3L b G2Ps3p 137",
+          "nodes": 1894884,
+          "depth": 26,
+          "elapsedMs": 1949.75,
+          "engineElapsedMs": 1872,
+          "nps": 971859.9820489805,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/5000ms",
+          "sfen": "Grk2r1n1/2s5l/3pg2pp/2b1p1p1n/ln3p3/2PPLNPP1/2b1P1+s1P/+p2K4g/4S3L b G2Ps3p 137",
+          "nodes": 2540926,
+          "depth": 29,
+          "elapsedMs": 4949.464999914169,
+          "engineElapsedMs": 2860,
+          "nps": 513373.86970997136,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/500ms",
+          "sfen": "1n2r2n1/2sk4l/3pg2pp/G1p1p1p2/l2b1p3/1KP3P2/+p2PPSGPP/L2SG3B/5R2L w 2Ps2n2p 86",
+          "nodes": 363561,
+          "depth": 17,
+          "elapsedMs": 449.68499994277954,
+          "engineElapsedMs": 449,
+          "nps": 808479.2689243838,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/2000ms",
+          "sfen": "1n2r2n1/2sk4l/3pg2pp/G1p1p1p2/l2b1p3/1KP3P2/+p2PPSGPP/L2SG3B/5R2L w 2Ps2n2p 86",
+          "nodes": 1577787,
+          "depth": 17,
+          "elapsedMs": 1949.719999909401,
+          "engineElapsedMs": 1949,
+          "nps": 809237.7367382578,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/5000ms",
+          "sfen": "1n2r2n1/2sk4l/3pg2pp/G1p1p1p2/l2b1p3/1KP3P2/+p2PPSGPP/L2SG3B/5R2L w 2Ps2n2p 86",
+          "nodes": 3936623,
+          "depth": 20,
+          "elapsedMs": 4949.574999928474,
+          "engineElapsedMs": 4949,
+          "nps": 795345.6610025886,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/500ms",
+          "sfen": "lns1kg1nl/1r2g2b1/p2p1s1pp/1p2ppp2/P1p6/4P1P2/1P1P1P1PP/1B1K1S1R1/LNSG1G1NL w p 20",
+          "nodes": 415203,
+          "depth": 16,
+          "elapsedMs": 449.68499994277954,
+          "engineElapsedMs": 449,
+          "nps": 923319.6572107871,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/2000ms",
+          "sfen": "lns1kg1nl/1r2g2b1/p2p1s1pp/1p2ppp2/P1p6/4P1P2/1P1P1P1PP/1B1K1S1R1/LNSG1G1NL w p 20",
+          "nodes": 1759577,
+          "depth": 20,
+          "elapsedMs": 1949.3600000143051,
+          "engineElapsedMs": 1949,
+          "nps": 902643.431683777,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/5000ms",
+          "sfen": "lns1kg1nl/1r2g2b1/p2p1s1pp/1p2ppp2/P1p6/4P1P2/1P1P1P1PP/1B1K1S1R1/LNSG1G1NL w p 20",
+          "nodes": 4424083,
+          "depth": 21,
+          "elapsedMs": 4948.919999957085,
+          "engineElapsedMs": 4949,
+          "nps": 893949.1848804111,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/500ms",
+          "sfen": "lns1g1snl/1rg1k2b1/p1pp1p1pp/1p2p1p2/9/P8/LPPPPPPPP/1B1S1G2R/1N1G1KSNL b - 17",
+          "nodes": 436369,
+          "depth": 17,
+          "elapsedMs": 448.6749999523163,
+          "engineElapsedMs": 449,
+          "nps": 972572.5749069501,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/2000ms",
+          "sfen": "lns1g1snl/1rg1k2b1/p1pp1p1pp/1p2p1p2/9/P8/LPPPPPPPP/1B1S1G2R/1N1G1KSNL b - 17",
+          "nodes": 1821480,
+          "depth": 21,
+          "elapsedMs": 1948.8999999761581,
+          "engineElapsedMs": 1949,
+          "nps": 934619.528976491,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/5000ms",
+          "sfen": "lns1g1snl/1rg1k2b1/p1pp1p1pp/1p2p1p2/9/P8/LPPPPPPPP/1B1S1G2R/1N1G1KSNL b - 17",
+          "nodes": 4596446,
+          "depth": 24,
+          "elapsedMs": 4948.875,
+          "engineElapsedMs": 4949,
+          "nps": 928786.0372306837,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/500ms",
+          "sfen": "8l/l1s1gkgs1/p1np1p3/1r2pbpPp/2p2nP2/1PGPPPSRP/P7N/LBK1G3L/1NS6 w 2Pp 62",
+          "nodes": 348482,
+          "depth": 15,
+          "elapsedMs": 449.1399999856949,
+          "engineElapsedMs": 449,
+          "nps": 775887.2512158774,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/2000ms",
+          "sfen": "8l/l1s1gkgs1/p1np1p3/1r2pbpPp/2p2nP2/1PGPPPSRP/P7N/LBK1G3L/1NS6 w 2Pp 62",
+          "nodes": 1534344,
+          "depth": 19,
+          "elapsedMs": 1949.9350000619888,
+          "engineElapsedMs": 1949,
+          "nps": 786869.3058749256,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/5000ms",
+          "sfen": "8l/l1s1gkgs1/p1np1p3/1r2pbpPp/2p2nP2/1PGPPPSRP/P7N/LBK1G3L/1NS6 w 2Pp 62",
+          "nodes": 3893938,
+          "depth": 22,
+          "elapsedMs": 4949.875,
+          "engineElapsedMs": 4949,
+          "nps": 786674.0069193668,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/500ms",
+          "sfen": "ln3k1nl/1rs1g1gs1/p1ppppb1p/6pP1/9/1pPPPPP1P/PP5RN/LB1GK1S1L/1NS2G3 b P 35",
+          "nodes": 399396,
+          "depth": 15,
+          "elapsedMs": 449.1399999856949,
+          "engineElapsedMs": 449,
+          "nps": 889246.1148254904,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/2000ms",
+          "sfen": "ln3k1nl/1rs1g1gs1/p1ppppb1p/6pP1/9/1pPPPPP1P/PP5RN/LB1GK1S1L/1NS2G3 b P 35",
+          "nodes": 1682767,
+          "depth": 19,
+          "elapsedMs": 1948.8899999856949,
+          "engineElapsedMs": 1949,
+          "nps": 863448.9376067155,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/5000ms",
+          "sfen": "ln3k1nl/1rs1g1gs1/p1ppppb1p/6pP1/9/1pPPPPP1P/PP5RN/LB1GK1S1L/1NS2G3 b P 35",
+          "nodes": 4367482,
+          "depth": 22,
+          "elapsedMs": 4948.974999904633,
+          "engineElapsedMs": 4949,
+          "nps": 882502.3363593798,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/500ms",
+          "sfen": "1ns2s3/1rk1g2s1/l1pbpp1g1/1p4p1p/pnPp1n1p+r/P2PP1PP1/LPG1G+l3/2K2B1N1/2S4+l1 b 2p 101",
+          "nodes": 356629,
+          "depth": 15,
+          "elapsedMs": 449.7150000333786,
+          "engineElapsedMs": 449,
+          "nps": 793011.1292119017,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/2000ms",
+          "sfen": "1ns2s3/1rk1g2s1/l1pbpp1g1/1p4p1p/pnPp1n1p+r/P2PP1PP1/LPG1G+l3/2K2B1N1/2S4+l1 b 2p 101",
+          "nodes": 1532449,
+          "depth": 18,
+          "elapsedMs": 1949.7549999952316,
+          "engineElapsedMs": 1950,
+          "nps": 785970.0321341644,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/5000ms",
+          "sfen": "1ns2s3/1rk1g2s1/l1pbpp1g1/1p4p1p/pnPp1n1p+r/P2PP1PP1/LPG1G+l3/2K2B1N1/2S4+l1 b 2p 101",
+          "nodes": 3860979,
+          "depth": 20,
+          "elapsedMs": 4949.070000052452,
+          "engineElapsedMs": 4949,
+          "nps": 780142.3297627796,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/500ms",
+          "sfen": "ln2B2nl/4gb3/5k2p/l3g2p1/S2P2s2/K1n2p2P/SrN2PPP1/2G1p1p2/4G2RL b 2Ps6p 107",
+          "nodes": 295845,
+          "depth": 16,
+          "elapsedMs": 449.97000002861023,
+          "engineElapsedMs": 449,
+          "nps": 657477.1651025389,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/2000ms",
+          "sfen": "ln2B2nl/4gb3/5k2p/l3g2p1/S2P2s2/K1n2p2P/SrN2PPP1/2G1p1p2/4G2RL b 2Ps6p 107",
+          "nodes": 1259130,
+          "depth": 18,
+          "elapsedMs": 1950.344999909401,
+          "engineElapsedMs": 1950,
+          "nps": 645593.4719541877,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/5000ms",
+          "sfen": "ln2B2nl/4gb3/5k2p/l3g2p1/S2P2s2/K1n2p2P/SrN2PPP1/2G1p1p2/4G2RL b 2Ps6p 107",
+          "nodes": 3188848,
+          "depth": 20,
+          "elapsedMs": 4949.844999909401,
+          "engineElapsedMs": 4949,
+          "nps": 644231.8901012792,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/500ms",
+          "sfen": "Grk2r1n1/2s5l/3pg2pp/2b1p1p1n/ln3p3/2PPLNPP1/2b1P1+s1P/+p2K4g/4S3L b G2Ps3p 137",
+          "nodes": 357166,
+          "depth": 15,
+          "elapsedMs": 449.38499999046326,
+          "engineElapsedMs": 449,
+          "nps": 794788.4330976327,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/2000ms",
+          "sfen": "Grk2r1n1/2s5l/3pg2pp/2b1p1p1n/ln3p3/2PPLNPP1/2b1P1+s1P/+p2K4g/4S3L b G2Ps3p 137",
+          "nodes": 1968794,
+          "depth": 23,
+          "elapsedMs": 1949.820000052452,
+          "engineElapsedMs": 1949,
+          "nps": 1009731.1546435248,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/5000ms",
+          "sfen": "Grk2r1n1/2s5l/3pg2pp/2b1p1p1n/ln3p3/2PPLNPP1/2b1P1+s1P/+p2K4g/4S3L b G2Ps3p 137",
+          "nodes": 3574648,
+          "depth": 28,
+          "elapsedMs": 4950,
+          "engineElapsedMs": 3858,
+          "nps": 722151.1111111111,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/500ms",
+          "sfen": "1n2r2n1/2sk4l/3pg2pp/G1p1p1p2/l2b1p3/1KP3P2/+p2PPSGPP/L2SG3B/5R2L w 2Ps2n2p 86",
+          "nodes": 346253,
+          "depth": 16,
+          "elapsedMs": 449.35000002384186,
+          "engineElapsedMs": 449,
+          "nps": 770564.1481732021,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/2000ms",
+          "sfen": "1n2r2n1/2sk4l/3pg2pp/G1p1p1p2/l2b1p3/1KP3P2/+p2PPSGPP/L2SG3B/5R2L w 2Ps2n2p 86",
+          "nodes": 1577319,
+          "depth": 18,
+          "elapsedMs": 1949.789999961853,
+          "engineElapsedMs": 1949,
+          "nps": 808968.658179014,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/5000ms",
+          "sfen": "1n2r2n1/2sk4l/3pg2pp/G1p1p1p2/l2b1p3/1KP3P2/+p2PPSGPP/L2SG3B/5R2L w 2Ps2n2p 86",
+          "nodes": 3957796,
+          "depth": 19,
+          "elapsedMs": 4949.745000004768,
+          "engineElapsedMs": 4949,
+          "nps": 799595.9387799143,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/500ms",
+          "sfen": "lns1kg1nl/1r2g2b1/p2p1s1pp/1p2ppp2/P1p6/4P1P2/1P1P1P1PP/1B1K1S1R1/LNSG1G1NL w p 20",
+          "nodes": 401165,
+          "depth": 18,
+          "elapsedMs": 449.22500002384186,
+          "engineElapsedMs": 449,
+          "nps": 893015.7492987007,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/2000ms",
+          "sfen": "lns1kg1nl/1r2g2b1/p2p1s1pp/1p2ppp2/P1p6/4P1P2/1P1P1P1PP/1B1K1S1R1/LNSG1G1NL w p 20",
+          "nodes": 1733915,
+          "depth": 21,
+          "elapsedMs": 1949.8600000143051,
+          "engineElapsedMs": 1949,
+          "nps": 889251.0231438561,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/5000ms",
+          "sfen": "lns1kg1nl/1r2g2b1/p2p1s1pp/1p2ppp2/P1p6/4P1P2/1P1P1P1PP/1B1K1S1R1/LNSG1G1NL w p 20",
+          "nodes": 4498421,
+          "depth": 24,
+          "elapsedMs": 4949.179999947548,
+          "engineElapsedMs": 4949,
+          "nps": 908922.4881793903,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/500ms",
+          "sfen": "lns1g1snl/1rg1k2b1/p1pp1p1pp/1p2p1p2/9/P8/LPPPPPPPP/1B1S1G2R/1N1G1KSNL b - 17",
+          "nodes": 440554,
+          "depth": 17,
+          "elapsedMs": 449.3349999189377,
+          "engineElapsedMs": 449,
+          "nps": 980457.7877963617,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/2000ms",
+          "sfen": "lns1g1snl/1rg1k2b1/p1pp1p1pp/1p2p1p2/9/P8/LPPPPPPPP/1B1S1G2R/1N1G1KSNL b - 17",
+          "nodes": 1859762,
+          "depth": 20,
+          "elapsedMs": 1949.7299998998642,
+          "engineElapsedMs": 1949,
+          "nps": 953856.1750065471,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/5000ms",
+          "sfen": "lns1g1snl/1rg1k2b1/p1pp1p1pp/1p2p1p2/9/P8/LPPPPPPPP/1B1S1G2R/1N1G1KSNL b - 17",
+          "nodes": 4587425,
+          "depth": 24,
+          "elapsedMs": 4950.370000004768,
+          "engineElapsedMs": 4950,
+          "nps": 926683.258018205,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/500ms",
+          "sfen": "8l/l1s1gkgs1/p1np1p3/1r2pbpPp/2p2nP2/1PGPPPSRP/P7N/LBK1G3L/1NS6 w 2Pp 62",
+          "nodes": 340951,
+          "depth": 15,
+          "elapsedMs": 449.13499999046326,
+          "engineElapsedMs": 449,
+          "nps": 759128.1018117929,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/2000ms",
+          "sfen": "8l/l1s1gkgs1/p1np1p3/1r2pbpPp/2p2nP2/1PGPPPSRP/P7N/LBK1G3L/1NS6 w 2Pp 62",
+          "nodes": 1543874,
+          "depth": 19,
+          "elapsedMs": 1949.7850000858307,
+          "engineElapsedMs": 1949,
+          "nps": 791817.5593370744,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/5000ms",
+          "sfen": "8l/l1s1gkgs1/p1np1p3/1r2pbpPp/2p2nP2/1PGPPPSRP/P7N/LBK1G3L/1NS6 w 2Pp 62",
+          "nodes": 3798704,
+          "depth": 20,
+          "elapsedMs": 4949.9349999427795,
+          "engineElapsedMs": 4949,
+          "nps": 767425.0268021524,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/500ms",
+          "sfen": "ln3k1nl/1rs1g1gs1/p1ppppb1p/6pP1/9/1pPPPPP1P/PP5RN/LB1GK1S1L/1NS2G3 b P 35",
+          "nodes": 381867,
+          "depth": 13,
+          "elapsedMs": 449.45499992370605,
+          "engineElapsedMs": 449,
+          "nps": 849622.3205099977,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/2000ms",
+          "sfen": "ln3k1nl/1rs1g1gs1/p1ppppb1p/6pP1/9/1pPPPPP1P/PP5RN/LB1GK1S1L/1NS2G3 b P 35",
+          "nodes": 1696608,
+          "depth": 17,
+          "elapsedMs": 1948.9900000095367,
+          "engineElapsedMs": 1949,
+          "nps": 870506.2622136071,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/5000ms",
+          "sfen": "ln3k1nl/1rs1g1gs1/p1ppppb1p/6pP1/9/1pPPPPP1P/PP5RN/LB1GK1S1L/1NS2G3 b P 35",
+          "nodes": 4430768,
+          "depth": 24,
+          "elapsedMs": 4948.659999966621,
+          "engineElapsedMs": 4949,
+          "nps": 895347.0232406117,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/500ms",
+          "sfen": "1ns2s3/1rk1g2s1/l1pbpp1g1/1p4p1p/pnPp1n1p+r/P2PP1PP1/LPG1G+l3/2K2B1N1/2S4+l1 b 2p 101",
+          "nodes": 358623,
+          "depth": 17,
+          "elapsedMs": 449.43499994277954,
+          "engineElapsedMs": 449,
+          "nps": 797941.860437346,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/2000ms",
+          "sfen": "1ns2s3/1rk1g2s1/l1pbpp1g1/1p4p1p/pnPp1n1p+r/P2PP1PP1/LPG1G+l3/2K2B1N1/2S4+l1 b 2p 101",
+          "nodes": 1564424,
+          "depth": 18,
+          "elapsedMs": 1949.9550000429153,
+          "engineElapsedMs": 1949,
+          "nps": 802287.2322518056,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/5000ms",
+          "sfen": "1ns2s3/1rk1g2s1/l1pbpp1g1/1p4p1p/pnPp1n1p+r/P2PP1PP1/LPG1G+l3/2K2B1N1/2S4+l1 b 2p 101",
+          "nodes": 4026134,
+          "depth": 20,
+          "elapsedMs": 4949.570000052452,
+          "engineElapsedMs": 4949,
+          "nps": 813431.065720322,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/500ms",
+          "sfen": "ln2B2nl/4gb3/5k2p/l3g2p1/S2P2s2/K1n2p2P/SrN2PPP1/2G1p1p2/4G2RL b 2Ps6p 107",
+          "nodes": 296027,
+          "depth": 15,
+          "elapsedMs": 450.1449999809265,
+          "engineElapsedMs": 449,
+          "nps": 657625.8761344528,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/2000ms",
+          "sfen": "ln2B2nl/4gb3/5k2p/l3g2p1/S2P2s2/K1n2p2P/SrN2PPP1/2G1p1p2/4G2RL b 2Ps6p 107",
+          "nodes": 1319133,
+          "depth": 17,
+          "elapsedMs": 1949.4550000429153,
+          "engineElapsedMs": 1949,
+          "nps": 676667.5814373558,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/5000ms",
+          "sfen": "ln2B2nl/4gb3/5k2p/l3g2p1/S2P2s2/K1n2p2P/SrN2PPP1/2G1p1p2/4G2RL b 2Ps6p 107",
+          "nodes": 3213430,
+          "depth": 18,
+          "elapsedMs": 4949.664999961853,
+          "engineElapsedMs": 4949,
+          "nps": 649221.7150099584,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/500ms",
+          "sfen": "Grk2r1n1/2s5l/3pg2pp/2b1p1p1n/ln3p3/2PPLNPP1/2b1P1+s1P/+p2K4g/4S3L b G2Ps3p 137",
+          "nodes": 366623,
+          "depth": 16,
+          "elapsedMs": 450.9849998950958,
+          "engineElapsedMs": 450,
+          "nps": 812938.3462538236,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/2000ms",
+          "sfen": "Grk2r1n1/2s5l/3pg2pp/2b1p1p1n/ln3p3/2PPLNPP1/2b1P1+s1P/+p2K4g/4S3L b G2Ps3p 137",
+          "nodes": 1554303,
+          "depth": 24,
+          "elapsedMs": 1949.7350000143051,
+          "engineElapsedMs": 1503,
+          "nps": 797186.7971742806,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/5000ms",
+          "sfen": "Grk2r1n1/2s5l/3pg2pp/2b1p1p1n/ln3p3/2PPLNPP1/2b1P1+s1P/+p2K4g/4S3L b G2Ps3p 137",
+          "nodes": 3044301,
+          "depth": 28,
+          "elapsedMs": 4950.070000052452,
+          "engineElapsedMs": 3963,
+          "nps": 615001.6060313777,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/500ms",
+          "sfen": "1n2r2n1/2sk4l/3pg2pp/G1p1p1p2/l2b1p3/1KP3P2/+p2PPSGPP/L2SG3B/5R2L w 2Ps2n2p 86",
+          "nodes": 355394,
+          "depth": 17,
+          "elapsedMs": 449.58000004291534,
+          "engineElapsedMs": 449,
+          "nps": 790502.2464657577,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/2000ms",
+          "sfen": "1n2r2n1/2sk4l/3pg2pp/G1p1p1p2/l2b1p3/1KP3P2/+p2PPSGPP/L2SG3B/5R2L w 2Ps2n2p 86",
+          "nodes": 1576294,
+          "depth": 19,
+          "elapsedMs": 1950.320000052452,
+          "engineElapsedMs": 1949,
+          "nps": 808223.2659038552,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/5000ms",
+          "sfen": "1n2r2n1/2sk4l/3pg2pp/G1p1p1p2/l2b1p3/1KP3P2/+p2PPSGPP/L2SG3B/5R2L w 2Ps2n2p 86",
+          "nodes": 3833281,
+          "depth": 21,
+          "elapsedMs": 4949.314999938011,
+          "engineElapsedMs": 4949,
+          "nps": 774507.3813341869,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/500ms",
+          "sfen": "lns1kg1nl/1r2g2b1/p2p1s1pp/1p2ppp2/P1p6/4P1P2/1P1P1P1PP/1B1K1S1R1/LNSG1G1NL w p 20",
+          "nodes": 395758,
+          "depth": 17,
+          "elapsedMs": 449.8400000333786,
+          "engineElapsedMs": 449,
+          "nps": 879775.0310568966,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/2000ms",
+          "sfen": "lns1kg1nl/1r2g2b1/p2p1s1pp/1p2ppp2/P1p6/4P1P2/1P1P1P1PP/1B1K1S1R1/LNSG1G1NL w p 20",
+          "nodes": 1734889,
+          "depth": 20,
+          "elapsedMs": 1949.6350001096725,
+          "engineElapsedMs": 1949,
+          "nps": 889853.2288876674,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/5000ms",
+          "sfen": "lns1kg1nl/1r2g2b1/p2p1s1pp/1p2ppp2/P1p6/4P1P2/1P1P1P1PP/1B1K1S1R1/LNSG1G1NL w p 20",
+          "nodes": 4444243,
+          "depth": 23,
+          "elapsedMs": 4949.179999947548,
+          "engineElapsedMs": 4949,
+          "nps": 897975.6242543412,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/500ms",
+          "sfen": "lns1g1snl/1rg1k2b1/p1pp1p1pp/1p2p1p2/9/P8/LPPPPPPPP/1B1S1G2R/1N1G1KSNL b - 17",
+          "nodes": 443047,
+          "depth": 17,
+          "elapsedMs": 449.27499997615814,
+          "engineElapsedMs": 449,
+          "nps": 986137.6662923852,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/2000ms",
+          "sfen": "lns1g1snl/1rg1k2b1/p1pp1p1pp/1p2p1p2/9/P8/LPPPPPPPP/1B1S1G2R/1N1G1KSNL b - 17",
+          "nodes": 1824999,
+          "depth": 20,
+          "elapsedMs": 1948.7050000429153,
+          "engineElapsedMs": 1949,
+          "nps": 936518.8676376409,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/5000ms",
+          "sfen": "lns1g1snl/1rg1k2b1/p1pp1p1pp/1p2p1p2/9/P8/LPPPPPPPP/1B1S1G2R/1N1G1KSNL b - 17",
+          "nodes": 4633818,
+          "depth": 23,
+          "elapsedMs": 4949.330000042915,
+          "engineElapsedMs": 4949,
+          "nps": 936251.5734371764,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/500ms",
+          "sfen": "8l/l1s1gkgs1/p1np1p3/1r2pbpPp/2p2nP2/1PGPPPSRP/P7N/LBK1G3L/1NS6 w 2Pp 62",
+          "nodes": 333805,
+          "depth": 15,
+          "elapsedMs": 450.52999997138977,
+          "engineElapsedMs": 450,
+          "nps": 740916.2542365609,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/2000ms",
+          "sfen": "8l/l1s1gkgs1/p1np1p3/1r2pbpPp/2p2nP2/1PGPPPSRP/P7N/LBK1G3L/1NS6 w 2Pp 62",
+          "nodes": 1442898,
+          "depth": 18,
+          "elapsedMs": 1948.8700000047684,
+          "engineElapsedMs": 1949,
+          "nps": 740376.7311295621,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/5000ms",
+          "sfen": "8l/l1s1gkgs1/p1np1p3/1r2pbpPp/2p2nP2/1PGPPPSRP/P7N/LBK1G3L/1NS6 w 2Pp 62",
+          "nodes": 3815265,
+          "depth": 20,
+          "elapsedMs": 4949.004999995232,
+          "engineElapsedMs": 4949,
+          "nps": 770915.567877518,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/500ms",
+          "sfen": "ln3k1nl/1rs1g1gs1/p1ppppb1p/6pP1/9/1pPPPPP1P/PP5RN/LB1GK1S1L/1NS2G3 b P 35",
+          "nodes": 392908,
+          "depth": 13,
+          "elapsedMs": 449.7650001049042,
+          "engineElapsedMs": 449,
+          "nps": 873585.0942344498,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/2000ms",
+          "sfen": "ln3k1nl/1rs1g1gs1/p1ppppb1p/6pP1/9/1pPPPPP1P/PP5RN/LB1GK1S1L/1NS2G3 b P 35",
+          "nodes": 1647752,
+          "depth": 18,
+          "elapsedMs": 1949.7599999904633,
+          "engineElapsedMs": 1949,
+          "nps": 845105.0385729831,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/5000ms",
+          "sfen": "ln3k1nl/1rs1g1gs1/p1ppppb1p/6pP1/9/1pPPPPP1P/PP5RN/LB1GK1S1L/1NS2G3 b P 35",
+          "nodes": 4281340,
+          "depth": 21,
+          "elapsedMs": 4949.664999961853,
+          "engineElapsedMs": 4949,
+          "nps": 864975.7104840421,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/500ms",
+          "sfen": "1ns2s3/1rk1g2s1/l1pbpp1g1/1p4p1p/pnPp1n1p+r/P2PP1PP1/LPG1G+l3/2K2B1N1/2S4+l1 b 2p 101",
+          "nodes": 354787,
+          "depth": 16,
+          "elapsedMs": 449.2450000047684,
+          "engineElapsedMs": 449,
+          "nps": 789740.5647168788,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/2000ms",
+          "sfen": "1ns2s3/1rk1g2s1/l1pbpp1g1/1p4p1p/pnPp1n1p+r/P2PP1PP1/LPG1G+l3/2K2B1N1/2S4+l1 b 2p 101",
+          "nodes": 1521220,
+          "depth": 18,
+          "elapsedMs": 1950.1499999761581,
+          "engineElapsedMs": 1950,
+          "nps": 780052.8164595533,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/5000ms",
+          "sfen": "1ns2s3/1rk1g2s1/l1pbpp1g1/1p4p1p/pnPp1n1p+r/P2PP1PP1/LPG1G+l3/2K2B1N1/2S4+l1 b 2p 101",
+          "nodes": 3893061,
+          "depth": 20,
+          "elapsedMs": 4949.370000004768,
+          "engineElapsedMs": 4949,
+          "nps": 786577.0795063309,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/500ms",
+          "sfen": "ln2B2nl/4gb3/5k2p/l3g2p1/S2P2s2/K1n2p2P/SrN2PPP1/2G1p1p2/4G2RL b 2Ps6p 107",
+          "nodes": 295409,
+          "depth": 15,
+          "elapsedMs": 449.50999999046326,
+          "engineElapsedMs": 449,
+          "nps": 657180.0405024746,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/2000ms",
+          "sfen": "ln2B2nl/4gb3/5k2p/l3g2p1/S2P2s2/K1n2p2P/SrN2PPP1/2G1p1p2/4G2RL b 2Ps6p 107",
+          "nodes": 1276973,
+          "depth": 17,
+          "elapsedMs": 1948.9199999570847,
+          "engineElapsedMs": 1949,
+          "nps": 655220.8402746747,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/5000ms",
+          "sfen": "ln2B2nl/4gb3/5k2p/l3g2p1/S2P2s2/K1n2p2P/SrN2PPP1/2G1p1p2/4G2RL b 2Ps6p 107",
+          "nodes": 3209721,
+          "depth": 19,
+          "elapsedMs": 4950.715000033379,
+          "engineElapsedMs": 4950,
+          "nps": 648334.8364788439,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/500ms",
+          "sfen": "Grk2r1n1/2s5l/3pg2pp/2b1p1p1n/ln3p3/2PPLNPP1/2b1P1+s1P/+p2K4g/4S3L b G2Ps3p 137",
+          "nodes": 351629,
+          "depth": 16,
+          "elapsedMs": 449.16999995708466,
+          "engineElapsedMs": 449,
+          "nps": 782841.6858507823,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/2000ms",
+          "sfen": "Grk2r1n1/2s5l/3pg2pp/2b1p1p1n/ln3p3/2PPLNPP1/2b1P1+s1P/+p2K4g/4S3L b G2Ps3p 137",
+          "nodes": 1720726,
+          "depth": 23,
+          "elapsedMs": 1949.3450000286102,
+          "engineElapsedMs": 1949,
+          "nps": 882720.0931465416,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/5000ms",
+          "sfen": "Grk2r1n1/2s5l/3pg2pp/2b1p1p1n/ln3p3/2PPLNPP1/2b1P1+s1P/+p2K4g/4S3L b G2Ps3p 137",
+          "nodes": 3633246,
+          "depth": 25,
+          "elapsedMs": 4949.365000009537,
+          "engineElapsedMs": 4303,
+          "nps": 734083.2611846165,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/500ms",
+          "sfen": "1n2r2n1/2sk4l/3pg2pp/G1p1p1p2/l2b1p3/1KP3P2/+p2PPSGPP/L2SG3B/5R2L w 2Ps2n2p 86",
+          "nodes": 332779,
+          "depth": 17,
+          "elapsedMs": 449.54500007629395,
+          "engineElapsedMs": 449,
+          "nps": 740257.371216503,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/2000ms",
+          "sfen": "1n2r2n1/2sk4l/3pg2pp/G1p1p1p2/l2b1p3/1KP3P2/+p2PPSGPP/L2SG3B/5R2L w 2Ps2n2p 86",
+          "nodes": 1518247,
+          "depth": 18,
+          "elapsedMs": 1950.6899999380112,
+          "engineElapsedMs": 1950,
+          "nps": 778312.802161413,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/5000ms",
+          "sfen": "1n2r2n1/2sk4l/3pg2pp/G1p1p1p2/l2b1p3/1KP3P2/+p2PPSGPP/L2SG3B/5R2L w 2Ps2n2p 86",
+          "nodes": 3743229,
+          "depth": 22,
+          "elapsedMs": 4949.110000014305,
+          "engineElapsedMs": 4949,
+          "nps": 756343.8678851713,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/500ms",
+          "sfen": "lns1kg1nl/1r2g2b1/p2p1s1pp/1p2ppp2/P1p6/4P1P2/1P1P1P1PP/1B1K1S1R1/LNSG1G1NL w p 20",
+          "nodes": 402123,
+          "depth": 17,
+          "elapsedMs": 449.3949999809265,
+          "engineElapsedMs": 449,
+          "nps": 894809.6886192929,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/2000ms",
+          "sfen": "lns1kg1nl/1r2g2b1/p2p1s1pp/1p2ppp2/P1p6/4P1P2/1P1P1P1PP/1B1K1S1R1/LNSG1G1NL w p 20",
+          "nodes": 1731371,
+          "depth": 19,
+          "elapsedMs": 1948.7299998998642,
+          "engineElapsedMs": 1949,
+          "nps": 888461.2029829513,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/5000ms",
+          "sfen": "lns1kg1nl/1r2g2b1/p2p1s1pp/1p2ppp2/P1p6/4P1P2/1P1P1P1PP/1B1K1S1R1/LNSG1G1NL w p 20",
+          "nodes": 4406768,
+          "depth": 22,
+          "elapsedMs": 4948.955000042915,
+          "engineElapsedMs": 4949,
+          "nps": 890444.144261119,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/500ms",
+          "sfen": "lns1g1snl/1rg1k2b1/p1pp1p1pp/1p2p1p2/9/P8/LPPPPPPPP/1B1S1G2R/1N1G1KSNL b - 17",
+          "nodes": 424796,
+          "depth": 18,
+          "elapsedMs": 449.0700000524521,
+          "engineElapsedMs": 449,
+          "nps": 945946.0662043404,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/2000ms",
+          "sfen": "lns1g1snl/1rg1k2b1/p1pp1p1pp/1p2p1p2/9/P8/LPPPPPPPP/1B1S1G2R/1N1G1KSNL b - 17",
+          "nodes": 1806569,
+          "depth": 20,
+          "elapsedMs": 1949.789999961853,
+          "engineElapsedMs": 1949,
+          "nps": 926545.422858536,
+          "memoryBytes": 201326592
+        },
+        {
+          "kind": "stress/5000ms",
+          "sfen": "lns1g1snl/1rg1k2b1/p1pp1p1pp/1p2p1p2/9/P8/LPPPPPPPP/1B1S1G2R/1N1G1KSNL b - 17",
+          "nodes": 4638977,
+          "depth": 22,
+          "elapsedMs": 4949.639999985695,
+          "engineElapsedMs": 4949,
+          "nps": 937235.233272199,
+          "memoryBytes": 201326592
+        }
+      ]
+    }
+  ],
+  "physicalDevice": false,
+  "deviceModel": "",
+  "level1GameCompleted": false,
+  "level10GameCompleted": false,
+  "model": {
+    "schemaVersion": 1,
+    "modelVersion": "alphasho-nn-v1",
+    "displayName": "AlphaSho NN 1",
+    "round": 7200,
+    "format": "yaneuraou-halfkp-256x2-32-32",
+    "bytes": 64216967,
+    "sha256": "8835e7a98c790a7e15b36f05384df645dacd806934151cfd9f8c9d73400fe466",
+    "modelUrl": "nnue/nn.bin",
+    "engineVersion": "YaneuraOu V9.00 + USI drop-case fix",
+    "fvScale": 16,
+    "frozenAt": 1792550986.5398924,
+    "sourceCommit": "commits\\best\\00007200-0708231be5914b398d55a5671a462bee"
+  },
+  "loading": {
+    "modelMs": 294.4950000047684,
+    "workerMs": 707.0900000333786
+  },
+  "observedFinishedAt": "2026-10-21T04:40:39.424Z"
+}

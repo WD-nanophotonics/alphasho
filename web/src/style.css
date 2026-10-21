@@ -167,3 +167,6 @@ button:disabled { cursor: default; opacity: .38; }
 }
 
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; } }
+
+.nnue-status {padding:.6rem 1rem;border:1px solid #ac9164;border-radius:.5rem; margin:.5rem; overflow-wrap:anywhere;} .nnue-status button {margin-right:.7rem;} select[name="nn-level"] {width:100%;padding:.7rem;font:inherit;}
+.preview-notice { padding: .55rem .8rem; border: 1px solid #a56b24; border-radius: .5rem; background: #fff3d8; color: #65430c; font-size: .8rem; }

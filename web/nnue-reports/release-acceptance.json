@@ -1,0 +1,27 @@
+{
+  "status": "owner-authorized-release",
+  "modelSha256": "8835e7a98c790a7e15b36f05384df645dacd806934151cfd9f8c9d73400fe466",
+  "engineWasmSha256": "041a2caf87e5f49bedc2598aa64e2f9e1c108783ccde34cb5a2606a1cdc88cd5",
+  "devices": [],
+  "desktopReliabilityPassed": true,
+  "difficultyScreeningReviewed": false,
+  "parityPositions": 1024,
+  "parityMismatches": 0,
+  "policyHash": "7ea3b893ef8e2b4162d05767b99eead0180b3890784fc2874f07c4984e3dbbc7",
+  "releaseAuthorization": {
+    "owner": "WD-nanophotonics",
+    "date": "2026-10-21",
+    "decision": "publish-first-generation-with-pending-validation",
+    "modelSha256": "8835e7a98c790a7e15b36f05384df645dacd806934151cfd9f8c9d73400fe466",
+    "engineWasmSha256": "041a2caf87e5f49bedc2598aa64e2f9e1c108783ccde34cb5a2606a1cdc88cd5",
+    "policyHash": "7ea3b893ef8e2b4162d05767b99eead0180b3890784fc2874f07c4984e3dbbc7",
+    "pendingChecks": [
+      "physical-iphone-safari",
+      "physical-android-chrome",
+      "complete-difficulty-screening"
+    ],
+    "basis": "Owner played a medium-difficulty game and explicitly requested formal release. Subjective amateur-rank impression is not a certified rating.",
+    "userFeedback": "Playable, understands the rules, no obvious gross blunders observed in the reported game; search appears limited at medium difficulty.",
+    "deviceEvidence": "User device and exact difficulty were not recorded; this feedback does not substitute for physical-device benchmark evidence."
+  }
+}
