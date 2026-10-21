@@ -53,3 +53,18 @@ test("installs an offline-capable service worker", async ({ page, context, brows
   await expect(page.getByRole("heading", { name: "AlphaSho" })).toBeVisible();
   await context.setOffline(false);
 });
+
+
+test("mobile board selection and moves never scroll the page to the history panel", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 600 });
+  await page.goto("./");
+  await page.locator('[data-action="start-local"]').click();
+  await page.locator("body").press("Control+Home");
+  const before = await page.locator(".board").evaluate(el => el.getBoundingClientRect().top);
+  for (const square of [24, 23, 56, 57, 23, 23]) {
+    await page.locator(`[data-square="${square}"]`).click();
+    await expect.poll(() => page.locator(".board").evaluate(el => el.getBoundingClientRect().top)).toBeCloseTo(before, 0);
+    expect(await page.evaluate(() => window.scrollY)).toBe(0);
+  }
+  await expect(page.locator(".move-list b")).toHaveCount(2);
+});

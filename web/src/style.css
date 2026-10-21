@@ -101,7 +101,7 @@ button:disabled { cursor: default; opacity: .38; }
 .panel-heading { display: flex; align-items: center; justify-content: space-between; padding: 18px 20px; border-bottom: 1px solid var(--line); }
 .panel-heading h2 { font-size: 15px; margin: 0; }
 .panel-heading span { color: var(--muted); font-size: 12px; }
-.move-list { flex: 1; overflow: auto; margin: 0; padding: 10px; list-style: none; display: grid; align-content: start; grid-template-columns: 1fr 1fr; gap: 3px; }
+.move-list { flex: 1; min-height: 0; overflow: auto; margin: 0; padding: 10px; list-style: none; display: grid; align-content: start; grid-template-columns: 1fr 1fr; gap: 3px; }
 .move-list li { display: flex; gap: 8px; align-items: center; min-height: 34px; padding: 5px 8px; border-radius: 6px; font-size: 13px; }
 .move-list li.current { background: rgba(156,63,41,.1); color: var(--accent); }
 .move-list li span { color: var(--muted); font-size: 10px; width: 20px; }

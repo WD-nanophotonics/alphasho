@@ -201,6 +201,9 @@ function aboutView(): string {
 }
 
 function render(): void {
+  const previousList = app.querySelector<HTMLOListElement>(".move-list");
+  const previousMoves = previousList?.textContent;
+  const previousScroll = previousList?.scrollTop ?? 0;
   document.documentElement.lang = language === "zh" ? "zh-Hans" : language;
   app.innerHTML = screen === "home" ? homeView() : screen === "setup-cpu" ? cpuSetup() : screen === "setup-online" ? onlineSetup() : screen === "about" ? aboutView() : gameView();
   if (import.meta.env.MODE === 'nn-preview') {
@@ -217,9 +220,12 @@ function render(): void {
     if (controller.error || controller.paused) {
       for (const [action, text] of [["retry-nnue", tr("retryAi")], ["use-abp", "ABP"]]) { const button = document.createElement("button"); button.dataset.action = action; button.textContent = text!; panel.append(button); }
     }
-    app.querySelector("main")?.prepend(panel);
+    app.querySelector(".play-column")?.prepend(panel);
   }
-  const list = app.querySelector(".move-list .current"); list?.scrollIntoView({ block: "nearest" });
+  // scrollIntoView also scrolls the page, dragging the board to the move panel
+  // on every selection/progress render. Only scroll the list's own viewport.
+  const list = app.querySelector<HTMLOListElement>(".move-list");
+  if (list) list.scrollTop = previousMoves === list.textContent ? previousScroll : list.scrollHeight;
 }
 
 function chooseMoveAt(square: number): void {
