@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "time": "2026-10-21T05:27:03.974Z",
+  "time": "2026-10-21T06:40:05.019Z",
   "status": "desktop-batches-running-phones-pending",
   "model": {
     "schemaVersion": 1,
@@ -432,7 +432,7 @@
     "note": "Node WASM paired screening, not phone speed. Intervals resample actual opening clusters, including repeated ABP openings. Partial groups cannot pass acceptance. No official Elo."
   },
   "physicalDevices": "pending; no phone performance or rank is claimed",
-  "production": "unchanged",
+  "production": "owner-authorized first release; see PR/deployment for publication status",
   "notes": [
     "NN fixed r7200; later distillation champions are separate.",
     "Retired 177-game screening had a mate-priority bug; its outcomes are exploratory only.",

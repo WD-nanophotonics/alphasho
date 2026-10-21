@@ -66,7 +66,7 @@ Windows使用`emsdk.bat`，将make所在目录加入PATH或设置`NNUE_MAKE`，�
 - `nnue-reports/browser-quick.json`：桌面浏览器24次搜索，包含通信开销。
 - `nnue-reports/difficulty/`：首批177局探索记录；发现低档将死评分可能退回浅层cp候选，已修补，旧结果不用于最终验收。
 - `nnue-reports/difficulty-acceptance/`：修补后重新冻结的独立开局、赛程及逐手JSON/KIF；未结束前不把中途结果称为通过。
-- `nnue-reports/release-acceptance.json`：真实手机验收闸门，当前pending。
+- `nnue-reports/release-acceptance.json`：冻结构建与发布授权记录；首发按2026-10-21用户决定公开，手机验收仍待完成。
 
 完整基准：48局面×6预算×3重复（864次），预算为1万/5万节点及0.1/0.5/2/5秒。引擎NPS使用引擎时间；实际NPS使用完整搜索请求时间，不含模型加载/预热。快速基准只覆盖8局面，不代替完整基准。
 
@@ -90,6 +90,6 @@ node node_modules/tsx/dist/cli.mjs scripts/export-nnue-kif.ts
 3. 10档前台选着时间95分位≤5.25秒。手机尺寸模拟只验布局，不算真机通过。
 4. 提交设备JSON、两盘棋局JSON及异常说明；在`release-acceptance.json`登记对应文件、设备/引擎/模型及控制器哈希和审阅结果。导出记录必须来自当前预览的同一控制器，不用旧版本记录追认。
 
-生产Pages工作流执行`node scripts/check-nnue-release.mjs`。缺少任一手机证据或桌面验收时会拒绝发布。验收通过后才合并发布，检查正式站加载、缓存升级、ABP及在线房间；失败回滚到上一网页构建。
+生产Pages工作流执行`node scripts/check-nnue-release.mjs`，强制核验模型、引擎与控制器哈希。2026-10-21用户试玩中档后明确授权作为第一代正式发布，不再等待双手机与完整难度验收；发布记录绑定该冻结构建，保留未完成项，不伪造真机通过或官方段位。后续继续补充真机与难度证据。发布后检查正式站加载、缓存升级、ABP及在线房间；失败回滚到上一网页构建。
 
 独立预览构建：设置`ALPHASHO_BASE=/alphasho-nn-preview/`后运行`vite build --mode nn-preview`；正式构建默认`/alphasho/`。二者Service Worker作用域隔离，不注册第二个同作用域Worker。

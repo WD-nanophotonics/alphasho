@@ -1,4 +1,4 @@
-// Deliberately fails closed until both physical-device records are supplied.
+// Verify the frozen build and either complete device acceptance or an explicit owner release decision.
 import fs from 'node:fs';
 import crypto from 'node:crypto';
 const read=p=>JSON.parse(fs.readFileSync(new URL(p,import.meta.url)));
@@ -9,12 +9,21 @@ const assert=(ok,message)=>{if(!ok)throw new Error(message);};
 const network=fs.readFileSync(new URL('../public/nnue/nn.bin',import.meta.url));
 assert(network.byteLength===manifest.bytes&&crypto.createHash('sha256').update(network).digest('hex')===manifest.sha256,'Frozen network size/hash differs');
 for(const [file,sha] of Object.entries(build.files))assert(crypto.createHash('sha256').update(fs.readFileSync(new URL('../public/nnue/engine/'+file,import.meta.url))).digest('hex')===sha,'Engine hash mismatch: '+file);
-assert(acceptance.status==='passed','NN release blocked: physical iPhone/Android acceptance pending; use independent preview.');
+assert(['passed','owner-authorized-release'].includes(acceptance.status),'NN release has no acceptance or owner authorization.');
 assert(acceptance.modelSha256===manifest.sha256,'Acceptance model differs');
 assert(acceptance.engineWasmSha256===build.files['yaneuraou.wasm'],'Acceptance engine differs');
 const policy=crypto.createHash('sha256');
 for(const name of fs.readdirSync(new URL('../src/',import.meta.url),{recursive:true}).map(p=>p.replace(/\\/g,'/')).filter(p=>/\.(ts|css)$/.test(p)).sort())policy.update(name+'\n'+fs.readFileSync(new URL('../src/'+name,import.meta.url),'utf8').replace(/\r\n/g,'\n'));
 assert(acceptance.policyHash===policy.digest('hex'),'Acceptance controller/difficulty policy differs');
+if(acceptance.status==='owner-authorized-release'){
+ const a=acceptance.releaseAuthorization;
+ assert(a?.owner==='WD-nanophotonics'&&a.date==='2026-10-21'&&a.decision==='publish-first-generation-with-pending-validation','Missing explicit owner release decision');
+ assert(a.modelSha256===manifest.sha256&&a.policyHash===acceptance.policyHash&&a.engineWasmSha256===acceptance.engineWasmSha256,'Release authorization applies to a different build');
+ assert(a.pendingChecks?.includes('physical-iphone-safari')&&a.pendingChecks.includes('physical-android-chrome')&&a.pendingChecks.includes('complete-difficulty-screening'),'Pending validation must remain explicit');
+ assert(acceptance.desktopReliabilityPassed&&acceptance.parityPositions>=1024&&acceptance.parityMismatches===0,'Required desktop/integer checks incomplete');
+ for(const name of ['ui-verification.json','browser-parity.json','stress-summary.json','browser-offline-final.json'])assert(fs.existsSync(new URL('../nnue-reports/'+name,import.meta.url)),'Missing desktop evidence '+name);
+ console.log('Frozen NN first release authorized by owner; phone and full difficulty validation remain pending.');
+}else{
 for(const family of ['iphone-safari','android-chrome']){
  const d=acceptance.devices.find(d=>d.family===family);
  assert(d?.physical===true&&d.record&&d.level1Game&&d.level10Game&&d.stressSeconds>=600&&d.errors===0&&d.illegalMoves===0&&d.level10P95Ms<=5250,'Missing physical acceptance: '+family);
@@ -33,3 +42,4 @@ for(const family of ['iphone-safari','android-chrome']){
 }
 assert(acceptance.desktopReliabilityPassed&&acceptance.difficultyScreeningReviewed&&acceptance.parityPositions>=1024&&acceptance.parityMismatches===0,'Desktop acceptance incomplete');
 console.log('Frozen NN release acceptance verified');
+}

@@ -1,8 +1,8 @@
 # AlphaSho NN 第一代：预览验收
 
-更新：2026-10-21T05:27:03.974Z
+更新：2026-10-21T06:40:05.019Z
 
-冻结7200轮，模型SHA256 8835e7a98c790a7e15b36f05384df645dacd806934151cfd9f8c9d73400fe466。正式网站未更新；iPhone Safari与Android Chrome真机验收仍待完成。
+冻结7200轮，模型SHA256 8835e7a98c790a7e15b36f05384df645dacd806934151cfd9f8c9d73400fe466。用户已授权第一代正式发布；iPhone Safari与Android Chrome真机验收仍待完成。
 
 ## 桌面性能
 
@@ -39,4 +39,4 @@ CPU：Intel Core Ultra 7 265KF, 20 cores / 20 logical processors。原生基准�
 |L5 / L10|0/24|0/0/0|—|—|0|
 |L10 / ABP hard|0/40|0/0/0|—|—|0|
 
-Node WASM比赛不是手机性能证据。10档5秒、ABP困难档2秒，不能换算官方段位/Elo。手机尺寸截图仅验证布局。完整JSON/KIF保存在difficulty-acceptance。发布闸门仍为pending。
+Node WASM比赛不是手机性能证据。10档5秒、ABP困难档2秒，不能换算官方段位/Elo。手机尺寸截图仅验证布局。完整JSON/KIF保存在difficulty-acceptance。发布状态：owner-authorized-release，未完成测试不视为通过。
