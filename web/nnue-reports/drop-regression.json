@@ -1,0 +1,82 @@
+{
+  "passed": true,
+  "results": [
+    {
+      "piece": "P",
+      "sfen": "1nrg3n1/l3ks1bl/1p1s1g1pp/p1ppppn2/5P3/P1P1P3P/LPNP2+pPS/1BS1G4/2KG3RL w p 44",
+      "drop": "P*3a",
+      "move": "P*3a",
+      "nodes": 1000,
+      "depth": 10,
+      "elapsedMs": 11.385599999999954,
+      "engineElapsedMs": 9,
+      "memoryBytes": 201326592
+    },
+    {
+      "piece": "L",
+      "sfen": "6gnl/4k2b1/p5ppp/N+Ppsp1s2/3p1N3/3PS1PPP/b1N1PP3/1pGK3GL/+r1P1GS3 w RP2lp 92",
+      "drop": "L*9a",
+      "move": "L*9a",
+      "nodes": 1000,
+      "depth": 6,
+      "elapsedMs": 7.016399999999976,
+      "engineElapsedMs": 3,
+      "memoryBytes": 201326592
+    },
+    {
+      "piece": "N",
+      "sfen": "1nrg3n1/l3ks1bl/3s1g1pp/pp1ppPn2/5R3/P3P3P/LP+pP3PS/1BS3+p2/K2GG3L w n3p 56",
+      "drop": "N*9a",
+      "move": "N*9a",
+      "nodes": 1000,
+      "depth": 9,
+      "elapsedMs": 14.526699999999892,
+      "engineElapsedMs": 2,
+      "memoryBytes": 201326592
+    },
+    {
+      "piece": "S",
+      "sfen": "1ns1k1+B2/l1g1g3l/p1pp3Rp/1g2pp3/6p2/P3PP2P/L3S3N/5G1K1/+b+r3NS1L b SPn6p 71",
+      "drop": "S*9a",
+      "move": "S*9a",
+      "nodes": 1000,
+      "depth": 7,
+      "elapsedMs": 11.291200000000003,
+      "engineElapsedMs": 3,
+      "memoryBytes": 201326592
+    },
+    {
+      "piece": "G",
+      "sfen": "1n1g3n1/l2k1s1bl/3s1+Pppp/pp1pp4/9/P3PR2P/LP+rP3PS/2S1G4/K2G3+pL b GNPbn2p 65",
+      "drop": "G*9a",
+      "move": "G*9a",
+      "nodes": 1004,
+      "depth": 7,
+      "elapsedMs": 13.179399999999987,
+      "engineElapsedMs": 2,
+      "memoryBytes": 201326592
+    },
+    {
+      "piece": "B",
+      "sfen": "1n1g3n1/l2k1s1bl/3s1+P1pp/ppPpp1p2/9/P3P3P/LP+rP1R1PS/2S1G4/K2G3+pL w GNbn2p 68",
+      "drop": "B*9a",
+      "move": "B*9a",
+      "nodes": 1000,
+      "depth": 9,
+      "elapsedMs": 13.639400000000023,
+      "engineElapsedMs": 3,
+      "memoryBytes": 201326592
+    },
+    {
+      "piece": "R",
+      "sfen": "6gnl/4k2b1/1+P1spgppp/L1p2ps2/B2pL4/1r4P1P/2NPPPNP1/1pG1G3L/4KS3 w SNPr2p 68",
+      "drop": "R*9a",
+      "move": "R*9a",
+      "nodes": 1001,
+      "depth": 10,
+      "elapsedMs": 19.20679999999993,
+      "engineElapsedMs": 3,
+      "memoryBytes": 201326592
+    }
+  ]
+}

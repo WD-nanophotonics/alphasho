@@ -1,0 +1,21 @@
+{
+  "emsdk": "3.1.74",
+  "tools": {
+    "upstream/emscripten/emcc.py": {
+      "bytes": 63799,
+      "sha256": "fa058b37c97812c47c71abf337e315e37001abe239655514459af391d988cbcd"
+    },
+    "upstream/emscripten/em++.py": {
+      "bytes": 506,
+      "sha256": "017f735c953318fdaaa4af68c8d4bf13936a787ddbd5dad804d532b0223b6c2f"
+    },
+    "upstream/bin/clang.exe": {
+      "bytes": 84472320,
+      "sha256": "5b262923a53855bd0f55873aefbfdc3ab7d80e8f55258433e6640b668d9997d3"
+    },
+    "upstream/bin/wasm-opt.exe": {
+      "bytes": 10871808,
+      "sha256": "71f0362416bf212506c6aef2783bcacbfcbba2b49ea8d9d4ab3cc5de21666d04"
+    }
+  }
+}

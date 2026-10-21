@@ -2,6 +2,15 @@ export type Language = "ja" | "zh" | "en";
 
 const messages = {
   en: {
+    engineLabel: "Computer player",
+    nnueLabel: "AlphaSho NN 1",
+    nnLevel: "Level",
+    nnueVersion: "Frozen champion r7200 · 64.2 MB · no certified rank",
+    benchmark: "Device benchmark & acceptance",
+    loadingModel: "Loading verified network",
+    retryAi: "Retry / resume NN",
+    nnueError: "NN player unavailable",
+    aiPaused: "Computer paused — resume when ready",
     subtitle: "A thoughtful game, entirely in your browser", vsCpu: "Play the computer", local: "Two players here",
     online: "Online room", easy: "Easy", normal: "Normal", hard: "Hard", black: "Black (first)",
     white: "White (second)", random: "Random", start: "Start game", createRoom: "Create a room",
@@ -19,6 +28,15 @@ const messages = {
     moves: "Moves", hand: "Pieces in hand", noMoves: "No moves yet", onlineNote: "Casual peer-to-peer game · no account required"
   },
   zh: {
+    engineLabel: "电脑棋手",
+    nnueLabel: "AlphaSho NN 第一代",
+    nnLevel: "档位",
+    nnueVersion: "冻结冠军7200轮 · 下载64.2 MB · 未认证段位",
+    benchmark: "设备算力测试与验收",
+    loadingModel: "正在加载校验网络",
+    retryAi: "重试／继续NN",
+    nnueError: "NN棋手暂不可用",
+    aiPaused: "电脑已暂停，请点击继续",
     subtitle: "一盘好棋，完全运行在浏览器里", vsCpu: "人机对战", local: "本地双人", online: "在线房间",
     easy: "简单", normal: "普通", hard: "困难", black: "先手", white: "后手", random: "随机",
     start: "开始对局", createRoom: "创建房间", joinRoom: "加入房间", roomCode: "房间码",
@@ -34,6 +52,15 @@ const messages = {
     hand: "持驹", noMoves: "尚未行棋", onlineNote: "休闲点对点对局 · 无需账号"
   },
   ja: {
+    engineLabel: "コンピューター",
+    nnueLabel: "AlphaSho NN 第1世代",
+    nnLevel: "レベル",
+    nnueVersion: "固定モデル7200回 · 64.2 MB · 段位未認定",
+    benchmark: "端末ベンチマーク・検証",
+    loadingModel: "モデル読み込み中",
+    retryAi: "再試行・再開",
+    nnueError: "NNを利用できません",
+    aiPaused: "コンピューターは一時停止中です",
     subtitle: "ブラウザだけで楽しむ、静かな一局", vsCpu: "コンピューター対局", local: "この端末で二人",
     online: "オンラインルーム", easy: "やさしい", normal: "ふつう", hard: "むずかしい", black: "先手",
     white: "後手", random: "ランダム", start: "対局開始", createRoom: "ルームを作る", joinRoom: "参加する",

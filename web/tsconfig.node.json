@@ -10,5 +10,5 @@
     "noEmit": true,
     "strict": true
   },
-  "include": ["vite.config.ts", "playwright.config.ts", "scripts", "src/engine"]
+  "include": ["vite.config.ts", "playwright.config.ts", "scripts", "src/engine", "src/player/nnue-config.ts", "src/player/rook-guide.ts"]
 }

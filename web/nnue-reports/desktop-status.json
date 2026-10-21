@@ -1,0 +1,30 @@
+{
+  "status": "desktop-testing-in-progress",
+  "time": 1792556346.4839854,
+  "modelRound": 7200,
+  "modelSha256": "8835e7a98c790a7e15b36f05384df645dacd806934151cfd9f8c9d73400fe466",
+  "integerParity": {
+    "positions": 1024,
+    "mismatches": 0
+  },
+  "rulesParity": {
+    "positions": 10000,
+    "mismatches": 0
+  },
+  "unitTests": {
+    "passed": 27,
+    "failed": 0
+  },
+  "quick": {
+    "searches": 24,
+    "medianActualNps": 774926.4312513045,
+    "minActualNps": 596592.6787663065,
+    "maxActualNps": 986924.476588022,
+    "memoryBytes": [
+      201326592
+    ]
+  },
+  "physicalDevices": "pending",
+  "difficulty": "ongoing, not accepted",
+  "production": "unchanged"
+}

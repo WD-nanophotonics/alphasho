@@ -1,0 +1,13 @@
+{
+  "seed": 2026102101,
+  "parity": 1024,
+  "categories": {
+    "opening": 208,
+    "middlegame": 51,
+    "drops": 497,
+    "check": 74,
+    "endgame": 194
+  },
+  "benchmark": 48,
+  "time": 1792551621.564168
+}

@@ -1,0 +1,18 @@
+{
+  "source": "https://github.com/yaneurao/YaneuraOu",
+  "commit": "a5ee2786c0030edc7d4a1cdfe94b04dffec55493",
+  "emsdk": "3.1.74",
+  "files": {
+    "yaneuraou.js": "c03f95989cb3a7bccccd441e383fee79671069d2f4cffb180dbd355766957a16",
+    "yaneuraou.wasm": "041a2caf87e5f49bedc2598aa64e2f9e1c108783ccde34cb5a2606a1cdc88cd5"
+  },
+  "time": 1792552517.846162,
+  "threads": 1,
+  "pthreadPool": 2,
+  "hashMiB": 16,
+  "initialMemoryMiB": 192,
+  "maxMemoryMiB": 512,
+  "stackMiB": 8,
+  "correspondingSource": "source.tar.gz",
+  "sourceArchiveSha256": "108dfe971de2491a95e813de84121eb620ff7b6883951236156a25340a1ae44e"
+}

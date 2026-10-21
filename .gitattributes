@@ -1,0 +1,5 @@
+# Frozen inference assets must retain their published byte hashes on Windows.
+web/public/nnue/engine/yaneuraou.js -text
+web/public/nnue/engine/yaneuraou.wasm -text
+web/public/nnue/engine/source.tar.gz -text
+web/public/nnue/nn.bin -text

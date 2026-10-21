@@ -1,0 +1,6 @@
+#KIF version=2.0 encoding=UTF-8
+手合割：平手
+先手：AlphaSho NN L9
+後手：AlphaSho NN L8
+# USI 8g8f 9c9d 7g7f 6c6d 2g2f 6d6e 5g5f 4c4d 2h6h 8b4b 5i4h 4d4e 3i3h 4a5b 4h3i 4e4f 4g4f 4b4f 6i5h 4f5f 6g6f 6e6f 6h6f 5f5d 3i2h 7a7b 8f8e 3c3d 6f6h P*6g 5h6g 2b8h 7i8h P*6f 6g6f B*2d 6h6i 2d5g+ 8h7g P*4g 6f6e 4g4h+ B*1e 2c2d 4i4h 5g4h 6e5d 5c5d 1e2d G*4b P*5c 5b5c R*2c 4h3h 2h3h 2a3c 2c2a+ 5a4a B*2b G*3b 2b1a+ P*4f 2d4f 4a5b 1a1b 3b2b 1b3d 5b4a 2a1a 5c4c 3d6g 8a9c L*2d 2b3b 2d2a+ S*2b 2a2b 3b2b S*2c L*4d 2c2b 4d4f 1a3a 4a5b 6g5f B*2d G*6c 7b6c 3a6a 5b5c 6i6c+ 5c4d 2b3c 4d3c G*3d 3c2b S*2c
+# Result {"winner":0,"reason":"checkmate"}

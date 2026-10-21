@@ -34,6 +34,8 @@ jobs:
           cache: npm
           cache-dependency-path: web/package-lock.json
       - run: npm ci
+      - name: Require physical-device acceptance for NN production release
+        run: node scripts/check-nnue-release.mjs
       - run: npm test
       - uses: actions/setup-python@v5
         with:

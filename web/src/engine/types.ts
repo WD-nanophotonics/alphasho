@@ -51,6 +51,10 @@ export interface GameState {
 export interface SearchBudget {
   milliseconds: number;
   maxDepth: number;
+  level?: number;
+  nodes?: number;
+  guidance?: boolean;
+  benchmark?: boolean;
 }
 
 export interface SearchProgress {

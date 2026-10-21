@@ -1,0 +1,15 @@
+{
+  "runtime": "node-wasm",
+  "node": "v24.19.0",
+  "positions": 1024,
+  "mismatches": [],
+  "memoryBytes": 201326592,
+  "time": "2026-10-21T03:16:16.526Z",
+  "lastLines": [
+    "eval = -284",
+    "eval = 277",
+    "eval = -1",
+    "eval = 303",
+    "eval = 194"
+  ]
+}

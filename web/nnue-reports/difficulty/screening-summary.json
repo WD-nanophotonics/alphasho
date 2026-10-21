@@ -1,0 +1,228 @@
+{
+  "finished": false,
+  "time": "2026-10-21T04:26:42.119Z",
+  "completed": 175,
+  "total": 328,
+  "groups": [
+    {
+      "a": 1,
+      "b": 2,
+      "completed": 24,
+      "required": 24,
+      "wins": 1,
+      "draws": 0,
+      "losses": 23,
+      "score": 0.041666666666666664,
+      "openingClusters": 12,
+      "openingClusterBootstrap95": [
+        0,
+        0.125
+      ],
+      "timeouts": 0,
+      "experimentalDraws": 0,
+      "p95MoveMs": 16.01719999999841
+    },
+    {
+      "a": 2,
+      "b": 3,
+      "completed": 24,
+      "required": 24,
+      "wins": 2,
+      "draws": 0,
+      "losses": 22,
+      "score": 0.08333333333333333,
+      "openingClusters": 12,
+      "openingClusterBootstrap95": [
+        0,
+        0.20833333333333334
+      ],
+      "timeouts": 0,
+      "experimentalDraws": 0,
+      "p95MoveMs": 15.933199999999488
+    },
+    {
+      "a": 3,
+      "b": 4,
+      "completed": 24,
+      "required": 24,
+      "wins": 2,
+      "draws": 0,
+      "losses": 22,
+      "score": 0.08333333333333333,
+      "openingClusters": 12,
+      "openingClusterBootstrap95": [
+        0,
+        0.20833333333333334
+      ],
+      "timeouts": 0,
+      "experimentalDraws": 0,
+      "p95MoveMs": 16.045000000012806
+    },
+    {
+      "a": 4,
+      "b": 5,
+      "completed": 24,
+      "required": 24,
+      "wins": 3,
+      "draws": 0,
+      "losses": 21,
+      "score": 0.125,
+      "openingClusters": 12,
+      "openingClusterBootstrap95": [
+        0,
+        0.25
+      ],
+      "timeouts": 0,
+      "experimentalDraws": 0,
+      "p95MoveMs": 16.24100000000908
+    },
+    {
+      "a": 5,
+      "b": 6,
+      "completed": 24,
+      "required": 24,
+      "wins": 2,
+      "draws": 0,
+      "losses": 22,
+      "score": 0.08333333333333333,
+      "openingClusters": 12,
+      "openingClusterBootstrap95": [
+        0,
+        0.20833333333333334
+      ],
+      "timeouts": 0,
+      "experimentalDraws": 0,
+      "p95MoveMs": 32.601599999994505
+    },
+    {
+      "a": 6,
+      "b": 7,
+      "completed": 24,
+      "required": 24,
+      "wins": 1,
+      "draws": 0,
+      "losses": 23,
+      "score": 0.041666666666666664,
+      "openingClusters": 12,
+      "openingClusterBootstrap95": [
+        0,
+        0.125
+      ],
+      "timeouts": 0,
+      "experimentalDraws": 0,
+      "p95MoveMs": 472.06849999999395
+    },
+    {
+      "a": 7,
+      "b": 8,
+      "completed": 24,
+      "required": 24,
+      "wins": 5,
+      "draws": 0,
+      "losses": 19,
+      "score": 0.20833333333333334,
+      "openingClusters": 12,
+      "openingClusterBootstrap95": [
+        0.08333333333333333,
+        0.3333333333333333
+      ],
+      "timeouts": 0,
+      "experimentalDraws": 0,
+      "p95MoveMs": 1959.8963999999687
+    },
+    {
+      "a": 8,
+      "b": 9,
+      "completed": 7,
+      "required": 24,
+      "wins": 1,
+      "draws": 0,
+      "losses": 6,
+      "score": 0.14285714285714285,
+      "openingClusters": 4,
+      "openingClusterBootstrap95": [
+        0,
+        0.375
+      ],
+      "timeouts": 0,
+      "experimentalDraws": 0,
+      "p95MoveMs": 2965.31790000014
+    },
+    {
+      "a": 9,
+      "b": 10,
+      "completed": 0,
+      "required": 24,
+      "wins": 0,
+      "draws": 0,
+      "losses": 0,
+      "score": null,
+      "openingClusters": 0,
+      "openingClusterBootstrap95": null,
+      "timeouts": 0,
+      "experimentalDraws": 0,
+      "p95MoveMs": null
+    },
+    {
+      "a": 1,
+      "b": 5,
+      "completed": 0,
+      "required": 24,
+      "wins": 0,
+      "draws": 0,
+      "losses": 0,
+      "score": null,
+      "openingClusters": 0,
+      "openingClusterBootstrap95": null,
+      "timeouts": 0,
+      "experimentalDraws": 0,
+      "p95MoveMs": null
+    },
+    {
+      "a": 1,
+      "b": 10,
+      "completed": 0,
+      "required": 24,
+      "wins": 0,
+      "draws": 0,
+      "losses": 0,
+      "score": null,
+      "openingClusters": 0,
+      "openingClusterBootstrap95": null,
+      "timeouts": 0,
+      "experimentalDraws": 0,
+      "p95MoveMs": null
+    },
+    {
+      "a": 5,
+      "b": 10,
+      "completed": 0,
+      "required": 24,
+      "wins": 0,
+      "draws": 0,
+      "losses": 0,
+      "score": null,
+      "openingClusters": 0,
+      "openingClusterBootstrap95": null,
+      "timeouts": 0,
+      "experimentalDraws": 0,
+      "p95MoveMs": null
+    },
+    {
+      "a": 10,
+      "b": 0,
+      "completed": 0,
+      "required": 40,
+      "wins": 0,
+      "draws": 0,
+      "losses": 0,
+      "score": null,
+      "openingClusters": 0,
+      "openingClusterBootstrap95": null,
+      "timeouts": 0,
+      "experimentalDraws": 0,
+      "p95MoveMs": null
+    }
+  ],
+  "note": "Node WASM paired screening, not phone speed. Intervals resample actual opening clusters, including repeated ABP openings. Partial groups cannot pass acceptance. No official Elo."
+}
